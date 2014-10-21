@@ -9,7 +9,8 @@ namespace SchetsEditor
         MenuStrip menuStrip;
 
         public Hoofdscherm()
-        {   this.ClientSize = new Size(800, 600);
+        {
+            this.ClientSize = new Size(800, 600);
             menuStrip = new MenuStrip();
             this.Controls.Add(menuStrip);
             this.maakFileMenu();
@@ -18,21 +19,27 @@ namespace SchetsEditor
             this.IsMdiContainer = true;
             this.MainMenuStrip = menuStrip;
         }
+
         private void maakFileMenu()
-        {   ToolStripDropDownItem menu;
+        {
+            ToolStripDropDownItem menu;
             menu = new ToolStripMenuItem("File");
             menu.DropDownItems.Add("Nieuw", null, this.nieuw);
             menu.DropDownItems.Add("Exit", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }
+
         private void maakHelpMenu()
-        {   ToolStripDropDownItem menu;
+        {
+            ToolStripDropDownItem menu;
             menu = new ToolStripMenuItem("Help");
             menu.DropDownItems.Add("Over \"Schets\"", null, this.about);
             menuStrip.Items.Add(menu);
         }
+
         private void about(object o, EventArgs ea)
-        {   MessageBox.Show("Schets versie 1.0\n(c) UU Informatica 2010"
+        {
+            MessageBox.Show("Schets versie 1.0\n(c) UU Informatica 2010"
                            , "Over \"Schets\""
                            , MessageBoxButtons.OK
                            , MessageBoxIcon.Information
@@ -40,12 +47,15 @@ namespace SchetsEditor
         }
 
         private void nieuw(object sender, EventArgs e)
-        {   SchetsWin s = new SchetsWin();
+        {
+            SchetsWin s = new SchetsWin();
             s.MdiParent = this;
             s.Show();
         }
+
         private void afsluiten(object sender, EventArgs e)
-        {   this.Close();
+        {
+            this.Close();
         }
     }
 }
