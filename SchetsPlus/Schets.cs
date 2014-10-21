@@ -15,7 +15,10 @@ namespace SchetsEditor
 
         public Graphics BitmapGraphics
         {
-            get { return Graphics.FromImage(bitmap); }
+            get
+            {
+                return Graphics.FromImage(bitmap);
+            }
         }
 
         public void VeranderAfmeting(Size sz)

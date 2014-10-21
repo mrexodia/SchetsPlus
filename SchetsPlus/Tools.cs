@@ -34,9 +34,14 @@ namespace SchetsEditor
 
     public class TekstTool : StartpuntTool
     {
-        public override string ToString() { return "tekst"; }
+        public override string ToString()
+        {
+            return "tekst";
+        }
 
-        public override void MuisDrag(SchetsControl s, Point p) { }
+        public override void MuisDrag(SchetsControl s, Point p)
+        {
+        }
 
         public override void Letter(SchetsControl s, char c)
         {
@@ -106,7 +111,10 @@ namespace SchetsEditor
 
     public class RechthoekTool : TweepuntTool
     {
-        public override string ToString() { return "kader"; }
+        public override string ToString()
+        {
+            return "kader";
+        }
 
         public override void Bezig(Graphics g, Point p1, Point p2)
         {
@@ -116,7 +124,10 @@ namespace SchetsEditor
 
     public class VolRechthoekTool : RechthoekTool
     {
-        public override string ToString() { return "vlak"; }
+        public override string ToString()
+        {
+            return "vlak";
+        }
 
         public override void Compleet(Graphics g, Point p1, Point p2)
         {
@@ -126,7 +137,10 @@ namespace SchetsEditor
 
     public class LijnTool : TweepuntTool
     {
-        public override string ToString() { return "lijn"; }
+        public override string ToString()
+        {
+            return "lijn";
+        }
 
         public override void Bezig(Graphics g, Point p1, Point p2)
         {
@@ -136,7 +150,10 @@ namespace SchetsEditor
 
     public class PenTool : LijnTool
     {
-        public override string ToString() { return "pen"; }
+        public override string ToString()
+        {
+            return "pen";
+        }
 
         public override void MuisDrag(SchetsControl s, Point p)
         {
@@ -147,7 +164,10 @@ namespace SchetsEditor
 
     public class GumTool : PenTool
     {
-        public override string ToString() { return "gum"; }
+        public override string ToString()
+        {
+            return "gum";
+        }
 
         public override void Bezig(Graphics g, Point p1, Point p2)
         {

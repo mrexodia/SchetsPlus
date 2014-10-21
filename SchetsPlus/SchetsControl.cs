@@ -12,7 +12,10 @@ namespace SchetsEditor
 
         public Color PenKleur
         {
-            get { return penkleur; }
+            get
+            {
+                return penkleur;
+            }
         }
 
         public SchetsControl()
