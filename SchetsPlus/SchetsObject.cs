@@ -37,6 +37,13 @@ namespace SchetsEditor
     public abstract class TweepuntObject : StartpuntObject
     {
         public Point eindpunt;
+
+        public static Rectangle Punten2Rechthoek(Point p1, Point p2)
+        {
+            return new Rectangle(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
+                                , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
+                                );
+        }
     }
 
     public class TekstObject : StartpuntObject
@@ -54,7 +61,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.DrawRectangle(this.MaakPen(), TweepuntTool.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.DrawRectangle(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
         }
     }
 
@@ -62,7 +69,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.FillRectangle(this.MaakBrush(), TweepuntTool.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.FillRectangle(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
         }
     }
 
@@ -70,7 +77,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.DrawEllipse(this.MaakPen(), TweepuntTool.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
         }
     }
 
@@ -78,7 +85,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.FillEllipse(this.MaakBrush(), TweepuntTool.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.FillEllipse(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
         }
     }
 
