@@ -11,7 +11,7 @@ namespace SchetsEditor
         private Schets schets;
         private Color penkleur;
 
-        public List<ISchetsObject> Objecten
+        public List<SchetsObject> Objecten
         {
             get
             {

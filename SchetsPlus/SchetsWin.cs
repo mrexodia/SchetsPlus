@@ -45,7 +45,7 @@ namespace SchetsEditor
                                     , new RechthoekTool()
                                     , new VolRechthoekTool()
                                     , new EllipsTool()
-                                    , new FillEllipseTool()
+                                    , new VolEllipsTool()
                                     , new TekstTool()
                                     , new GumTool()
                                     };

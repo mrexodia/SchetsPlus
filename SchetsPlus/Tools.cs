@@ -32,35 +32,10 @@ namespace SchetsEditor
         public abstract void Letter(SchetsControl s, char c);
     }
 
-    public class TekstTool : StartpuntTool
-    {
-        public override string ToString()
-        {
-            return "tekst";
-        }
-
-        public override void MuisDrag(SchetsControl s, Point p)
-        {
-        }
-
-        public override void Letter(SchetsControl s, char c)
-        {
-            if (c > ' ' && c <= '~') //check if the character is in the ASCII range
-            {
-                Font font = new Font("Tahoma", 40);
-                string tekst = c.ToString();
-
-                s.Objecten.Add(new TekstObject { startpunt = startpunt, kwast = kwast, font = font, tekst = tekst });
-
-                SizeF sz = s.MaakBitmapGraphics().MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
-                startpunt.X += (int)sz.Width;
-                s.Invalidate();
-            }
-        }
-    }
-
     public abstract class TweepuntTool : StartpuntTool
     {
+        protected TweepuntObject schetsObject;
+
         public static Rectangle Punten2Rechthoek(Point p1, Point p2)
         {
             return new Rectangle(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
@@ -79,13 +54,17 @@ namespace SchetsEditor
         public override void MuisVast(SchetsControl s, Point p)
         {
             base.MuisVast(s, p);
-            kwast = Brushes.Gray;
+            this.Begin();
+            schetsObject.kleur = s.PenKleur;
+            schetsObject.dikte = 3;
+            this.Bezig(s.CreateGraphics(), p, p);
+            s.Objecten.Add(schetsObject);
         }
 
         public override void MuisDrag(SchetsControl s, Point p)
         {
             s.Refresh();
-            this.Bezig(s.CreateGraphics(), this.startpunt, p);
+            this.Bezig(s.CreateGraphics(), schetsObject.startpunt, p);
         }
 
         public override void MuisLos(SchetsControl s, Point p)
@@ -99,11 +78,44 @@ namespace SchetsEditor
         {
         }
 
-        public abstract void Bezig(Graphics g, Point p1, Point p2);
+        public abstract void Begin();
+
+        public virtual void Bezig(Graphics g, Point p1, Point p2)
+        {
+            schetsObject.startpunt = p1;
+            schetsObject.eindpunt = p2;
+        }
 
         public virtual void Compleet(Graphics g, Point p1, Point p2)
         {
             this.Bezig(g, p1, p2);
+        }
+    }
+
+    public class TekstTool : StartpuntTool
+    {
+        public override string ToString()
+        {
+            return "tekst";
+        }
+
+        public override void MuisDrag(SchetsControl s, Point p)
+        {
+        }
+
+        public override void Letter(SchetsControl s, char c)
+        {
+            if (c > ' ' && c <= '~') //check if the character is in the ASCII range
+            {
+                Font font = new Font("Tahoma", 40);
+                string tekst = c.ToString();
+
+                s.Objecten.Add(new TekstObject { startpunt = startpunt, kleur = s.PenKleur, font = font, tekst = tekst });
+
+                SizeF sz = s.MaakBitmapGraphics().MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
+                startpunt.X += (int)sz.Width;
+                s.Invalidate();
+            }
         }
     }
 
@@ -114,9 +126,22 @@ namespace SchetsEditor
             return "kader";
         }
 
-        public override void Bezig(Graphics g, Point p1, Point p2)
+        public override void Begin()
         {
-            g.DrawRectangle(MaakPen(kwast, 3), TweepuntTool.Punten2Rechthoek(p1, p2));
+            schetsObject = new RechthoekObject();
+        }
+    }
+
+    public class VolRechthoekTool : TweepuntTool
+    {
+        public override string ToString()
+        {
+            return "vlak";
+        }
+
+        public override void Begin()
+        {
+            schetsObject = new VolRechthoekObject();
         }
     }
 
@@ -127,35 +152,22 @@ namespace SchetsEditor
             return "ellips";
         }
 
-        public override void Bezig(Graphics g, Point p1, Point p2)
+        public override void Begin()
         {
-            g.DrawEllipse(MaakPen(kwast, 3), TweepuntTool.Punten2Rechthoek(p1, p2));
+            schetsObject = new EllipsObject();
         }
     }
 
-    public class FillEllipseTool : EllipsTool
+    public class VolEllipsTool : EllipsTool
     {
         public override string ToString()
         {
             return "vullips";
         }
 
-        public override void Compleet(Graphics g, Point p1, Point p2)
+        public override void Begin()
         {
-            g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-        }
-    }
-
-    public class VolRechthoekTool : RechthoekTool
-    {
-        public override string ToString()
-        {
-            return "vlak";
-        }
-
-        public override void Compleet(Graphics g, Point p1, Point p2)
-        {
-            g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
+            schetsObject = new VolEllipsObject();
         }
     }
 
@@ -166,9 +178,9 @@ namespace SchetsEditor
             return "lijn";
         }
 
-        public override void Bezig(Graphics g, Point p1, Point p2)
+        public override void Begin()
         {
-            g.DrawLine(MaakPen(this.kwast, 3), p1.X, p1.Y, p2.X, p2.Y);
+            schetsObject = new LijnObject();
         }
     }
 
@@ -191,11 +203,6 @@ namespace SchetsEditor
         public override string ToString()
         {
             return "gum";
-        }
-
-        public override void Bezig(Graphics g, Point p1, Point p2)
-        {
-            g.DrawLine(MaakPen(Brushes.White, 7), p1.X, p1.Y, p2.X, p2.Y);
         }
     }
 }
