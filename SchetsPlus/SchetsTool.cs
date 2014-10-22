@@ -156,8 +156,10 @@ namespace SchetsEditor
         }
     }
 
-    public class PenTool : StartpuntTool
+    public class PenTool : SchetsTool
     {
+        private Point startpunt;
+
         public override string ToString()
         {
             return "pen";
@@ -165,6 +167,7 @@ namespace SchetsEditor
 
         public override void MuisVast(SchetsControl s, Point p)
         {
+            startpunt = p;
             obj = new PenObject();
             base.MuisVast(s, p);
         }
@@ -172,8 +175,8 @@ namespace SchetsEditor
         public override void MuisDrag(SchetsControl s, Point p)
         {
             PenObject obj = (PenObject)this.obj;
-            obj.lijnen.Add(new LijnObject { kleur = obj.kleur, dikte = obj.dikte, startpunt = obj.startpunt, eindpunt = p });
-            obj.startpunt = p;
+            obj.lijnen.Add(new LijnObject { kleur = obj.kleur, dikte = obj.dikte, startpunt = this.startpunt, eindpunt = p });
+            startpunt = p;
             base.MuisDrag(s, p);
         }
     }

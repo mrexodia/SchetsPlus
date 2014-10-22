@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace SchetsEditor
 {
-    [DataContract, KnownType(typeof(StartpuntObject))]
+    [DataContract, KnownType(typeof(StartpuntObject)), KnownType(typeof(PenObject))]
     public abstract class SchetsObject
     {
         [DataMember]
@@ -30,7 +30,7 @@ namespace SchetsEditor
         public abstract void Teken(Graphics g);
     }
 
-    [DataContract, KnownType(typeof(TweepuntObject)), KnownType(typeof(TekstObject)), KnownType(typeof(PenObject))]
+    [DataContract, KnownType(typeof(TweepuntObject)), KnownType(typeof(TekstObject))]
     public abstract class StartpuntObject : SchetsObject
     {
         [DataMember]
@@ -107,7 +107,7 @@ namespace SchetsEditor
     }
 
     [DataContract]
-    public class PenObject : StartpuntObject
+    public class PenObject : SchetsObject
     {
         [DataMember]
         public List<LijnObject> lijnen = new List<LijnObject>();
