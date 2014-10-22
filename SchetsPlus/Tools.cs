@@ -135,7 +135,7 @@ namespace SchetsEditor
         }
     }
 
-    public class FillEllipseTool : RechthoekTool
+    public class FillEllipseTool : EllipsTool
     {
         public override string ToString()
         {
