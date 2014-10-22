@@ -133,9 +133,9 @@ namespace SchetsEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap volellips {
+        internal static System.Drawing.Bitmap vullips {
             get {
-                object obj = ResourceManager.GetObject("volellips", resourceCulture);
+                object obj = ResourceManager.GetObject("vullips", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

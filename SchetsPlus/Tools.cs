@@ -139,7 +139,7 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "volellips";
+            return "vullips";
         }
 
         public override void Compleet(Graphics g, Point p1, Point p2)

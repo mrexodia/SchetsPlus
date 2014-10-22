@@ -53,7 +53,7 @@ namespace SchetsEditor
                                  , "Yellow", "Magenta", "Cyan" 
                                  };
 
-            this.ClientSize = new Size(700, 500);
+            this.ClientSize = new Size(700, 510);
             huidigeTool = deTools[0];
 
             schetscontrol = new SchetsControl();
