@@ -135,6 +135,19 @@ namespace SchetsEditor
         }
     }
 
+    public class FillEllipseTool : RechthoekTool
+    {
+        public override string ToString()
+        {
+            return "volellips";
+        }
+
+        public override void Compleet(Graphics g, Point p1, Point p2)
+        {
+            g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
+        }
+    }
+
     public class VolRechthoekTool : RechthoekTool
     {
         public override string ToString()
