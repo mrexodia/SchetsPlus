@@ -47,14 +47,12 @@ namespace SchetsEditor
         {
             if (c >= 32)
             {
-                Graphics gr = s.MaakBitmapGraphics();
                 Font font = new Font("Tahoma", 40);
                 string tekst = c.ToString();
-                SizeF sz =
-                gr.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
-                gr.DrawString(tekst, font, kwast,
-                                              this.startpunt, StringFormat.GenericTypographic);
-                // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
+
+                s.Objecten.Add(new TekstObject { startpunt = startpunt, kwast = kwast, font = font, tekst = tekst });
+
+                SizeF sz = s.MaakBitmapGraphics().MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
                 startpunt.X += (int)sz.Width;
                 s.Invalidate();
             }

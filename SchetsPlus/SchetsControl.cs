@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -9,6 +10,14 @@ namespace SchetsEditor
     {
         private Schets schets;
         private Color penkleur;
+
+        public List<ISchetsObject> Objecten
+        {
+            get
+            {
+                return schets.objecten;
+            }
+        }
 
         public Color PenKleur
         {

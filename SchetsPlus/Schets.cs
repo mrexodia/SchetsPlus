@@ -4,9 +4,10 @@ using System.Drawing;
 
 namespace SchetsEditor
 {
-    class Schets
+    public class Schets
     {
         private Bitmap bitmap;
+        public List<ISchetsObject> objecten = new List<ISchetsObject>();
 
         public Schets()
         {
@@ -37,6 +38,8 @@ namespace SchetsEditor
 
         public void Teken(Graphics gr)
         {
+            foreach (ISchetsObject schetsObject in objecten)
+                schetsObject.Teken(BitmapGraphics);
             gr.DrawImage(bitmap, 0, 0);
         }
 
