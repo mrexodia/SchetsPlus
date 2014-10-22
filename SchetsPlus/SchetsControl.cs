@@ -17,6 +17,10 @@ namespace SchetsEditor
             {
                 return schets.objecten;
             }
+            set
+            {
+                schets.objecten = value;
+            }
         }
 
         public Color PenKleur

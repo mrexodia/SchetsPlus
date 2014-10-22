@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.Serialization;
 
 namespace SchetsEditor
 {
+    [DataContract, KnownType(typeof(StartpuntObject))]
     public abstract class SchetsObject
     {
+        [DataMember]
         public Color kleur;
+        [DataMember]
         public int dikte;
 
         public Brush MaakBrush()
@@ -26,13 +30,18 @@ namespace SchetsEditor
         public abstract void Teken(Graphics g);
     }
 
+    [DataContract, KnownType(typeof(TweepuntObject)), KnownType(typeof(TekstObject)), KnownType(typeof(PenObject))]
     public abstract class StartpuntObject : SchetsObject
     {
+        [DataMember]
         public Point startpunt;
     }
 
+    [DataContract, KnownType(typeof(RechthoekObject)), KnownType(typeof(VolRechthoekObject)),
+    KnownType(typeof(EllipsObject)), KnownType(typeof(VolEllipsObject)), KnownType(typeof(LijnObject))]
     public abstract class TweepuntObject : StartpuntObject
     {
+        [DataMember]
         public Point eindpunt;
 
         public static Rectangle Punten2Rechthoek(Point p1, Point p2)
@@ -43,9 +52,12 @@ namespace SchetsEditor
         }
     }
 
+    [DataContract, KnownType(typeof(FontStyle)), KnownType(typeof(GraphicsUnit))]
     public class TekstObject : StartpuntObject
     {
+        [DataMember]
         public Font font;
+        [DataMember]
         public string tekst;
 
         public override void Teken(Graphics g)
@@ -94,8 +106,10 @@ namespace SchetsEditor
         }
     }
 
+    [DataContract]
     public class PenObject : StartpuntObject
     {
+        [DataMember]
         public List<LijnObject> lijnen = new List<LijnObject>();
 
         public override void Teken(Graphics g)

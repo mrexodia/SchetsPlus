@@ -9,23 +9,21 @@ namespace SchetsEditor
     //Met dank aan: http://www.albahari.com/nutshell/ch15.aspx voor leerzame voorbeelden
     public class ObjectSerializer
     {
-        public static string Serialize<T>(T o)
+        public static void SerializeToFile<T>(T o, string file)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (XmlWriter xmlStream = XmlWriter.Create(file, new XmlWriterSettings { Indent = true }))
             {
                 DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-                serializer.WriteObject(memoryStream, o);
-                return Encoding.UTF8.GetString(memoryStream.ToArray());
+                serializer.WriteObject(xmlStream, o);
             }
         }
 
-        public static T Deserialize<T>(string s)
+        public static T DeserializeFromFile<T>(string file)
         {
-            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(s)))
+            using (Stream fileStream = File.OpenRead(file))
             {
-                XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(memoryStream, Encoding.UTF8, new XmlDictionaryReaderQuotas(), null);
                 DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-                return (T)serializer.ReadObject(reader);
+                return (T)serializer.ReadObject(fileStream);
             }
         }
     }

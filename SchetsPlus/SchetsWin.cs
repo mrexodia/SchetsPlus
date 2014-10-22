@@ -33,6 +33,17 @@ namespace SchetsEditor
             this.huidigeTool = (SchetsTool)((RadioButton)obj).Tag;
         }
 
+        private void opslaan(object obj, EventArgs ea)
+        {
+            ObjectSerializer.SerializeToFile<List<SchetsObject>>(schetscontrol.Objecten, "test.xml");
+        }
+
+        private void laden(object obj, EventArgs ea)
+        {
+            schetscontrol.Objecten = ObjectSerializer.DeserializeFromFile<List<SchetsObject>>("test.xml");
+            this.Refresh();
+        }
+
         private void afsluiten(object obj, EventArgs ea)
         {
             this.Close();
@@ -103,6 +114,8 @@ namespace SchetsEditor
         {
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
             menu.MergeAction = MergeAction.MatchOnly;
+            menu.DropDownItems.Add("Opslaan", null, this.opslaan);
+            menu.DropDownItems.Add("Laden", null, this.laden);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }
