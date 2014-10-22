@@ -12,7 +12,6 @@ namespace SchetsEditor
         void Teken(Graphics g);
     }
 
-
     public abstract class StartpuntObject : ISchetsObject
     {
         public Point startpunt;

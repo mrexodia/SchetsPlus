@@ -45,7 +45,7 @@ namespace SchetsEditor
 
         public override void Letter(SchetsControl s, char c)
         {
-            if (c >= 32)
+            if (c > ' ' && c <= '~') //check if the character is in the ASCII range
             {
                 Font font = new Font("Tahoma", 40);
                 string tekst = c.ToString();
