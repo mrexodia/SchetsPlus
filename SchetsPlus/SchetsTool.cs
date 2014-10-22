@@ -38,16 +38,6 @@ namespace SchetsEditor
             ((StartpuntObject)obj).startpunt = p;
             base.MuisVast(s, p);
         }
-
-        public override void MuisDrag(SchetsControl s, Point p)
-        {
-            base.MuisDrag(s, p);
-        }
-
-        public override void MuisLos(SchetsControl s, Point p)
-        {
-            base.MuisLos(s, p);
-        }
     }
 
     public abstract class TweepuntTool : StartpuntTool
@@ -67,6 +57,13 @@ namespace SchetsEditor
 
     public class TekstTool : StartpuntTool
     {
+        private static string backspace(string s)
+        {
+            if (s.Length == 0)
+                return s;
+            return s.Remove(s.Length - 1);
+        }
+
         public override string ToString()
         {
             return "tekst";
@@ -74,22 +71,17 @@ namespace SchetsEditor
 
         public override void MuisVast(SchetsControl s, Point p)
         {
-            obj = new TekstObject();
+            obj = new TekstObject { font = new Font("Tahoma", 20) };
             base.MuisVast(s, p);
         }
 
         public override void Letter(SchetsControl s, char c)
         {
-            if (c > ' ' && c <= '~') //check if the character is in the ASCII range
-            {
-                Font font = new Font("Tahoma", 40);
-                string tekst = c.ToString();
-
-                s.Objecten.Add(new TekstObject { startpunt = ((StartpuntObject)obj).startpunt, kleur = s.PenKleur, font = font, tekst = tekst });
-
-                SizeF sz = s.MaakBitmapGraphics().MeasureString(tekst, font, ((StartpuntObject)obj).startpunt, StringFormat.GenericTypographic);
-                ((StartpuntObject)obj).startpunt.X += (int)sz.Width;
-            }
+            TekstObject obj = (TekstObject)this.obj;
+            if (!Char.IsControl(c))
+                obj.tekst += c.ToString();
+            else if (c == '\b') //backspace
+                obj.tekst = backspace(obj.tekst);
             base.Letter(s, c);
         }
     }
@@ -164,18 +156,25 @@ namespace SchetsEditor
         }
     }
 
-    public class PenTool : LijnTool
+    public class PenTool : StartpuntTool
     {
         public override string ToString()
         {
             return "pen";
         }
 
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            obj = new PenObject();
+            base.MuisVast(s, p);
+        }
+
         public override void MuisDrag(SchetsControl s, Point p)
         {
+            PenObject obj = (PenObject)this.obj;
+            obj.lijnen.Add(new LijnObject { kleur = obj.kleur, dikte = obj.dikte, startpunt = obj.startpunt, eindpunt = p });
+            obj.startpunt = p;
             base.MuisDrag(s, p);
-            this.MuisLos(s, p);
-            this.MuisVast(s, p);
         }
     }
 

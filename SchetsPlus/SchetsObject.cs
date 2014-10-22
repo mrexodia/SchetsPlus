@@ -96,4 +96,15 @@ namespace SchetsEditor
             g.DrawLine(this.MaakPen(), this.startpunt, this.eindpunt);
         }
     }
+
+    public class PenObject : StartpuntObject
+    {
+        public List<LijnObject> lijnen = new List<LijnObject>();
+
+        public override void Teken(Graphics g)
+        {
+            foreach (LijnObject lijn in lijnen)
+                lijn.Teken(g);
+        }
+    }
 }

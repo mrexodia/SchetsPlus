@@ -77,6 +77,14 @@ namespace SchetsEditor
                                        {
                                            huidigeTool.Letter(schetscontrol, kpea.KeyChar);
                                        };
+            schetscontrol.KeyDown += (object o, KeyEventArgs kea) =>
+                                       {
+                                           if (kea.KeyCode == Keys.Back)
+                                           {
+                                               huidigeTool.Letter(schetscontrol, '\b'); //we use '\b' for backspace
+                                               kea.SuppressKeyPress = true;
+                                           }
+                                       };
             this.Controls.Add(schetscontrol);
 
             menuStrip = new MenuStrip();

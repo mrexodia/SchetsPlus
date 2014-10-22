@@ -51,7 +51,7 @@
     <Compile Include="SchetsWin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools.cs" />
+    <Compile Include="SchetsTool.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
