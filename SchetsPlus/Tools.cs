@@ -122,6 +122,19 @@ namespace SchetsEditor
         }
     }
 
+    public class EllipsTool : TweepuntTool
+    {
+        public override string ToString()
+        {
+            return "ellips";
+        }
+
+        public override void Bezig(Graphics g, Point p1, Point p2)
+        {
+            g.DrawEllipse(MaakPen(kwast, 3), TweepuntTool.Punten2Rechthoek(p1, p2));
+        }
+    }
+
     public class VolRechthoekTool : RechthoekTool
     {
         public override string ToString()
