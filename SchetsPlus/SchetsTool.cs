@@ -31,27 +31,37 @@ namespace SchetsEditor
         }
     }
 
+    public class PenTool : SchetsTool
+    {
+        private Point startpunt;
+
+        public override string ToString()
+        {
+            return "pen";
+        }
+
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            startpunt = p;
+            obj = new PenObject();
+            base.MuisVast(s, p);
+        }
+
+        public override void MuisDrag(SchetsControl s, Point p)
+        {
+            PenObject obj = (PenObject)this.obj;
+            obj.lijnen.Add(new LijnObject { kleur = obj.kleur, dikte = obj.dikte, startpunt = this.startpunt, eindpunt = p });
+            startpunt = p;
+            base.MuisDrag(s, p);
+        }
+    }
+
     public abstract class StartpuntTool : SchetsTool
     {
         public override void MuisVast(SchetsControl s, Point p)
         {
             ((StartpuntObject)obj).startpunt = p;
             base.MuisVast(s, p);
-        }
-    }
-
-    public abstract class TweepuntTool : StartpuntTool
-    {
-        public override void MuisVast(SchetsControl s, Point p)
-        {
-            ((TweepuntObject)obj).eindpunt = p;
-            base.MuisVast(s, p);
-        }
-
-        public override void MuisDrag(SchetsControl s, Point p)
-        {
-            ((TweepuntObject)obj).eindpunt = p;
-            base.MuisDrag(s, p);
         }
     }
 
@@ -83,6 +93,35 @@ namespace SchetsEditor
             else if (c == '\b') //backspace
                 obj.tekst = backspace(obj.tekst);
             base.Letter(s, c);
+        }
+    }
+
+    public abstract class TweepuntTool : StartpuntTool
+    {
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            ((TweepuntObject)obj).eindpunt = p;
+            base.MuisVast(s, p);
+        }
+
+        public override void MuisDrag(SchetsControl s, Point p)
+        {
+            ((TweepuntObject)obj).eindpunt = p;
+            base.MuisDrag(s, p);
+        }
+    }
+
+    public class LijnTool : TweepuntTool
+    {
+        public override string ToString()
+        {
+            return "lijn";
+        }
+
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            obj = new LijnObject();
+            base.MuisVast(s, p);
         }
     }
 
@@ -139,45 +178,6 @@ namespace SchetsEditor
         {
             obj = new VolEllipsObject();
             base.MuisVast(s, p);
-        }
-    }
-
-    public class LijnTool : TweepuntTool
-    {
-        public override string ToString()
-        {
-            return "lijn";
-        }
-
-        public override void MuisVast(SchetsControl s, Point p)
-        {
-            obj = new LijnObject();
-            base.MuisVast(s, p);
-        }
-    }
-
-    public class PenTool : SchetsTool
-    {
-        private Point startpunt;
-
-        public override string ToString()
-        {
-            return "pen";
-        }
-
-        public override void MuisVast(SchetsControl s, Point p)
-        {
-            startpunt = p;
-            obj = new PenObject();
-            base.MuisVast(s, p);
-        }
-
-        public override void MuisDrag(SchetsControl s, Point p)
-        {
-            PenObject obj = (PenObject)this.obj;
-            obj.lijnen.Add(new LijnObject { kleur = obj.kleur, dikte = obj.dikte, startpunt = this.startpunt, eindpunt = p });
-            startpunt = p;
-            base.MuisDrag(s, p);
         }
     }
 
