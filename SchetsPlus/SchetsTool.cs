@@ -4,7 +4,39 @@ using System.Drawing.Drawing2D;
 
 namespace SchetsEditor
 {
-    public abstract class SchetsTool
+    public interface ISchetsTool
+    {
+        void MuisVast(SchetsControl s, Point p);
+        void MuisDrag(SchetsControl s, Point p);
+        void MuisLos(SchetsControl s, Point p);
+        void Letter(SchetsControl s, char c);
+    }
+
+    public class GumTool : ISchetsTool
+    {
+        public override string ToString()
+        {
+            return "gum";
+        }
+
+        public void MuisVast(SchetsControl s, Point p)
+        {
+        }
+
+        public void MuisDrag(SchetsControl s, Point p)
+        {
+        }
+
+        public void MuisLos(SchetsControl s, Point p)
+        {
+        }
+
+        public void Letter(SchetsControl s, char c)
+        {
+        }
+    }
+
+    public abstract class SchetsTool : ISchetsTool
     {
         protected SchetsObject obj;
 
@@ -178,14 +210,6 @@ namespace SchetsEditor
         {
             obj = new VolEllipsObject();
             base.MuisVast(s, p);
-        }
-    }
-
-    public class GumTool : PenTool
-    {
-        public override string ToString()
-        {
-            return "gum";
         }
     }
 }

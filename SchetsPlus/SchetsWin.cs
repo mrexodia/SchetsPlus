@@ -11,7 +11,7 @@ namespace SchetsEditor
     {
         MenuStrip menuStrip;
         SchetsControl schetscontrol;
-        SchetsTool huidigeTool;
+        ISchetsTool huidigeTool;
         Panel paneel;
         bool vast;
         ResourceManager resourcemanager = new ResourceManager("SchetsEditor.Properties.Resources", Assembly.GetExecutingAssembly());
@@ -25,12 +25,12 @@ namespace SchetsEditor
 
         private void klikToolMenu(object obj, EventArgs ea)
         {
-            this.huidigeTool = (SchetsTool)((ToolStripMenuItem)obj).Tag;
+            this.huidigeTool = (ISchetsTool)((ToolStripMenuItem)obj).Tag;
         }
 
         private void klikToolButton(object obj, EventArgs ea)
         {
-            this.huidigeTool = (SchetsTool)((RadioButton)obj).Tag;
+            this.huidigeTool = (ISchetsTool)((RadioButton)obj).Tag;
         }
 
         private void opslaan(object obj, EventArgs ea)
@@ -51,7 +51,7 @@ namespace SchetsEditor
 
         public SchetsWin()
         {
-            SchetsTool[] deTools = { new PenTool()         
+            ISchetsTool[] deTools = { new PenTool()         
                                     , new LijnTool()
                                     , new RechthoekTool()
                                     , new VolRechthoekTool()
@@ -120,10 +120,10 @@ namespace SchetsEditor
             menuStrip.Items.Add(menu);
         }
 
-        private void maakToolMenu(ICollection<SchetsTool> tools)
+        private void maakToolMenu(ICollection<ISchetsTool> tools)
         {
             ToolStripMenuItem menu = new ToolStripMenuItem("Tool");
-            foreach (SchetsTool tool in tools)
+            foreach (ISchetsTool tool in tools)
             {
                 ToolStripItem item = new ToolStripMenuItem();
                 item.Tag = tool;
@@ -147,10 +147,10 @@ namespace SchetsEditor
             menuStrip.Items.Add(menu);
         }
 
-        private void maakToolButtons(ICollection<SchetsTool> tools)
+        private void maakToolButtons(ICollection<ISchetsTool> tools)
         {
             int t = 0;
-            foreach (SchetsTool tool in tools)
+            foreach (ISchetsTool tool in tools)
             {
                 RadioButton b = new RadioButton();
                 b.Appearance = Appearance.Button;
