@@ -30,26 +30,24 @@ namespace SchetsEditor
         public abstract void Teken(Graphics g);
     }
 
+    [DataContract]
+    public class PenObject : SchetsObject
+    {
+        [DataMember]
+        public List<LijnObject> lijnen = new List<LijnObject>();
+
+        public override void Teken(Graphics g)
+        {
+            foreach (LijnObject lijn in lijnen)
+                lijn.Teken(g);
+        }
+    }
+
     [DataContract, KnownType(typeof(TweepuntObject)), KnownType(typeof(TekstObject))]
     public abstract class StartpuntObject : SchetsObject
     {
         [DataMember]
         public Point startpunt;
-    }
-
-    [DataContract, KnownType(typeof(RechthoekObject)), KnownType(typeof(VolRechthoekObject)),
-    KnownType(typeof(EllipsObject)), KnownType(typeof(VolEllipsObject)), KnownType(typeof(LijnObject))]
-    public abstract class TweepuntObject : StartpuntObject
-    {
-        [DataMember]
-        public Point eindpunt;
-
-        public static Rectangle Punten2Rechthoek(Point p1, Point p2)
-        {
-            return new Rectangle(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
-                                , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
-                                );
-        }
     }
 
     [DataContract, KnownType(typeof(FontStyle)), KnownType(typeof(GraphicsUnit))]
@@ -66,35 +64,19 @@ namespace SchetsEditor
         }
     }
 
-    public class RechthoekObject : TweepuntObject
+    [DataContract, KnownType(typeof(LijnObject)),
+    KnownType(typeof(VolRechthoekObject)), KnownType(typeof(RechthoekObject)),
+    KnownType(typeof(VolEllipsObject)), KnownType(typeof(EllipsObject))]
+    public abstract class TweepuntObject : StartpuntObject
     {
-        public override void Teken(Graphics g)
-        {
-            g.DrawRectangle(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
-        }
-    }
+        [DataMember]
+        public Point eindpunt;
 
-    public class VolRechthoekObject : TweepuntObject
-    {
-        public override void Teken(Graphics g)
+        public static Rectangle Punten2Rechthoek(Point p1, Point p2)
         {
-            g.FillRectangle(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
-        }
-    }
-
-    public class EllipsObject : TweepuntObject
-    {
-        public override void Teken(Graphics g)
-        {
-            g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
-        }
-    }
-
-    public class VolEllipsObject : TweepuntObject
-    {
-        public override void Teken(Graphics g)
-        {
-            g.FillEllipse(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            return new Rectangle(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
+                                , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
+                                );
         }
     }
 
@@ -106,16 +88,35 @@ namespace SchetsEditor
         }
     }
 
-    [DataContract]
-    public class PenObject : SchetsObject
+    public class VolRechthoekObject : TweepuntObject
     {
-        [DataMember]
-        public List<LijnObject> lijnen = new List<LijnObject>();
-
         public override void Teken(Graphics g)
         {
-            foreach (LijnObject lijn in lijnen)
-                lijn.Teken(g);
+            g.FillRectangle(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+        }
+    }
+
+    public class RechthoekObject : VolRechthoekObject
+    {
+        public override void Teken(Graphics g)
+        {
+            g.DrawRectangle(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+        }
+    }
+
+    public class VolEllipsObject : TweepuntObject
+    {
+        public override void Teken(Graphics g)
+        {
+            g.FillEllipse(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+        }
+    }
+
+    public class EllipsObject : VolEllipsObject
+    {
+        public override void Teken(Graphics g)
+        {
+            g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
         }
     }
 }
