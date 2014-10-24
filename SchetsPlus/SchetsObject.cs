@@ -28,7 +28,7 @@ namespace SchetsEditor
         }
 
         public abstract void Teken(Graphics g);
-        public abstract bool Geklikt(Point p);
+        public abstract bool Geklikt(SchetsControl s, Point p);
     }
 
     [DataContract]
@@ -50,9 +50,10 @@ namespace SchetsEditor
         [DataMember]
         public Point startpunt;
 
-        public override bool Geklikt(Point p)
+        public override bool Geklikt(SchetsControl s, Point p)
         {
-            return false;
+            Rectangle box = Punten2Rechthoek(this.startpunt, this.eindpunt);
+            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
         }
     }
 
@@ -64,12 +65,17 @@ namespace SchetsEditor
         [DataMember]
         public string tekst;
 
+        private SizeF getSize(Graphics g)
+        {
+            return g.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
+        }
+
         public override void Teken(Graphics g)
         {
             g.DrawString(tekst, font, this.MaakBrush(), this.startpunt, StringFormat.GenericTypographic);
         }
 
-        public override bool Geklikt(Point p)
+        public override bool Geklikt(SchetsControl s, Point p)
         {
             return false;
         }
@@ -130,8 +136,11 @@ namespace SchetsEditor
             g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
         }
 
-        public override bool Geklikt(Point p)
+        public override bool Geklikt(SchetsControl s, Point p)
         {
+            foreach (LijnObject lijn in lijnen)
+                if (lijn.Geklikt(p))
+                    return true;
             return false;
         }
     }
