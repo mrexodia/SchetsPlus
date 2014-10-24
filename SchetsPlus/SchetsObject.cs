@@ -79,7 +79,8 @@ namespace SchetsEditor
 
         public override bool Geklikt(SchetsControl s, Point p)
         {
-            return false;
+            SizeF size = getSize(s.MaakBitmapGraphics());
+            return TweepuntObject.GekliktInRechthoek(new Rectangle(this.startpunt, Size.Round(size)), p);
         }
     }
 
@@ -98,10 +99,14 @@ namespace SchetsEditor
                                 );
         }
 
+        public static bool GekliktInRechthoek(Rectangle box, Point p)
+        {
+            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
+        }
+
         public override bool Geklikt(SchetsControl s, Point p)
         {
-            Rectangle box = Punten2Rechthoek(this.startpunt, this.eindpunt);
-            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
+            return GekliktInRechthoek(Punten2Rechthoek(this.startpunt, this.eindpunt), p);
         }
     }
 
