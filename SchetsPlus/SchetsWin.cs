@@ -35,12 +35,12 @@ namespace SchetsEditor
 
         private void opslaan(object obj, EventArgs ea)
         {
-            ObjectSerializer.SerializeToFile<List<SchetsObject>>(schetscontrol.Objecten, "test.xml");
+            ObjectSerializer.SerializeToCompressedFile<List<SchetsObject>>(schetscontrol.Objecten, "test.schets");
         }
 
         private void laden(object obj, EventArgs ea)
         {
-            schetscontrol.Objecten = ObjectSerializer.DeserializeFromFile<List<SchetsObject>>("test.xml");
+            schetscontrol.Objecten = ObjectSerializer.DeserializeFromCompressedFile<List<SchetsObject>>("test.schets");
             this.Refresh();
         }
 
