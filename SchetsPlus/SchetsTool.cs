@@ -84,7 +84,7 @@ namespace SchetsEditor
         public override void MuisVast(SchetsControl s, Point p)
         {
             startpunt = p;
-            obj = new PenObject();
+            obj = new PenObject { dikte = s.PenDikte };
             base.MuisVast(s, p);
         }
 
