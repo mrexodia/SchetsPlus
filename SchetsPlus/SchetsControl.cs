@@ -9,7 +9,6 @@ namespace SchetsEditor
     public class SchetsControl : UserControl
     {
         private Schets schets;
-        private Color penkleur;
 
         public List<SchetsObject> Objecten
         {
@@ -23,18 +22,14 @@ namespace SchetsEditor
             }
         }
 
-        public Color PenKleur
-        {
-            get
-            {
-                return penkleur;
-            }
-        }
+        public Color PenKleur {get; private set; }
+        public int PenDikte { get; private set; }
 
         public SchetsControl()
         {
             this.BorderStyle = BorderStyle.Fixed3D;
             this.schets = new Schets();
+            this.PenDikte = 10; //maak control voor dit
             this.Paint += this.teken;
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
@@ -77,13 +72,13 @@ namespace SchetsEditor
         public void VeranderKleur(object obj, EventArgs ea)
         {
             string kleurNaam = ((ComboBox)obj).Text;
-            penkleur = Color.FromName(kleurNaam);
+            PenKleur = Color.FromName(kleurNaam);
         }
 
         public void VeranderKleurViaMenu(object obj, EventArgs ea)
         {
             string kleurNaam = ((ToolStripMenuItem)obj).Text;
-            penkleur = Color.FromName(kleurNaam);
+            PenKleur = Color.FromName(kleurNaam);
         }
     }
 }
