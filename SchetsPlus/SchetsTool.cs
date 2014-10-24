@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -21,6 +22,15 @@ namespace SchetsEditor
 
         public void MuisVast(SchetsControl s, Point p)
         {
+            for (int i = s.Objecten.Count - 1; i >= 0; i--)
+            {
+                if(s.Objecten[i].Geklikt(s, p))
+                {
+                    s.Objecten.RemoveAt(i);
+                    s.Refresh();
+                    break;
+                }
+            }
         }
 
         public void MuisDrag(SchetsControl s, Point p)
@@ -43,7 +53,7 @@ namespace SchetsEditor
         public virtual void MuisVast(SchetsControl s, Point p)
         {
             obj.kleur = s.PenKleur;
-            obj.dikte = 3;
+            obj.dikte = 10;
             s.Objecten.Add(obj);
         }
 

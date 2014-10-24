@@ -67,9 +67,9 @@ namespace SchetsEditor
         [DataMember]
         public string tekst;
 
-        private SizeF getSize(Graphics g)
+        private Size getSize(Graphics g)
         {
-            return g.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
+            return Size.Round(g.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic));
         }
 
         public override void Teken(Graphics g)
@@ -79,8 +79,7 @@ namespace SchetsEditor
 
         public override bool Geklikt(SchetsControl s, Point p)
         {
-            SizeF size = getSize(s.MaakBitmapGraphics());
-            return TweepuntObject.GekliktInRechthoek(new Rectangle(this.startpunt, Size.Round(size)), p);
+            return TweepuntObject.GekliktInRechthoek(new Rectangle(this.startpunt, getSize(s.MaakBitmapGraphics())), p);
         }
     }
 
