@@ -11,4 +11,4 @@ Dit bestand bevat een overzicht van de wijzigingen van en toevoegingen aan het o
 - Nieuwe klassenhiërarchie (zie `SchetsPlus\Resources\schets.pdf` voor een overzicht)
 - SchetsTool compleet herschreven met een `List<SchetsObject>` als representatie van de schets
 - Serialization (XML) + GZip om een schets op te slaan en te laden (.schets bestand)
-- Nieuwe gum (de lijnen van de Pen worden in één keer gewist, de tekst ook in één keer)
+- Nieuwe gum (de lijnen van de Pen worden in één keer gewist, de tekst ook in één keer). Deze gum werkt voor elk mogelijk object dat iets zichtbaar op het scherm zet, het is hiermee niet nodig om met wiskundige formules te werken.
