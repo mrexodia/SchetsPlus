@@ -31,15 +31,16 @@ namespace SchetsEditor
         public virtual bool Geklikt(SchetsControl s, Point p)
         {
             Bitmap bmp = new Bitmap(s.ClientSize.Width, s.ClientSize.Height);
+            bmp.MakeTransparent(Color.Transparent);
             Graphics g = Graphics.FromImage(bmp);
 
-            g.Clear(Color.FromArgb(~kleur.ToArgb()));
+            g.Clear(Color.Transparent);
             dikte += 4;
             Teken(g);
             dikte -= 4;
             g.Flush();
 
-            return bmp.GetPixel(p.X, p.Y).ToArgb() == kleur.ToArgb();
+            return bmp.GetPixel(p.X, p.Y).A > 0; //achtergrond heeft Color.A = 0
         }
 
         public abstract void Teken(Graphics g);
