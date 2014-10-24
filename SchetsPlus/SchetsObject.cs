@@ -111,9 +111,28 @@ namespace SchetsEditor
 
     public class LijnObject : TweepuntObject
     {
+        public double DistanceToLine(Point p)
+        {
+            double x1 = this.startpunt.X;
+            double y1 = this.startpunt.Y;
+            double x2 = this.eindpunt.X;
+            double y2 = this.eindpunt.Y;
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+            double d = Math.Abs(dy * p.X - dx * p.Y - x1 * y2 + x2 * y1) / Math.Sqrt(dx * dx + dy * dy);
+            return d;
+        }
+
         public override void Teken(Graphics g)
         {
             g.DrawLine(this.MaakPen(), this.startpunt, this.eindpunt);
+        }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            if (!base.Geklikt(s, p))
+                return false;
+            return DistanceToLine(p) < 2;
         }
     }
 
