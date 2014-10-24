@@ -6,11 +6,12 @@ using System.Runtime.Serialization;
 
 namespace SchetsEditor
 {
-    [DataContract, KnownType(typeof(StartpuntObject)), KnownType(typeof(PenObject))]
+    [DataContract, KnownType(typeof(PenObject)), KnownType(typeof(StartpuntObject))]
     public abstract class SchetsObject
     {
         [DataMember]
         public Color kleur = Color.Black;
+
         [DataMember]
         public int dikte = 0;
 
@@ -32,13 +33,13 @@ namespace SchetsEditor
             Bitmap bmp = new Bitmap(s.ClientSize.Width, s.ClientSize.Height);
             Graphics g = Graphics.FromImage(bmp);
 
-            g.Clear(Color.FromArgb(~this.kleur.ToArgb()));
-            this.dikte += 4;
-            this.Teken(g);
-            this.dikte -= 4;
+            g.Clear(Color.FromArgb(~kleur.ToArgb()));
+            dikte += 4;
+            Teken(g);
+            dikte -= 4;
             g.Flush();
 
-            return bmp.GetPixel(p.X, p.Y).ToArgb() == this.kleur.ToArgb();
+            return bmp.GetPixel(p.X, p.Y).ToArgb() == kleur.ToArgb();
         }
 
         public abstract void Teken(Graphics g);
@@ -57,7 +58,7 @@ namespace SchetsEditor
         }
     }
 
-    [DataContract, KnownType(typeof(TweepuntObject)), KnownType(typeof(TekstObject))]
+    [DataContract, KnownType(typeof(TekstObject)), KnownType(typeof(TweepuntObject))]
     public abstract class StartpuntObject : SchetsObject
     {
         [DataMember]
@@ -69,23 +70,19 @@ namespace SchetsEditor
     {
         [DataMember]
         public Font font;
+
         [DataMember]
         public string tekst;
 
-        private Size getSize(Graphics g)
-        {
-            return Size.Round(g.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic));
-        }
-
         public override void Teken(Graphics g)
         {
-            g.DrawString(tekst, font, this.MaakBrush(), this.startpunt, StringFormat.GenericTypographic);
+            g.DrawString(tekst, font, MaakBrush(), startpunt, StringFormat.GenericTypographic);
         }
     }
 
     [DataContract, KnownType(typeof(LijnObject)),
-    KnownType(typeof(VolRechthoekObject)), KnownType(typeof(RechthoekObject)),
-    KnownType(typeof(VolEllipsObject)), KnownType(typeof(EllipsObject))]
+    KnownType(typeof(RechthoekObject)), KnownType(typeof(VolRechthoekObject)),
+    KnownType(typeof(EllipsObject)), KnownType(typeof(VolEllipsObject))]
     public abstract class TweepuntObject : StartpuntObject
     {
         [DataMember]
@@ -95,33 +92,9 @@ namespace SchetsEditor
         {
             get
             {
-                return Punten2Rechthoek(this.startpunt, this.eindpunt);
+                return new Rectangle(new Point(Math.Min(startpunt.X, eindpunt.X), Math.Min(startpunt.Y, eindpunt.Y)),
+                                    new Size(Math.Abs(startpunt.X - eindpunt.X), Math.Abs(startpunt.Y - eindpunt.Y)));
             }
-        }
-
-        public Rectangle BoundingBox
-        {
-            get
-            {
-                Rectangle r = this.Rechthoek;
-                r.X -= this.dikte / 2;
-                r.Y -= this.dikte / 2;
-                r.Width += this.dikte;
-                r.Height += this.dikte;
-                return r;
-            }
-        }
-
-        public static Rectangle Punten2Rechthoek(Point p1, Point p2)
-        {
-            return new Rectangle(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
-                                , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
-                                );
-        }
-
-        public static bool GekliktInRechthoek(Rectangle box, Point p)
-        {
-            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
         }
     }
 
@@ -129,7 +102,15 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.DrawLine(this.MaakPen(), this.startpunt, this.eindpunt);
+            g.DrawLine(MaakPen(), startpunt, eindpunt);
+        }
+    }
+
+    public class RechthoekObject : TweepuntObject
+    {
+        public override void Teken(Graphics g)
+        {
+            g.DrawRectangle(MaakPen(), Rechthoek);
         }
     }
 
@@ -137,15 +118,15 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.FillRectangle(this.MaakBrush(), this.Rechthoek);
+            g.FillRectangle(MaakBrush(), Rechthoek);
         }
     }
 
-    public class RechthoekObject : VolRechthoekObject
+    public class EllipsObject : TweepuntObject
     {
         public override void Teken(Graphics g)
         {
-            g.DrawRectangle(this.MaakPen(), this.Rechthoek);
+            g.DrawEllipse(MaakPen(), Rechthoek);
         }
     }
 
@@ -153,15 +134,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.FillEllipse(this.MaakBrush(), this.Rechthoek);
-        }
-    }
-
-    public class EllipsObject : VolEllipsObject
-    {
-        public override void Teken(Graphics g)
-        {
-            g.DrawEllipse(this.MaakPen(), this.Rechthoek);
+            g.FillEllipse(MaakBrush(), Rechthoek);
         }
     }
 }
