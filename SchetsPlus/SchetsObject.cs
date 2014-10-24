@@ -28,6 +28,7 @@ namespace SchetsEditor
         }
 
         public abstract void Teken(Graphics g);
+        public abstract bool Geklikt(Point p);
     }
 
     [DataContract]
@@ -48,6 +49,11 @@ namespace SchetsEditor
     {
         [DataMember]
         public Point startpunt;
+
+        public override bool Geklikt(Point p)
+        {
+            return false;
+        }
     }
 
     [DataContract, KnownType(typeof(FontStyle)), KnownType(typeof(GraphicsUnit))]
@@ -61,6 +67,11 @@ namespace SchetsEditor
         public override void Teken(Graphics g)
         {
             g.DrawString(tekst, font, this.MaakBrush(), this.startpunt, StringFormat.GenericTypographic);
+        }
+
+        public override bool Geklikt(Point p)
+        {
+            return false;
         }
     }
 
@@ -117,6 +128,11 @@ namespace SchetsEditor
         public override void Teken(Graphics g)
         {
             g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+        }
+
+        public override bool Geklikt(Point p)
+        {
+            return false;
         }
     }
 }
