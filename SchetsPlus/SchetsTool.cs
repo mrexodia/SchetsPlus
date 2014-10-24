@@ -53,7 +53,6 @@ namespace SchetsEditor
         public virtual void MuisVast(SchetsControl s, Point p)
         {
             obj.kleur = s.PenKleur;
-            obj.dikte = 10;
             s.Objecten.Add(obj);
         }
 
@@ -162,7 +161,7 @@ namespace SchetsEditor
 
         public override void MuisVast(SchetsControl s, Point p)
         {
-            obj = new LijnObject();
+            obj = new LijnObject { dikte = s.PenDikte };
             base.MuisVast(s, p);
         }
     }
@@ -176,7 +175,7 @@ namespace SchetsEditor
 
         public override void MuisVast(SchetsControl s, Point p)
         {
-            obj = new RechthoekObject();
+            obj = new RechthoekObject { dikte = s.PenDikte };
             base.MuisVast(s, p);
         }
     }
@@ -204,7 +203,7 @@ namespace SchetsEditor
 
         public override void MuisVast(SchetsControl s, Point p)
         {
-            obj = new EllipsObject();
+            obj = new EllipsObject { dikte = s.PenDikte };
             base.MuisVast(s, p);
         }
     }
