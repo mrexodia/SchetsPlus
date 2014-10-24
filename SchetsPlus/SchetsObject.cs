@@ -10,9 +10,9 @@ namespace SchetsEditor
     public abstract class SchetsObject
     {
         [DataMember]
-        public Color kleur;
+        public Color kleur = Color.Black;
         [DataMember]
-        public int dikte;
+        public int dikte = 0;
 
         public Brush MaakBrush()
         {
@@ -91,6 +91,27 @@ namespace SchetsEditor
         [DataMember]
         public Point eindpunt;
 
+        public Rectangle Rechthoek
+        {
+            get
+            {
+                return Punten2Rechthoek(this.startpunt, this.eindpunt);
+            }
+        }
+
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                Rectangle r = this.Rechthoek;
+                r.X -= this.dikte / 2;
+                r.Y -= this.dikte / 2;
+                r.Width += this.dikte;
+                r.Height += this.dikte;
+                return r;
+            }
+        }
+
         public static Rectangle Punten2Rechthoek(Point p1, Point p2)
         {
             return new Rectangle(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
@@ -105,14 +126,13 @@ namespace SchetsEditor
 
         public override bool Geklikt(SchetsControl s, Point p)
         {
-            return GekliktInRechthoek(Punten2Rechthoek(this.startpunt, this.eindpunt), p);
+            return GekliktInRechthoek(this.BoundingBox, p);
         }
     }
 
     public class LijnObject : TweepuntObject
     {
-        //Formule van: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
-        public double DistanceToLine(Point p)
+        public double AfstandTotLijn(Point p)
         {
             double x1 = this.startpunt.X;
             double y1 = this.startpunt.Y;
@@ -120,8 +140,9 @@ namespace SchetsEditor
             double y2 = this.eindpunt.Y;
             double dx = x2 - x1;
             double dy = y2 - y1;
+            //Formule van: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
             double d = Math.Abs(dy * p.X - dx * p.Y - x1 * y2 + x2 * y1) / Math.Sqrt(dx * dx + dy * dy);
-            return d;
+            return d - this.dikte / 2;
         }
 
         public override void Teken(Graphics g)
@@ -133,7 +154,7 @@ namespace SchetsEditor
         {
             if (!base.Geklikt(s, p))
                 return false;
-            return DistanceToLine(p) < 2;
+            return AfstandTotLijn(p) < 2;
         }
     }
 
@@ -141,7 +162,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.FillRectangle(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.FillRectangle(this.MaakBrush(), this.Rechthoek);
         }
     }
 
@@ -149,7 +170,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.DrawRectangle(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.DrawRectangle(this.MaakPen(), this.Rechthoek);
         }
     }
 
@@ -157,7 +178,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.FillEllipse(this.MaakBrush(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.FillEllipse(this.MaakBrush(), this.Rechthoek);
         }
     }
 
@@ -165,7 +186,7 @@ namespace SchetsEditor
     {
         public override void Teken(Graphics g)
         {
-            g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
+            g.DrawEllipse(this.MaakPen(), this.Rechthoek);
         }
     }
 }
