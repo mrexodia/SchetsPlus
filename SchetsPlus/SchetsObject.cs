@@ -42,6 +42,14 @@ namespace SchetsEditor
             foreach (LijnObject lijn in lijnen)
                 lijn.Teken(g);
         }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            foreach (LijnObject lijn in lijnen)
+                if (lijn.Geklikt(s, p))
+                    return true;
+            return false;
+        }
     }
 
     [DataContract, KnownType(typeof(TweepuntObject)), KnownType(typeof(TekstObject))]
@@ -49,12 +57,6 @@ namespace SchetsEditor
     {
         [DataMember]
         public Point startpunt;
-
-        public override bool Geklikt(SchetsControl s, Point p)
-        {
-            Rectangle box = Punten2Rechthoek(this.startpunt, this.eindpunt);
-            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
-        }
     }
 
     [DataContract, KnownType(typeof(FontStyle)), KnownType(typeof(GraphicsUnit))]
@@ -95,6 +97,12 @@ namespace SchetsEditor
                                 , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
                                 );
         }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            Rectangle box = Punten2Rechthoek(this.startpunt, this.eindpunt);
+            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
+        }
     }
 
     public class LijnObject : TweepuntObject
@@ -134,14 +142,6 @@ namespace SchetsEditor
         public override void Teken(Graphics g)
         {
             g.DrawEllipse(this.MaakPen(), TweepuntObject.Punten2Rechthoek(this.startpunt, this.eindpunt));
-        }
-
-        public override bool Geklikt(SchetsControl s, Point p)
-        {
-            foreach (LijnObject lijn in lijnen)
-                if (lijn.Geklikt(p))
-                    return true;
-            return false;
         }
     }
 }
