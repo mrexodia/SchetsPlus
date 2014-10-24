@@ -15,7 +15,7 @@ namespace SchetsEditor
             this.Controls.Add(menuStrip);
             this.maakFileMenu();
             this.maakHelpMenu();
-            this.Text = "Schets editor";
+            this.Text = "SchetsPlus";
             this.IsMdiContainer = true;
             this.MainMenuStrip = menuStrip;
         }
@@ -33,14 +33,14 @@ namespace SchetsEditor
         {
             ToolStripDropDownItem menu;
             menu = new ToolStripMenuItem("Help");
-            menu.DropDownItems.Add("Over \"Schets\"", null, this.about);
+            menu.DropDownItems.Add("Over \"SchetsPlus\"", null, this.about);
             menuStrip.Items.Add(menu);
         }
 
         private void about(object o, EventArgs ea)
         {
-            MessageBox.Show("Schets versie 1.0\n(c) UU Informatica 2010"
-                           , "Over \"Schets\""
+            MessageBox.Show("SchetsPlus versie 1.0\n(c) UU Informatica 2014"
+                           , "Over \"SchetsPlus\""
                            , MessageBoxButtons.OK
                            , MessageBoxIcon.Information
                            );
