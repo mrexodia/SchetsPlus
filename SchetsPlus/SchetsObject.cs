@@ -111,6 +111,7 @@ namespace SchetsEditor
 
     public class LijnObject : TweepuntObject
     {
+        //Formule van: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
         public double DistanceToLine(Point p)
         {
             double x1 = this.startpunt.X;
