@@ -27,8 +27,21 @@ namespace SchetsEditor
             return pen;
         }
 
+        public virtual bool Geklikt(SchetsControl s, Point p)
+        {
+            Bitmap bmp = new Bitmap(s.ClientSize.Width, s.ClientSize.Height);
+            Graphics g = Graphics.FromImage(bmp);
+
+            g.Clear(Color.FromArgb(~this.kleur.ToArgb()));
+            this.dikte += 4;
+            this.Teken(g);
+            this.dikte -= 4;
+            g.Flush();
+
+            return bmp.GetPixel(p.X, p.Y).ToArgb() == this.kleur.ToArgb();
+        }
+
         public abstract void Teken(Graphics g);
-        public abstract bool Geklikt(SchetsControl s, Point p);
     }
 
     [DataContract]
@@ -41,14 +54,6 @@ namespace SchetsEditor
         {
             foreach (LijnObject lijn in lijnen)
                 lijn.Teken(g);
-        }
-
-        public override bool Geklikt(SchetsControl s, Point p)
-        {
-            foreach (LijnObject lijn in lijnen)
-                if (lijn.Geklikt(s, p))
-                    return true;
-            return false;
         }
     }
 
@@ -75,11 +80,6 @@ namespace SchetsEditor
         public override void Teken(Graphics g)
         {
             g.DrawString(tekst, font, this.MaakBrush(), this.startpunt, StringFormat.GenericTypographic);
-        }
-
-        public override bool Geklikt(SchetsControl s, Point p)
-        {
-            return TweepuntObject.GekliktInRechthoek(new Rectangle(this.startpunt, getSize(s.MaakBitmapGraphics())), p);
         }
     }
 
@@ -123,38 +123,13 @@ namespace SchetsEditor
         {
             return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
         }
-
-        public override bool Geklikt(SchetsControl s, Point p)
-        {
-            return GekliktInRechthoek(this.BoundingBox, p);
-        }
     }
 
     public class LijnObject : TweepuntObject
     {
-        public double AfstandTotLijn(Point p)
-        {
-            double x1 = this.startpunt.X;
-            double y1 = this.startpunt.Y;
-            double x2 = this.eindpunt.X;
-            double y2 = this.eindpunt.Y;
-            double dx = x2 - x1;
-            double dy = y2 - y1;
-            //Formule van: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
-            double d = Math.Abs(dy * p.X - dx * p.Y - x1 * y2 + x2 * y1) / Math.Sqrt(dx * dx + dy * dy);
-            return d - this.dikte / 2;
-        }
-
         public override void Teken(Graphics g)
         {
             g.DrawLine(this.MaakPen(), this.startpunt, this.eindpunt);
-        }
-
-        public override bool Geklikt(SchetsControl s, Point p)
-        {
-            if (!base.Geklikt(s, p))
-                return false;
-            return AfstandTotLijn(p) < 2;
         }
     }
 

@@ -22,14 +22,14 @@ namespace SchetsEditor
             }
         }
 
-        public Color PenKleur {get; private set; }
+        public Color PenKleur { get; private set; }
         public int PenDikte { get; private set; }
 
         public SchetsControl()
         {
             this.BorderStyle = BorderStyle.Fixed3D;
             this.schets = new Schets();
-            this.PenDikte = 10; //maak control voor dit
+            this.PenDikte = 3;
             this.Paint += this.teken;
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
