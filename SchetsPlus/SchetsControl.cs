@@ -8,17 +8,17 @@ namespace SchetsEditor
 {
     public class SchetsControl : UserControl
     {
-        private Schets schets;
+        public Schets schets;
 
         public List<SchetsObject> Objecten
         {
             get
             {
-                return schets.objecten;
+                return schets.data.objecten;
             }
             set
             {
-                schets.objecten = value;
+                schets.data.objecten = value;
             }
         }
 

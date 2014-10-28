@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace SchetsEditor
 {
+    [DataContract]
+    public class SchetsData
+    {
+        [DataMember]
+        public int rotate = 0;
+
+        [DataMember]
+        public List<SchetsObject> objecten = new List<SchetsObject>();
+    }
+
     public class Schets
     {
         private Bitmap bitmap;
-        public List<SchetsObject> objecten = new List<SchetsObject>();
+        public SchetsData data;
 
         public Schets()
         {
             bitmap = new Bitmap(1, 1);
+            data = new SchetsData();
         }
 
         public Graphics BitmapGraphics
@@ -39,8 +51,10 @@ namespace SchetsEditor
         public void Teken(Graphics gr)
         {
             Schoon();
-            foreach (SchetsObject schetsObject in objecten)
+            foreach (SchetsObject schetsObject in data.objecten)
                 schetsObject.Teken(BitmapGraphics);
+            for (int i = 0; i < data.rotate; i++)
+                bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
             gr.DrawImage(bitmap, 0, 0);
         }
 
@@ -52,7 +66,7 @@ namespace SchetsEditor
 
         public void Roteer()
         {
-            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            data.rotate = data.rotate < 3 ? data.rotate + 1 : 0;
         }
     }
 }
