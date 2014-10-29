@@ -35,13 +35,38 @@ namespace SchetsEditor
 
         private void opslaan(object obj, EventArgs ea)
         {
-            ObjectSerializer.SerializeToCompressedFile<SchetsData>(schetscontrol.schets.data, "test.schets");
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "Schets Files (*.schets)|*.schets",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ObjectSerializer.SerializeToCompressedFile<SchetsData>(schetscontrol.schets.data, sfd.FileName);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void laden(object obj, EventArgs ea)
+        public bool LaadBestand(string bestandsnaam)
         {
-            schetscontrol.schets.data = ObjectSerializer.DeserializeFromCompressedFile<SchetsData>("test.schets");
+            try
+            {
+                schetscontrol.schets.data = ObjectSerializer.DeserializeFromCompressedFile<SchetsData>(bestandsnaam);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             this.Refresh();
+            return true;
         }
 
         private void afsluiten(object obj, EventArgs ea)
@@ -115,7 +140,6 @@ namespace SchetsEditor
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
             menu.MergeAction = MergeAction.MatchOnly;
             menu.DropDownItems.Add("Opslaan", null, this.opslaan);
-            menu.DropDownItems.Add("Laden", null, this.laden);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }

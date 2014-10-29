@@ -25,7 +25,7 @@ namespace SchetsEditor
             ToolStripDropDownItem menu;
             menu = new ToolStripMenuItem("File");
             menu.DropDownItems.Add("Nieuw", null, this.nieuw);
-            menu.DropDownItems.Add("Exit", null, this.afsluiten);
+            menu.DropDownItems.Add("Openen", null, this.openen);
             menuStrip.Items.Add(menu);
         }
 
@@ -53,9 +53,28 @@ namespace SchetsEditor
             s.Show();
         }
 
-        private void afsluiten(object sender, EventArgs e)
+        private void openen(object sender, EventArgs e)
         {
-            this.Close();
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),
+                Filter = "Schets Files (*.schets)|*.schets",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+            
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                SchetsWin s = new SchetsWin();
+                s.LaadBestand(ofd.FileName);
+                if (s.LaadBestand(ofd.FileName))
+                {
+                    s.MdiParent = this;
+                    s.Show();
+                }
+                else
+                    MessageBox.Show("Er is een fout opgetreden bij het openen van het bestand!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
