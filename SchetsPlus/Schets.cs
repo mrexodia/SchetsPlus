@@ -50,7 +50,7 @@ namespace SchetsEditor
 
         public void Teken(Graphics gr)
         {
-            Schoon();
+            BitmapGraphics.Clear(Color.White);
             foreach (SchetsObject schetsObject in data.objecten)
                 schetsObject.Teken(BitmapGraphics);
             for (int i = 0; i < data.rotate; i++)
@@ -60,8 +60,7 @@ namespace SchetsEditor
 
         public void Schoon()
         {
-            Graphics gr = Graphics.FromImage(bitmap);
-            gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
+            data = new SchetsData();
         }
 
         public void Roteer()
