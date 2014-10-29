@@ -16,6 +16,7 @@ namespace SchetsEditor
         Panel paneel;
         bool vast;
         ResourceManager resourcemanager = new ResourceManager("SchetsEditor.Properties.Resources", Assembly.GetExecutingAssembly());
+        string bestandsnaam = "";
 
         private void veranderAfmeting(object o, EventArgs ea)
         {
@@ -34,7 +35,29 @@ namespace SchetsEditor
             this.huidigeTool = (ISchetsTool)((RadioButton)obj).Tag;
         }
 
+        private void opslaanNaam()
+        {
+            try
+            {
+                ObjectSerializer.SerializeToCompressedFile<SchetsData>(schetscontrol.schets.data, bestandsnaam);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void opslaan(object obj, EventArgs ea)
+        {
+            if (bestandsnaam.Length > 0)
+            {
+                opslaanNaam();
+            }
+            else
+                opslaanAls(obj, ea);
+        }
+
+        private void opslaanAls (object obj, EventArgs ea)
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
@@ -54,6 +77,7 @@ namespace SchetsEditor
                 {
                     MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                bestandsnaam = sfd.FileName;
             }
         }
 
@@ -177,6 +201,7 @@ namespace SchetsEditor
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
             menu.MergeAction = MergeAction.MatchOnly;
             menu.DropDownItems.Add("Opslaan", null, this.opslaan);
+            menu.DropDownItems.Add("Opslaan als", null, this.opslaanAls);
             menu.DropDownItems.Add("Exporteer", null, this.exporteer);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
             menuStrip.Items.Add(menu);
