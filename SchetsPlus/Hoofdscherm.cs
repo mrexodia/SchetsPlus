@@ -57,7 +57,7 @@ namespace SchetsEditor
         {
             OpenFileDialog ofd = new OpenFileDialog
             {
-                InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),
+                InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
                 Filter = "Schets Files (*.schets)|*.schets",
                 FilterIndex = 1,
                 RestoreDirectory = true

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
+using System.Drawing.Imaging;
 
 namespace SchetsEditor
 {
@@ -37,6 +38,7 @@ namespace SchetsEditor
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
+                InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
                 Filter = "Schets Files (*.schets)|*.schets",
                 FilterIndex = 1,
                 RestoreDirectory = true
@@ -51,6 +53,41 @@ namespace SchetsEditor
                 catch (Exception)
                 {
                     MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void exporteer(object obj, EventArgs ea)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
+                Filter = "Bitmap (*.bmp)|*.bmp|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ImageFormat f;
+                switch(sfd.FilterIndex)
+                {
+                    case 2:
+                        f = ImageFormat.Jpeg;
+                        break;
+
+                    case 3:
+                        f = ImageFormat.Png;
+                        break;
+
+                    default:
+                        f = ImageFormat.Bmp;
+                        break;
+                }
+              
+                if (!schetscontrol.schets.Exporteer(sfd.FileName, f))
+                {
+                    MessageBox.Show("Er is een fout opgetreden bij het exporteren!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -140,6 +177,7 @@ namespace SchetsEditor
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
             menu.MergeAction = MergeAction.MatchOnly;
             menu.DropDownItems.Add("Opslaan", null, this.opslaan);
+            menu.DropDownItems.Add("Exporteer", null, this.exporteer);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }

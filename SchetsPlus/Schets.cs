@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.Serialization;
+using System.Drawing.Imaging;
 
 namespace SchetsEditor
 {
@@ -24,6 +25,19 @@ namespace SchetsEditor
         {
             bitmap = new Bitmap(1, 1);
             data = new SchetsData();
+        }
+
+        public bool Exporteer(string bestandsnaam, ImageFormat f)
+        {
+            try
+            {
+                bitmap.Save(bestandsnaam, f);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         public Graphics BitmapGraphics
