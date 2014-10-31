@@ -127,19 +127,12 @@ namespace SchetsEditor
                 return false;
             }
             this.Refresh();
+            this.bestandsnaam = bestandsnaam;
             return true;
         }
 
         private void afsluiten(object obj, EventArgs ea)
-        {
-            if(schetscontrol.verandering == true)
-            {
-                DialogResult dialogResult = MessageBox.Show("Wil je de veranderingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    opslaan(obj, ea);
-                }
-            } 
+        { 
             this.Close();
         }
 
@@ -160,7 +153,17 @@ namespace SchetsEditor
 
             this.ClientSize = new Size(700, 510);
             huidigeTool = deTools[0];
-
+            this.FormClosing += (object o, FormClosingEventArgs ea) =>
+                                                    {
+                                                        if (schetscontrol.verandering == true)
+                                                        {
+                                                            DialogResult dialogResult = MessageBox.Show("Wil je de veranderingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
+                                                            if (dialogResult == DialogResult.Yes)
+                                                            {
+                                                                opslaan(o, ea);
+                                                            }
+                                                        }
+                                                    };
             schetscontrol = new SchetsControl();
             schetscontrol.Location = new Point(64, 10);
             schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
