@@ -81,5 +81,18 @@ namespace SchetsEditor
         {
             data.rotate = data.rotate < 3 ? data.rotate + 1 : 0;
         }
+
+        public Point RotatePoint(Point p)
+        {
+            Point m = new Point(bitmap.Width / 2, bitmap.Height / 2);
+            p = new Point(p.X - m.X, p.Y - m.Y);
+
+            double cosine = Math.Cos(-0.5 * Math.PI * data.rotate);
+            double sine = Math.Sin(-0.5 * Math.PI * data.rotate);
+            p = new Point((int)(p.X * cosine - p.Y * sine),
+                          (int)(p.X * sine + p.Y * cosine));
+
+            return new Point(p.X + m.X, p.Y + m.Y);
+        }
     }
 }

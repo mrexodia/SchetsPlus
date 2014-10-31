@@ -158,17 +158,17 @@ namespace SchetsEditor
             schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
                                        {
                                            vast = true;
-                                           huidigeTool.MuisVast(schetscontrol, mea.Location);
+                                           huidigeTool.MuisVast(schetscontrol, schetscontrol.schets.RotatePoint(mea.Location));
                                        };
             schetscontrol.MouseMove += (object o, MouseEventArgs mea) =>
                                        {
                                            if (vast)
-                                               huidigeTool.MuisDrag(schetscontrol, mea.Location);
+                                               huidigeTool.MuisDrag(schetscontrol, schetscontrol.schets.RotatePoint(mea.Location));
                                        };
             schetscontrol.MouseUp += (object o, MouseEventArgs mea) =>
                                        {
                                            vast = false;
-                                           huidigeTool.MuisLos(schetscontrol, mea.Location);
+                                           huidigeTool.MuisLos(schetscontrol, schetscontrol.schets.RotatePoint(mea.Location));
                                        };
             schetscontrol.KeyPress += (object o, KeyPressEventArgs kpea) =>
                                        {
