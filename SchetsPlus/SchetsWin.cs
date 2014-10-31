@@ -18,6 +18,77 @@ namespace SchetsEditor
         ResourceManager resourcemanager = new ResourceManager("SchetsEditor.Properties.Resources", Assembly.GetExecutingAssembly());
         string bestandsnaam = "";
 
+        public SchetsWin()
+        {
+            ISchetsTool[] deTools = { new PenTool()         
+                                    , new LijnTool()
+                                    , new RechthoekTool()
+                                    , new VolRechthoekTool()
+                                    , new EllipsTool()
+                                    , new VolEllipsTool()
+                                    , new TekstTool()
+                                    , new GumTool()
+                                    };
+            String[] deKleuren = { "Black", "Red", "Green", "Blue"
+                                 , "Yellow", "Magenta", "Cyan", "White" 
+                                 };
+
+            this.ClientSize = new Size(700, 510);
+            huidigeTool = deTools[0];
+            this.FormClosing += (object o, FormClosingEventArgs ea) =>
+            {
+                if (schetscontrol.verandering == true)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Wil je de veranderingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        opslaan(o, ea);
+                    }
+                }
+            };
+            schetscontrol = new SchetsControl();
+            schetscontrol.Location = new Point(64, 10);
+            schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
+            {
+                vast = true;
+                huidigeTool.MuisVast(schetscontrol, mea.Location);
+            };
+            schetscontrol.MouseMove += (object o, MouseEventArgs mea) =>
+            {
+                if (vast)
+                    huidigeTool.MuisDrag(schetscontrol, mea.Location);
+            };
+            schetscontrol.MouseUp += (object o, MouseEventArgs mea) =>
+            {
+                vast = false;
+                huidigeTool.MuisLos(schetscontrol, mea.Location);
+            };
+            schetscontrol.KeyPress += (object o, KeyPressEventArgs kpea) =>
+            {
+                huidigeTool.Letter(schetscontrol, kpea.KeyChar);
+            };
+            schetscontrol.KeyDown += (object o, KeyEventArgs kea) =>
+            {
+                if (kea.KeyCode == Keys.Back)
+                {
+                    huidigeTool.Letter(schetscontrol, '\b'); //we use '\b' for backspace
+                    kea.SuppressKeyPress = true;
+                }
+            };
+            this.Controls.Add(schetscontrol);
+
+            menuStrip = new MenuStrip();
+            menuStrip.Visible = false;
+            this.Controls.Add(menuStrip);
+            this.maakFileMenu();
+            this.maakToolMenu(deTools);
+            this.maakAktieMenu(deKleuren);
+            this.maakToolButtons(deTools);
+            this.maakAktieButtons(deKleuren);
+            this.Resize += this.veranderAfmeting;
+            this.veranderAfmeting(null, null);
+        }
+
         private void veranderAfmeting(object o, EventArgs ea)
         {
             schetscontrol.Size = new Size(this.ClientSize.Width - 70
@@ -125,77 +196,6 @@ namespace SchetsEditor
         private void afsluiten(object obj, EventArgs ea)
         {
             this.Close();
-        }
-
-        public SchetsWin()
-        {
-            ISchetsTool[] deTools = { new PenTool()         
-                                    , new LijnTool()
-                                    , new RechthoekTool()
-                                    , new VolRechthoekTool()
-                                    , new EllipsTool()
-                                    , new VolEllipsTool()
-                                    , new TekstTool()
-                                    , new GumTool()
-                                    };
-            String[] deKleuren = { "Black", "Red", "Green", "Blue"
-                                 , "Yellow", "Magenta", "Cyan", "White" 
-                                 };
-
-            this.ClientSize = new Size(700, 510);
-            huidigeTool = deTools[0];
-            this.FormClosing += (object o, FormClosingEventArgs ea) =>
-                                                    {
-                                                        if (schetscontrol.verandering == true)
-                                                        {
-                                                            DialogResult dialogResult = MessageBox.Show("Wil je de veranderingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
-                                                            if (dialogResult == DialogResult.Yes)
-                                                            {
-                                                                opslaan(o, ea);
-                                                            }
-                                                        }
-                                                    };
-            schetscontrol = new SchetsControl();
-            schetscontrol.Location = new Point(64, 10);
-            schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
-                                       {
-                                           vast = true;
-                                           huidigeTool.MuisVast(schetscontrol, mea.Location);
-                                       };
-            schetscontrol.MouseMove += (object o, MouseEventArgs mea) =>
-                                       {
-                                           if (vast)
-                                               huidigeTool.MuisDrag(schetscontrol, mea.Location);
-                                       };
-            schetscontrol.MouseUp += (object o, MouseEventArgs mea) =>
-                                       {
-                                           vast = false;
-                                           huidigeTool.MuisLos(schetscontrol, mea.Location);
-                                       };
-            schetscontrol.KeyPress += (object o, KeyPressEventArgs kpea) =>
-                                       {
-                                           huidigeTool.Letter(schetscontrol, kpea.KeyChar);
-                                       };
-            schetscontrol.KeyDown += (object o, KeyEventArgs kea) =>
-                                       {
-                                           if (kea.KeyCode == Keys.Back)
-                                           {
-                                               huidigeTool.Letter(schetscontrol, '\b'); //we use '\b' for backspace
-                                               kea.SuppressKeyPress = true;
-                                           }
-                                       };
-            this.Controls.Add(schetscontrol);
-
-            menuStrip = new MenuStrip();
-            menuStrip.Visible = false;
-            this.Controls.Add(menuStrip);
-            this.maakFileMenu();
-            this.maakToolMenu(deTools);
-            this.maakAktieMenu(deKleuren);
-            this.maakToolButtons(deTools);
-            this.maakAktieButtons(deKleuren);
-            this.Resize += this.veranderAfmeting;
-            this.veranderAfmeting(null, null);
         }
 
         private void maakFileMenu()
