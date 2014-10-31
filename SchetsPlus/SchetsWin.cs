@@ -82,9 +82,9 @@ namespace SchetsEditor
             this.Controls.Add(menuStrip);
             this.maakFileMenu();
             this.maakToolMenu(deTools);
-            this.maakAktieMenu(deKleuren);
+            this.maakActieMenu(deKleuren);
             this.maakToolButtons(deTools);
-            this.maakAktieButtons(deKleuren);
+            this.maakActieButtons(deKleuren);
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
         }
@@ -224,9 +224,9 @@ namespace SchetsEditor
             menuStrip.Items.Add(menu);
         }
 
-        private void maakAktieMenu(String[] kleuren)
+        private void maakActieMenu(String[] kleuren)
         {
-            ToolStripMenuItem menu = new ToolStripMenuItem("Aktie");
+            ToolStripMenuItem menu = new ToolStripMenuItem("Actie");
             menu.DropDownItems.Add("Clear", null, schetscontrol.Schoon);
             menu.DropDownItems.Add("Roteer", null, schetscontrol.Roteer);
             ToolStripMenuItem submenu = new ToolStripMenuItem("Kies kleur");
@@ -258,7 +258,7 @@ namespace SchetsEditor
             }
         }
 
-        private void maakAktieButtons(String[] kleuren)
+        private void maakActieButtons(String[] kleuren)
         {
             paneel = new Panel();
             paneel.Size = new Size(600, 24);
