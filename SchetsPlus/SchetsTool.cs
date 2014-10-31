@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 
 namespace SchetsEditor
 {
+    
     public interface ISchetsTool
     {
         void MuisVast(SchetsControl s, Point p);
@@ -27,6 +28,7 @@ namespace SchetsEditor
                 if(s.Objecten[i].Geklikt(s, p))
                 {
                     s.Objecten.RemoveAt(i);
+                    s.verandering = true;
                     s.Refresh();
                     break;
                 }
@@ -54,6 +56,7 @@ namespace SchetsEditor
         {
             obj.kleur = s.PenKleur;
             s.Objecten.Add(obj);
+            s.verandering = true;
         }
 
         public virtual void MuisDrag(SchetsControl s, Point p)

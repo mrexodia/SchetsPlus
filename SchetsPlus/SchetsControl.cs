@@ -9,6 +9,7 @@ namespace SchetsEditor
     public class SchetsControl : UserControl
     {
         public Schets schets;
+        public bool verandering = false;
 
         public List<SchetsObject> Objecten
         {
