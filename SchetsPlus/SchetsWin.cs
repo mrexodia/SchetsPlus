@@ -30,7 +30,7 @@ namespace SchetsEditor
                                     , new GumTool()
                                     };
             String[] deKleuren = { "Black", "Red", "Green", "Blue"
-                                 , "Yellow", "Magenta", "Cyan", "White" 
+                                 , "Yellow", "Magenta", "Cyan", "White", "Anders..." 
                                  };
 
             this.ClientSize = new Size(700, 510);
@@ -252,7 +252,8 @@ namespace SchetsEditor
                 b.ImageAlign = ContentAlignment.BottomCenter;
                 b.Click += this.klikToolButton;
                 this.Controls.Add(b);
-                if (t == 0) b.Select();
+                if (t == 0)
+                    b.Select();
                 t++;
             }
         }

@@ -69,16 +69,26 @@ namespace SchetsEditor
             this.veranderAfmeting(o, ea);
         }
 
+        private void veranderKleurVanNaam(string kleurNaam)
+        {
+            if (kleurNaam == "Anders...")
+            {
+                ColorDialog cd = new ColorDialog();
+                if (cd.ShowDialog(this) == DialogResult.OK)
+                    PenKleur = cd.Color;
+            }
+            else
+                PenKleur = Color.FromName(kleurNaam);
+        }
+
         public void VeranderKleur(object obj, EventArgs ea)
         {
-            string kleurNaam = ((ComboBox)obj).Text;
-            PenKleur = Color.FromName(kleurNaam);
+            veranderKleurVanNaam(((ComboBox)obj).Text);
         }
 
         public void VeranderKleurViaMenu(object obj, EventArgs ea)
         {
-            string kleurNaam = ((ToolStripMenuItem)obj).Text;
-            PenKleur = Color.FromName(kleurNaam);
+            veranderKleurVanNaam(((ToolStripMenuItem)obj).Text);
         }
     }
 }
