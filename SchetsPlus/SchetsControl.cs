@@ -33,7 +33,6 @@ namespace SchetsEditor
             this.PenDikte = 3;
             this.Paint += this.teken;
             this.Resize += this.veranderAfmeting;
-            this.veranderAfmeting(null, null);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

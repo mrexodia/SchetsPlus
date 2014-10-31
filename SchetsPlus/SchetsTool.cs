@@ -25,7 +25,7 @@ namespace SchetsEditor
         {
             for (int i = s.Objecten.Count - 1; i >= 0; i--)
             {
-                if(s.Objecten[i].Geklikt(s, p))
+                if (s.Objecten[i].Geklikt(s, p))
                 {
                     s.Objecten.RemoveAt(i);
                     s.verandering = true;

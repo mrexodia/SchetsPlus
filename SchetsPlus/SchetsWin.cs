@@ -57,7 +57,7 @@ namespace SchetsEditor
                 opslaanAls(obj, ea);
         }
 
-        private void opslaanAls (object obj, EventArgs ea)
+        private void opslaanAls(object obj, EventArgs ea)
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
@@ -94,7 +94,7 @@ namespace SchetsEditor
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 ImageFormat f;
-                switch(sfd.FilterIndex)
+                switch (sfd.FilterIndex)
                 {
                     case 2:
                         f = ImageFormat.Jpeg;
@@ -108,7 +108,7 @@ namespace SchetsEditor
                         f = ImageFormat.Bmp;
                         break;
                 }
-              
+
                 if (!schetscontrol.schets.Exporteer(sfd.FileName, f))
                 {
                     MessageBox.Show("Er is een fout opgetreden bij het exporteren!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
