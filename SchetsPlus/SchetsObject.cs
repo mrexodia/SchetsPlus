@@ -43,7 +43,21 @@ namespace SchetsEditor
             return bmp.GetPixel(p.X, p.Y).A > 0; //achtergrond heeft Color.A = 0
         }
 
+        public static Point RotatePoint(Point p, Size size)
+        {
+            Point m = new Point(size.Width / 2, size.Height / 2);
+            p = new Point(p.X - m.X, p.Y - m.Y);
+
+            double cosine = Math.Cos(-0.5 * Math.PI * 1);
+            double sine = Math.Sin(-0.5 * Math.PI * 1);
+            p = new Point((int)(p.X * cosine - p.Y * sine),
+                          (int)(p.X * sine + p.Y * cosine));
+
+            return new Point(p.X + m.X, p.Y + m.Y);
+        }
+
         public abstract void Teken(Graphics g);
+        public abstract void Roteer(Size size);
     }
 
     [DataContract]
@@ -57,6 +71,12 @@ namespace SchetsEditor
             foreach (LijnObject lijn in lijnen)
                 lijn.Teken(g);
         }
+
+        public override void Roteer(Size size)
+        {
+            foreach (LijnObject lijn in lijnen)
+                lijn.Roteer(size);
+        }
     }
 
     [DataContract, KnownType(typeof(TekstObject)), KnownType(typeof(TweepuntObject))]
@@ -64,6 +84,11 @@ namespace SchetsEditor
     {
         [DataMember]
         public Point startpunt;
+
+        public override void Roteer(Size size)
+        {
+            startpunt = SchetsObject.RotatePoint(startpunt, size);
+        }
     }
 
     [DataContract, KnownType(typeof(FontStyle)), KnownType(typeof(GraphicsUnit))]
@@ -96,6 +121,12 @@ namespace SchetsEditor
                 return new Rectangle(new Point(Math.Min(startpunt.X, eindpunt.X), Math.Min(startpunt.Y, eindpunt.Y)),
                                     new Size(Math.Abs(startpunt.X - eindpunt.X), Math.Abs(startpunt.Y - eindpunt.Y)));
             }
+        }
+
+        public override void Roteer(Size size)
+        {
+            base.Roteer(size);
+            eindpunt = SchetsObject.RotatePoint(eindpunt, size);
         }
     }
 

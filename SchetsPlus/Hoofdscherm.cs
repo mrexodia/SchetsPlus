@@ -62,7 +62,7 @@ namespace SchetsEditor
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
-            
+
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 SchetsWin s = new SchetsWin();

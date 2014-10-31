@@ -35,24 +35,23 @@ namespace SchetsEditor
             this.huidigeTool = (ISchetsTool)((RadioButton)obj).Tag;
         }
 
-        private void opslaanNaam()
+        private void opslaanNaam(string bestandsnaam)
         {
             try
             {
-                ObjectSerializer.SerializeToCompressedFile<SchetsData>(schetscontrol.schets.data, bestandsnaam);
+                ObjectSerializer.SerializeToCompressedFile<List<SchetsObject>>(schetscontrol.Objecten, bestandsnaam);
             }
             catch (Exception)
             {
                 MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.bestandsnaam = bestandsnaam;
         }
 
         private void opslaan(object obj, EventArgs ea)
         {
             if (bestandsnaam.Length > 0)
-            {
-                opslaanNaam();
-            }
+                opslaanNaam(bestandsnaam);
             else
                 opslaanAls(obj, ea);
         }
@@ -69,15 +68,7 @@ namespace SchetsEditor
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    ObjectSerializer.SerializeToCompressedFile<SchetsData>(schetscontrol.schets.data, sfd.FileName);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                bestandsnaam = sfd.FileName;
+                opslaanNaam(sfd.FileName);
             }
         }
 
@@ -120,7 +111,7 @@ namespace SchetsEditor
         {
             try
             {
-                schetscontrol.schets.data = ObjectSerializer.DeserializeFromCompressedFile<SchetsData>(bestandsnaam);
+                schetscontrol.Objecten = ObjectSerializer.DeserializeFromCompressedFile<List<SchetsObject>>(bestandsnaam);
             }
             catch (Exception)
             {
@@ -132,7 +123,7 @@ namespace SchetsEditor
         }
 
         private void afsluiten(object obj, EventArgs ea)
-        { 
+        {
             this.Close();
         }
 
@@ -169,17 +160,17 @@ namespace SchetsEditor
             schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
                                        {
                                            vast = true;
-                                           huidigeTool.MuisVast(schetscontrol, schetscontrol.schets.RotatePoint(mea.Location));
+                                           huidigeTool.MuisVast(schetscontrol, mea.Location);
                                        };
             schetscontrol.MouseMove += (object o, MouseEventArgs mea) =>
                                        {
                                            if (vast)
-                                               huidigeTool.MuisDrag(schetscontrol, schetscontrol.schets.RotatePoint(mea.Location));
+                                               huidigeTool.MuisDrag(schetscontrol, mea.Location);
                                        };
             schetscontrol.MouseUp += (object o, MouseEventArgs mea) =>
                                        {
                                            vast = false;
-                                           huidigeTool.MuisLos(schetscontrol, schetscontrol.schets.RotatePoint(mea.Location));
+                                           huidigeTool.MuisLos(schetscontrol, mea.Location);
                                        };
             schetscontrol.KeyPress += (object o, KeyPressEventArgs kpea) =>
                                        {

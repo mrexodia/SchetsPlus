@@ -15,11 +15,11 @@ namespace SchetsEditor
         {
             get
             {
-                return schets.data.objecten;
+                return schets.objecten;
             }
             set
             {
-                schets.data.objecten = value;
+                schets.objecten = value;
             }
         }
 

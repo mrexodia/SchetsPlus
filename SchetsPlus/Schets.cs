@@ -6,25 +6,14 @@ using System.Drawing.Imaging;
 
 namespace SchetsEditor
 {
-    [DataContract]
-    public class SchetsData
-    {
-        [DataMember]
-        public int rotate = 0;
-
-        [DataMember]
-        public List<SchetsObject> objecten = new List<SchetsObject>();
-    }
-
     public class Schets
     {
         private Bitmap bitmap;
-        public SchetsData data;
+        public List<SchetsObject> objecten = new List<SchetsObject>();
 
         public Schets()
         {
             bitmap = new Bitmap(1, 1);
-            data = new SchetsData();
         }
 
         public bool Exporteer(string bestandsnaam, ImageFormat f)
@@ -60,34 +49,20 @@ namespace SchetsEditor
         public void Teken(Graphics gr)
         {
             BitmapGraphics.Clear(Color.White);
-            foreach (SchetsObject schetsObject in data.objecten)
-                schetsObject.Teken(BitmapGraphics);
-            for (int i = 0; i < data.rotate; i++)
-                bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            foreach (SchetsObject s in objecten)
+                s.Teken(BitmapGraphics);
             gr.DrawImage(bitmap, 0, 0);
         }
 
         public void Schoon()
         {
-            data = new SchetsData();
+            objecten.Clear();
         }
 
         public void Roteer()
         {
-            data.rotate = data.rotate < 3 ? data.rotate + 1 : 0;
-        }
-
-        public Point RotatePoint(Point p)
-        {
-            Point m = new Point(bitmap.Width / 2, bitmap.Height / 2);
-            p = new Point(p.X - m.X, p.Y - m.Y);
-
-            double cosine = Math.Cos(-0.5 * Math.PI * data.rotate);
-            double sine = Math.Sin(-0.5 * Math.PI * data.rotate);
-            p = new Point((int)(p.X * cosine - p.Y * sine),
-                          (int)(p.X * sine + p.Y * cosine));
-
-            return new Point(p.X + m.X, p.Y + m.Y);
+            foreach (SchetsObject s in objecten)
+                s.Roteer(bitmap.Size);
         }
     }
 }

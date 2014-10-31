@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 
 namespace SchetsEditor
 {
-    
+
     public interface ISchetsTool
     {
         void MuisVast(SchetsControl s, Point p);
