@@ -195,6 +195,18 @@ namespace SchetsEditor
         {
             g.DrawRectangle(MaakPen(), Rechthoek);
         }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            if (!base.Geklikt(s, p))
+                return false;
+            Rectangle r = Rechthoek;
+            r.X += this.dikte / 2;
+            r.Y += this.dikte / 2;
+            r.Width -= this.dikte;
+            r.Height -= this.dikte;
+            return !GekliktInRechthoek(r, p);
+        }
     }
 
     public class VolRechthoekObject : TweepuntObject
