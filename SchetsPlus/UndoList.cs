@@ -11,23 +11,19 @@ namespace SchetsEditor
     {
         private class UndoAction<U>
         {
-            private bool add = false;
-            private U value;
+            public bool Add { get; private set; }
+            public U Value { get; private set; }
 
             public UndoAction(bool add, U value)
             {
-                this.add = add;
-                this.value = value;
-            }
-
-            public static implicit operator U(UndoAction<U> undoAction)
-            {
-                return undoAction.value;
+                this.Add = add;
+                this.Value = value;
             }
         }
 
-        private List<T> list;
+        public List<T> list { get; private set; }
         private List<UndoAction<T>> undoActions = new List<UndoAction<T>>();
+        private int pointer = -1;
 
         public int Count
         {
@@ -42,17 +38,38 @@ namespace SchetsEditor
             this.list = list;
         }
 
-        public static implicit operator List<T>(UndoList<T> undoList)
+        private void addUndoAction(UndoAction<T> action)
         {
-            return undoList.list;
+            if (pointer != -1)
+                undoActions.RemoveRange(pointer + 1, undoActions.Count - pointer - 1);
+            undoActions.Add(action);
+            pointer = undoActions.Count - 1;
         }
 
-        public void Undo()
+        public bool Undo()
         {
+            if (pointer == -1)
+                return false;
+            UndoAction<T> action = undoActions[pointer];
+            pointer--;
+            if (action.Add)
+                list.RemoveAt(list.LastIndexOf(action.Value));
+            else
+                list.Add(action.Value);
+            return true;
         }
 
-        public void Redo()
+        public bool Redo()
         {
+            if (pointer == undoActions.Count - 1)
+                return false;
+            pointer++;
+            UndoAction<T> action = undoActions[pointer];
+            if (action.Add)
+                list.Add(action.Value);
+            else
+                list.Remove(action.Value);
+            return true;
         }
 
         public IEnumerator GetEnumerator()
@@ -63,19 +80,22 @@ namespace SchetsEditor
         public void Add(T value)
         {
             list.Add(value);
-            undoActions.Add(new UndoAction<T>(true, value));
+            addUndoAction(new UndoAction<T>(true, value));
         }
 
         public void RemoveAt(int index)
         {
-            undoActions.Add(new UndoAction<T>(false, list[index]));
+            addUndoAction(new UndoAction<T>(false, list[index]));
             list.RemoveAt(index);
         }
 
         public void Clear()
         {
             foreach (T value in list)
+            {
                 undoActions.Add(new UndoAction<T>(false, value));
+                pointer++;
+            }
             list.Clear();
         }
 
