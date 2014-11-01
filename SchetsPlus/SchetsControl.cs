@@ -23,6 +23,18 @@ namespace SchetsEditor
             }
         }
 
+        public List<UndoRedo> UndoList
+        {
+            get
+            {
+                return schets.undoList;
+            }
+            set
+            {
+                schets.undoList = value;
+            }
+        }
+
         public Color PenKleur { get; private set; }
         public int PenDikte { get; private set; }
 
@@ -61,6 +73,11 @@ namespace SchetsEditor
         {
             schets.Schoon();
             this.Invalidate();
+        }
+
+        public void Undo(object o, EventArgs ea)
+        {
+            this.Refresh();
         }
 
         public void Roteer(object o, EventArgs ea)

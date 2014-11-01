@@ -10,6 +10,7 @@ namespace SchetsEditor
     {
         private Bitmap bitmap;
         public List<SchetsObject> objecten = new List<SchetsObject>();
+        public List<UndoRedo> undoList = new List<UndoRedo>();
 
         public Schets()
         {
