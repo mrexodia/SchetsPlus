@@ -79,7 +79,7 @@ namespace SchetsEditor
             {
                 if (schetscontrol.verandering == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Wil je de veranderingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show("Wilt u de wijzigingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
                         opslaan(o, ea);
@@ -201,12 +201,12 @@ namespace SchetsEditor
 
         private void maakFileMenu()
         {
-            ToolStripMenuItem menu = new ToolStripMenuItem("File");
+            ToolStripMenuItem menu = new ToolStripMenuItem("&File");
             menu.MergeAction = MergeAction.MatchOnly;
-            menu.DropDownItems.Add("Opslaan", null, this.opslaan);
-            menu.DropDownItems.Add("Opslaan als", null, this.opslaanAls);
-            menu.DropDownItems.Add("Exporteer", null, this.exporteer);
-            menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
+            menu.DropDownItems.Add(new ToolStripMenuItem("Op&slaan", null, this.opslaan, Keys.Control | Keys.S));
+            menu.DropDownItems.Add(new ToolStripMenuItem("Opslaan &als...", null, this.opslaanAls, Keys.Control | Keys.Shift | Keys.S));
+            menu.DropDownItems.Add(new ToolStripMenuItem("E&xporteer", null, this.exporteer, Keys.Control | Keys.E));
+            menu.DropDownItems.Add(new ToolStripMenuItem("S&luiten", null, this.afsluiten, Keys.Control | Keys.W));
             menuStrip.Items.Add(menu);
         }
 
@@ -227,14 +227,14 @@ namespace SchetsEditor
 
         private void maakActieMenu(String[] kleuren)
         {
-            ToolStripMenuItem menu = new ToolStripMenuItem("Actie");
-            menu.DropDownItems.Add("Clear", null, schetscontrol.Schoon);
-            menu.DropDownItems.Add("Roteer", null, schetscontrol.Roteer);
-            ToolStripMenuItem submenu = new ToolStripMenuItem("Kies kleur");
+            ToolStripMenuItem menu = new ToolStripMenuItem("&Actie");
+            menu.DropDownItems.Add("&Clear", null, schetscontrol.Schoon);
+            menu.DropDownItems.Add("&Roteer", null, schetscontrol.Roteer);
+            ToolStripMenuItem submenu = new ToolStripMenuItem("Kies &kleur");
             foreach (string k in kleuren)
                 submenu.DropDownItems.Add(k, null, schetscontrol.VeranderKleurViaMenu);
             menu.DropDownItems.Add(submenu);
-            submenu = new ToolStripMenuItem("Kies dikte");
+            submenu = new ToolStripMenuItem("Kies &dikte");
             for (int i = 1; i <= 20; i++)
                 submenu.DropDownItems.Add(i.ToString(), null, schetscontrol.VeranderDikteViaMenu);
             menu.DropDownItems.Add(submenu);
@@ -309,7 +309,7 @@ namespace SchetsEditor
             cbb.SelectedValueChanged += schetscontrol.VeranderDikte;
             for (int i = 1; i <= 20; i++)
                 cbb.Items.Add(i.ToString());
-            cbb.SelectedIndex = 0;
+            cbb.SelectedIndex = 2;
             paneel.Controls.Add(cbb);
         }
     }

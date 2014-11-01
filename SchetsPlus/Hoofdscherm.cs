@@ -23,17 +23,17 @@ namespace SchetsEditor
         private void maakFileMenu()
         {
             ToolStripDropDownItem menu;
-            menu = new ToolStripMenuItem("File");
-            menu.DropDownItems.Add("Nieuw", null, this.nieuw);
-            menu.DropDownItems.Add("Openen", null, this.openen);
+            menu = new ToolStripMenuItem("&File");
+            menu.DropDownItems.Add(new ToolStripMenuItem("&Nieuw", null, this.nieuw, Keys.Control|Keys.N));
+            menu.DropDownItems.Add(new ToolStripMenuItem("&Openen", null, this.openen, Keys.Control | Keys.O));
             menuStrip.Items.Add(menu);
         }
 
         private void maakHelpMenu()
         {
             ToolStripDropDownItem menu;
-            menu = new ToolStripMenuItem("Help");
-            menu.DropDownItems.Add("Over \"SchetsPlus\"", null, this.about);
+            menu = new ToolStripMenuItem("&Help");
+            menu.DropDownItems.Add("&Over \"SchetsPlus\"", null, this.about);
             menuStrip.Items.Add(menu);
         }
 
