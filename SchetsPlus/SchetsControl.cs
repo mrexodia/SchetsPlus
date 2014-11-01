@@ -90,5 +90,26 @@ namespace SchetsEditor
         {
             veranderKleurVanNaam(((ToolStripMenuItem)obj).Text);
         }
+
+        private void veranderDikteVanNaam(string dikteNaam)
+        {
+            try
+            {
+                this.PenDikte = int.Parse(dikteNaam);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void VeranderDikte(object obj, EventArgs ea)
+        {
+            veranderDikteVanNaam(((ComboBox)obj).Text);
+        }
+
+        public void VeranderDikteViaMenu(object obj, EventArgs ea)
+        {
+            veranderDikteVanNaam(((ToolStripMenuItem)obj).Text);
+        }
     }
 }

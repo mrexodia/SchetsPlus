@@ -35,7 +35,7 @@ namespace SchetsEditor
 
             this.ClientSize = new Size(700, 510);
             huidigeTool = deTools[0];
-            
+
             schetscontrol = new SchetsControl();
             schetscontrol.Location = new Point(64, 10);
             schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
@@ -234,6 +234,10 @@ namespace SchetsEditor
             foreach (string k in kleuren)
                 submenu.DropDownItems.Add(k, null, schetscontrol.VeranderKleurViaMenu);
             menu.DropDownItems.Add(submenu);
+            submenu = new ToolStripMenuItem("Kies dikte");
+            for (int i = 1; i <= 20; i++)
+                submenu.DropDownItems.Add(i.ToString(), null, schetscontrol.VeranderDikteViaMenu);
+            menu.DropDownItems.Add(submenu);
             menuStrip.Items.Add(menu);
         }
 
@@ -285,10 +289,26 @@ namespace SchetsEditor
             paneel.Controls.Add(l);
 
             cbb = new ComboBox(); cbb.Location = new Point(240, 0);
+            cbb.Width = 60;
             cbb.DropDownStyle = ComboBoxStyle.DropDownList;
             cbb.SelectedValueChanged += schetscontrol.VeranderKleur;
             foreach (string k in kleuren)
                 cbb.Items.Add(k);
+            cbb.SelectedIndex = 0;
+            paneel.Controls.Add(cbb);
+
+            l = new Label();
+            l.Text = "Pendikte:";
+            l.Location = new Point(310, 3);
+            l.AutoSize = true;
+            paneel.Controls.Add(l);
+
+            cbb = new ComboBox(); cbb.Location = new Point(l.Location.X + l.Width + 10, 0);
+            cbb.Width = 50;
+            cbb.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbb.SelectedValueChanged += schetscontrol.VeranderDikte;
+            for (int i = 1; i <= 20; i++)
+                cbb.Items.Add(i.ToString());
             cbb.SelectedIndex = 0;
             paneel.Controls.Add(cbb);
         }
