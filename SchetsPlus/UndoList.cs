@@ -9,18 +9,18 @@ namespace SchetsEditor
 {
     public class UndoList<T> : IEnumerable
     {
-        private class UndoAction<T>
+        private class UndoAction<U>
         {
             private bool add = false;
-            private T value;
+            private U value;
 
-            public UndoAction(bool add, T value)
+            public UndoAction(bool add, U value)
             {
                 this.add = add;
                 this.value = value;
             }
 
-            public static implicit operator T(UndoAction<T> undoAction)
+            public static implicit operator U(UndoAction<U> undoAction)
             {
                 return undoAction.value;
             }
