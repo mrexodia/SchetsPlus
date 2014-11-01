@@ -72,6 +72,14 @@ namespace SchetsEditor
                 lijn.Teken(g);
         }
 
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            foreach (LijnObject lijn in lijnen)
+                if (lijn.Geklikt(s, p))
+                    return true;
+            return false;
+        }
+
         public override void Roteer(Size size)
         {
             foreach (LijnObject lijn in lijnen)
@@ -123,6 +131,29 @@ namespace SchetsEditor
             }
         }
 
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                Rectangle r = this.Rechthoek;
+                r.X -= this.dikte / 2;
+                r.Y -= this.dikte / 2;
+                r.Width += this.dikte;
+                r.Height += this.dikte;
+                return r;
+            }
+        }
+
+        public static bool GekliktInRechthoek(Rectangle box, Point p)
+        {
+            return (p.X >= box.Left && p.X <= box.Right) && (p.Y >= box.Top && p.Y <= box.Bottom);
+        }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            return GekliktInRechthoek(this.BoundingBox, p);
+        }
+
         public override void Roteer(Size size)
         {
             base.Roteer(size);
@@ -132,9 +163,29 @@ namespace SchetsEditor
 
     public class LijnObject : TweepuntObject
     {
+        public double AfstandTotLijn(Point p)
+        {
+            double x1 = this.startpunt.X;
+            double y1 = this.startpunt.Y;
+            double x2 = this.eindpunt.X;
+            double y2 = this.eindpunt.Y;
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+            //Formule van: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
+            double d = Math.Abs(dy * p.X - dx * p.Y - x1 * y2 + x2 * y1) / Math.Sqrt(dx * dx + dy * dy);
+            return d - this.dikte / 2;
+        }
+
         public override void Teken(Graphics g)
         {
             g.DrawLine(MaakPen(), startpunt, eindpunt);
+        }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            if (!base.Geklikt(s, p))
+                return false;
+            return AfstandTotLijn(p) < 2;
         }
     }
 
