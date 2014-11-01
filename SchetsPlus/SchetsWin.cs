@@ -183,7 +183,7 @@ namespace SchetsEditor
         {
             try
             {
-                schetscontrol.Objecten = ObjectSerializer.DeserializeFromCompressedFile<List<SchetsObject>>(bestandsnaam);
+                schetscontrol.Objecten = new UndoList<SchetsObject>(ObjectSerializer.DeserializeFromCompressedFile<List<SchetsObject>>(bestandsnaam));
             }
             catch (Exception)
             {
@@ -229,6 +229,7 @@ namespace SchetsEditor
         {
             ToolStripMenuItem menu = new ToolStripMenuItem("&Actie");
             menu.DropDownItems.Add(new ToolStripMenuItem("&Undo", null, schetscontrol.Undo, Keys.Control | Keys.Z));
+            menu.DropDownItems.Add(new ToolStripMenuItem("R&edo", null, schetscontrol.Undo, Keys.Control | Keys.Y));
             menu.DropDownItems.Add("&Clear", null, schetscontrol.Schoon);
             menu.DropDownItems.Add("&Roteer", null, schetscontrol.Roteer);
             ToolStripMenuItem submenu = new ToolStripMenuItem("Kies &kleur");

@@ -11,7 +11,7 @@ namespace SchetsEditor
         public Schets schets;
         public bool verandering = false;
 
-        public List<SchetsObject> Objecten
+        public UndoList<SchetsObject> Objecten
         {
             get
             {
@@ -20,18 +20,6 @@ namespace SchetsEditor
             set
             {
                 schets.objecten = value;
-            }
-        }
-
-        public List<UndoRedo> UndoList
-        {
-            get
-            {
-                return schets.undoList;
-            }
-            set
-            {
-                schets.undoList = value;
             }
         }
 
@@ -77,6 +65,13 @@ namespace SchetsEditor
 
         public void Undo(object o, EventArgs ea)
         {
+            Objecten.Undo();
+            this.Refresh();
+        }
+
+        public void Redo(object o, EventArgs ea)
+        {
+            Objecten.Redo();
             this.Refresh();
         }
 
