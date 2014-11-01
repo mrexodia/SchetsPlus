@@ -9,19 +9,25 @@ namespace SchetsEditor
 {
     public class UndoList<T> : IEnumerable
     {
+        private enum ActionType
+        {
+            Add,
+            Remove
+        }
+
         private class UndoAction<U>
         {
-            public bool Add { get; private set; }
+            public ActionType Type { get; private set; }
             public U Value { get; private set; }
 
-            public UndoAction(bool add, U value)
+            public UndoAction(ActionType type, U value)
             {
-                this.Add = add;
+                this.Type = type;
                 this.Value = value;
             }
         }
 
-        public List<T> list { get; private set; }
+        private List<T> list;
         private List<UndoAction<T>> undoActions = new List<UndoAction<T>>();
         private int pointer = -1;
 
@@ -52,10 +58,15 @@ namespace SchetsEditor
                 return false;
             UndoAction<T> action = undoActions[pointer];
             pointer--;
-            if (action.Add)
-                list.RemoveAt(list.LastIndexOf(action.Value));
-            else
-                list.Add(action.Value);
+            switch (action.Type)
+            {
+                case ActionType.Add:
+                    list.RemoveAt(list.LastIndexOf(action.Value));
+                    break;
+                case ActionType.Remove:
+                    list.Add(action.Value);
+                    break;
+            }
             return true;
         }
 
@@ -65,10 +76,15 @@ namespace SchetsEditor
                 return false;
             pointer++;
             UndoAction<T> action = undoActions[pointer];
-            if (action.Add)
-                list.Add(action.Value);
-            else
-                list.Remove(action.Value);
+            switch (action.Type)
+            {
+                case ActionType.Add:
+                    list.Add(action.Value);
+                    break;
+                case ActionType.Remove:
+                    list.RemoveAt(list.LastIndexOf(action.Value));
+                    break;
+            }
             return true;
         }
 
@@ -80,23 +96,25 @@ namespace SchetsEditor
         public void Add(T value)
         {
             list.Add(value);
-            addUndoAction(new UndoAction<T>(true, value));
+            addUndoAction(new UndoAction<T>(ActionType.Add, value));
         }
 
         public void RemoveAt(int index)
         {
-            addUndoAction(new UndoAction<T>(false, list[index]));
+            addUndoAction(new UndoAction<T>(ActionType.Remove, list[index]));
             list.RemoveAt(index);
         }
 
         public void Clear()
         {
             foreach (T value in list)
-            {
-                undoActions.Add(new UndoAction<T>(false, value));
-                pointer++;
-            }
+                addUndoAction(new UndoAction<T>(ActionType.Remove, value));
             list.Clear();
+        }
+
+        public List<T> CopyList()
+        {
+            return new List<T>(list);
         }
 
         public T this[int index]

@@ -111,7 +111,7 @@ namespace SchetsEditor
         {
             try
             {
-                ObjectSerializer.SerializeToCompressedFile<List<SchetsObject>>(schetscontrol.Objecten.list, bestandsnaam);
+                ObjectSerializer.SerializeToCompressedFile<List<SchetsObject>>(schetscontrol.Objecten.CopyList(), bestandsnaam);
             }
             catch (Exception)
             {
