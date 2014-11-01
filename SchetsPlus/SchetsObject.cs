@@ -15,6 +15,8 @@ namespace SchetsEditor
         [DataMember]
         public int dikte = 0;
 
+        public const int Correctie = 2;
+
         public Brush MaakBrush()
         {
             return new SolidBrush(kleur);
@@ -35,9 +37,9 @@ namespace SchetsEditor
             Graphics g = Graphics.FromImage(bmp);
 
             g.Clear(Color.Transparent);
-            dikte += 4;
+            dikte += SchetsObject.Correctie * 2;
             Teken(g);
-            dikte -= 4;
+            dikte -= SchetsObject.Correctie * 2;
             g.Flush();
 
             return bmp.GetPixel(p.X, p.Y).A > 0; //achtergrond heeft Color.A = 0
@@ -131,15 +133,38 @@ namespace SchetsEditor
             }
         }
 
-        public Rectangle BoundingBox
+        public Rectangle OuterBox
         {
             get
             {
-                Rectangle r = this.Rechthoek;
-                r.X -= this.dikte / 2;
-                r.Y -= this.dikte / 2;
-                r.Width += this.dikte;
-                r.Height += this.dikte;
+                Rectangle r = Rechthoek;
+                if (dikte > 0)
+                {
+                    dikte += SchetsObject.Correctie * 2;
+                    r.X -= dikte / 2;
+                    r.Y -= dikte / 2;
+                    r.Width += dikte;
+                    r.Height += dikte;
+                    dikte -= SchetsObject.Correctie * 2;
+                }
+                return r;
+            }
+        }
+
+        public Rectangle InnerBox
+        {
+            get
+            {
+                Rectangle r = Rechthoek;
+                if (dikte > 0)
+                {
+                    dikte += SchetsObject.Correctie * 2;
+                    r.X += dikte / 2;
+                    r.Y += dikte / 2;
+                    r.Width -= dikte;
+                    r.Height -= dikte;
+                    dikte -= SchetsObject.Correctie * 2;
+                }
                 return r;
             }
         }
@@ -151,7 +176,7 @@ namespace SchetsEditor
 
         public override bool Geklikt(SchetsControl s, Point p)
         {
-            return GekliktInRechthoek(this.BoundingBox, p);
+            return GekliktInRechthoek(OuterBox, p);
         }
 
         public override void Roteer(Size size)
@@ -165,15 +190,15 @@ namespace SchetsEditor
     {
         public double AfstandTotLijn(Point p)
         {
-            double x1 = this.startpunt.X;
-            double y1 = this.startpunt.Y;
-            double x2 = this.eindpunt.X;
-            double y2 = this.eindpunt.Y;
+            double x1 = startpunt.X;
+            double y1 = startpunt.Y;
+            double x2 = eindpunt.X;
+            double y2 = eindpunt.Y;
             double dx = x2 - x1;
             double dy = y2 - y1;
             //Formule van: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
             double d = Math.Abs(dy * p.X - dx * p.Y - x1 * y2 + x2 * y1) / Math.Sqrt(dx * dx + dy * dy);
-            return d - this.dikte / 2;
+            return d - dikte / 2;
         }
 
         public override void Teken(Graphics g)
@@ -185,7 +210,7 @@ namespace SchetsEditor
         {
             if (!base.Geklikt(s, p))
                 return false;
-            return AfstandTotLijn(p) < 2;
+            return AfstandTotLijn(p) < SchetsObject.Correctie;
         }
     }
 
@@ -200,12 +225,7 @@ namespace SchetsEditor
         {
             if (!base.Geklikt(s, p))
                 return false;
-            Rectangle r = Rechthoek;
-            r.X += this.dikte / 2;
-            r.Y += this.dikte / 2;
-            r.Width -= this.dikte;
-            r.Height -= this.dikte;
-            return !GekliktInRechthoek(r, p);
+            return !GekliktInRechthoek(InnerBox, p);
         }
     }
 
@@ -217,19 +237,45 @@ namespace SchetsEditor
         }
     }
 
-    public class EllipsObject : TweepuntObject
-    {
-        public override void Teken(Graphics g)
-        {
-            g.DrawEllipse(MaakPen(), Rechthoek);
-        }
-    }
-
     public class VolEllipsObject : TweepuntObject
     {
         public override void Teken(Graphics g)
         {
             g.FillEllipse(MaakBrush(), Rechthoek);
+        }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            if (!base.Geklikt(s, p))
+                return false;
+            Rectangle r = OuterBox;
+            Size sz = new Size(r.Width / 2, r.Height / 2);
+            p = new Point(p.X - r.X - sz.Width, p.Y - r.Y - sz.Height);
+            return EllipsObject.Formule(p, sz) <= 1;
+        }
+    }
+
+    public class EllipsObject : VolEllipsObject
+    {
+        public static double Formule(Point p, Size sz)
+        {
+            //Formule van: http://www.analyzemath.com/calculus/Integrals/area_ellipse.html
+            return (double)(p.X * p.X) / (double)(sz.Width * sz.Width) + (double)(p.Y * p.Y) / (double)(sz.Height * sz.Height);
+        }
+
+        public override void Teken(Graphics g)
+        {
+            g.DrawEllipse(MaakPen(), Rechthoek);
+        }
+
+        public override bool Geklikt(SchetsControl s, Point p)
+        {
+            if (!base.Geklikt(s, p))
+                return false;
+            Rectangle r = InnerBox;
+            Size sz = new Size(r.Width / 2, r.Height / 2);
+            p = new Point(p.X - r.X - sz.Width, p.Y - r.Y - sz.Height);
+            return EllipsObject.Formule(p, sz) >= 1;
         }
     }
 }
