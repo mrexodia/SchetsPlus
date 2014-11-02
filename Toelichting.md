@@ -2,6 +2,8 @@
 
 Dit bestand bevat een overzicht van de wijzigingen van en toevoegingen aan het oorsprongkelijke 'SchetsEditor'-programma.
 
+Voor een volledig overzicht van alle veranderingen zie het commit log: https://github.com/mrexodia/SchetsPlus/commits/master
+
 - Formatteren van de oorsprongkelijke broncode met behulp van 'Edit->Advanced->Format Document'
 - Tools om een (gevulde) ellips te maken toegevoegd
 - Twee nieuwe resources (afbeeldingen voor de Ellipstools)
@@ -20,3 +22,5 @@ Dit bestand bevat een overzicht van de wijzigingen van en toevoegingen aan het o
 - MessageBox om te vragen of de gebruiker wil opslaan bij sluiten
 - Volledige selectie van kleuren met een ColorDialog
 - Control voor pendikte
+- Volledige mogelijkheden voor globalization (er kunnen eenvoudig vertalingen worden toegevoegd)
+- 
