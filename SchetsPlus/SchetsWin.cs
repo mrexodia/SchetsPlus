@@ -20,17 +20,18 @@ namespace SchetsEditor
 
         public SchetsWin()
         {
-            ISchetsTool[] deTools = { new PenTool()         
-                                    , new LijnTool()
-                                    , new RechthoekTool()
-                                    , new VolRechthoekTool()
-                                    , new EllipsTool()
-                                    , new VolEllipsTool()
-                                    , new TekstTool()
-                                    , new GumTool()
+            ISchetsTool[] deTools = { new PenTool(),
+                                      new LijnTool(),
+                                      new RechthoekTool(),
+                                      new VolRechthoekTool(),
+                                      new EllipsTool(),
+                                      new VolEllipsTool(),
+                                      new TekstTool(),
+                                      new GumTool(),
+                                      new PipetTool()
                                     };
-            String[] deKleuren = { "Black", "Red", "Green", "Blue"
-                                 , "Yellow", "Magenta", "Cyan", "White", Strings.KiesKleur 
+            String[] deKleuren = { "Black", "Red", "Green", "Blue",
+                                   "Yellow", "Magenta", "Cyan", "White", Strings.KiesKleur 
                                  };
 
             this.ClientSize = new Size(700, 510);
@@ -38,7 +39,7 @@ namespace SchetsEditor
             huidigeTool = deTools[0];
 
             schetscontrol = new SchetsControl();
-            schetscontrol.Location = new Point(64, 10);
+            schetscontrol.Location = new Point(90, 10);
             schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
             {
                 vast = true;
@@ -93,7 +94,7 @@ namespace SchetsEditor
         {
             schetscontrol.Size = new Size(this.ClientSize.Width - 70
                                           , this.ClientSize.Height - 50);
-            paneel.Location = new Point(64, this.ClientSize.Height - 30);
+            paneel.Location = new Point(schetscontrol.Location.X, this.ClientSize.Height - 30);
         }
 
         private void klikToolMenu(object obj, EventArgs ea)
@@ -247,20 +248,26 @@ namespace SchetsEditor
 
         private void maakToolButtons(ICollection<ISchetsTool> tools)
         {
+            Panel p = new Panel();
+            p.AutoScroll = true;
+            p.Location = new Point(10, 10);
+            p.Size = new Size(65, this.ClientSize.Height - p.Location.Y);
+            this.Controls.Add(p);
+
             int t = 0;
             foreach (ISchetsTool tool in tools)
             {
                 RadioButton b = new RadioButton();
                 b.Appearance = Appearance.Button;
                 b.Size = new Size(45, 62);
-                b.Location = new Point(10, 10 + t * 62);
+                b.Location = new Point(0, t * 62);
                 b.Tag = tool;
                 b.Text = tool.ToString();
                 b.Image = tool.Icoon();
                 b.TextAlign = ContentAlignment.TopCenter;
                 b.ImageAlign = ContentAlignment.BottomCenter;
                 b.Click += this.klikToolButton;
-                this.Controls.Add(b);
+                p.Controls.Add(b);
                 if (t == 0)
                     b.Select();
                 t++;

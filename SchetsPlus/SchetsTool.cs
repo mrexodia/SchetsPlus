@@ -55,6 +55,36 @@ namespace SchetsEditor
         }
     }
 
+    public class PipetTool : ISchetsTool
+    {
+        public override string ToString()
+        {
+            return Strings.ToolPipetTekst;
+        }
+
+        public Image Icoon()
+        {
+            return Resources.pipet;
+        }
+
+        public void MuisVast(SchetsControl s, Point p)
+        {
+            s.PenKleur = s.schets.bitmap.GetPixel(p.X, p.Y);
+        }
+
+        public void MuisDrag(SchetsControl s, Point p)
+        {
+        }
+
+        public void MuisLos(SchetsControl s, Point p)
+        {
+        }
+
+        public void Letter(SchetsControl s, char c)
+        {
+        }
+    }
+
     public abstract class SchetsTool : ISchetsTool
     {
         protected SchetsObject obj;

@@ -8,7 +8,7 @@ namespace SchetsEditor
 {
     public class Schets
     {
-        private Bitmap bitmap;
+        public Bitmap bitmap { get; private set; }
         public UndoList<SchetsObject> objecten = new UndoList<SchetsObject>(new List<SchetsObject>());
 
         public Schets()

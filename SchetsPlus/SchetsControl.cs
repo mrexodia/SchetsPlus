@@ -23,7 +23,7 @@ namespace SchetsEditor
             }
         }
 
-        public Color PenKleur { get; private set; }
+        public Color PenKleur { get; set; }
         public int PenDikte { get; private set; }
         public Font TekstFont { get; private set; }
 

@@ -226,6 +226,9 @@
   <data name="ToolPenTekst" xml:space="preserve">
     <value>pen</value>
   </data>
+  <data name="ToolPipetTekst" xml:space="preserve">
+    <value>pipet</value>
+  </data>
   <data name="ToolTekstTekst" xml:space="preserve">
     <value>tekst</value>
   </data>

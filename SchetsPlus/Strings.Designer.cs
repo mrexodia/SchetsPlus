@@ -386,6 +386,15 @@ namespace SchetsEditor {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pipet.
+        /// </summary>
+        internal static string ToolPipetTekst {
+            get {
+                return ResourceManager.GetString("ToolPipetTekst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tekst.
         /// </summary>
         internal static string ToolTekstTekst {
