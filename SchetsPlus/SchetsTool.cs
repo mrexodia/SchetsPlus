@@ -147,7 +147,7 @@ namespace SchetsEditor
 
         public override void MuisVast(SchetsControl s, Point p)
         {
-            obj = new TekstObject { font = new Font("Tahoma", 20) };
+            obj = new TekstObject { font = s.TekstFont };
             base.MuisVast(s, p);
         }
 

@@ -25,6 +25,7 @@ namespace SchetsEditor
 
         public Color PenKleur { get; private set; }
         public int PenDikte { get; private set; }
+        public Font TekstFont { get; private set; }
 
         public SchetsControl()
         {
@@ -33,6 +34,7 @@ namespace SchetsEditor
             this.PenDikte = 3;
             this.Paint += this.teken;
             this.Resize += this.veranderAfmeting;
+            this.TekstFont = new Font("Tahoma", 20);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -79,6 +81,14 @@ namespace SchetsEditor
         {
             schets.Roteer();
             this.veranderAfmeting(o, ea);
+        }
+
+        public void VeranderFont(object o, EventArgs ea)
+        {
+            FontDialog f = new FontDialog();
+            f.Font = this.TekstFont;
+            if (f.ShowDialog(this) == DialogResult.OK)
+                this.TekstFont = f.Font;
         }
 
         private void veranderKleurVanNaam(string kleurNaam)

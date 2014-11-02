@@ -135,6 +135,9 @@
   <data name="ActieUndo" xml:space="preserve">
     <value>&amp;Undo</value>
   </data>
+  <data name="ActieVeranderFont" xml:space="preserve">
+    <value>Change &amp;font</value>
+  </data>
   <data name="ExporterenFilter" xml:space="preserve">
     <value>Bitmap (*.bmp)|*.bmp|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="MenuTool" xml:space="preserve">
     <value>&amp;Tool</value>
+  </data>
+  <data name="NieuweSchets" xml:space="preserve">
+    <value>New Schets</value>
   </data>
   <data name="OverTekst" xml:space="preserve">
     <value>SchetsPlus version 1.0

@@ -34,6 +34,7 @@ namespace SchetsEditor
                                  };
 
             this.ClientSize = new Size(700, 510);
+            this.Text = Strings.NieuweSchets;
             huidigeTool = deTools[0];
 
             schetscontrol = new SchetsControl();
@@ -232,6 +233,7 @@ namespace SchetsEditor
             menu.DropDownItems.Add(new ToolStripMenuItem(Strings.ActieRedo, null, schetscontrol.Redo, Keys.Control | Keys.Y));
             menu.DropDownItems.Add(Strings.ActieClear, null, schetscontrol.Schoon);
             menu.DropDownItems.Add(Strings.ActieRoteer, null, schetscontrol.Roteer);
+            menu.DropDownItems.Add(Strings.ActieVeranderFont, null, schetscontrol.VeranderFont);
             ToolStripMenuItem submenu = new ToolStripMenuItem(Strings.ActieKiesKleur);
             foreach (string k in kleuren)
                 submenu.DropDownItems.Add(k, null, schetscontrol.VeranderKleurViaMenu);
@@ -273,24 +275,24 @@ namespace SchetsEditor
 
             Button b; Label l; ComboBox cbb;
             b = new Button();
-            b.Text = Strings.ActieClear;
-            b.Location = new Point(0, 0);
+            b.Text = Strings.ActieClear.Replace("&", "");
+            b.Location = new Point(0, -1);
             b.Click += schetscontrol.Schoon;
             paneel.Controls.Add(b);
 
             b = new Button();
-            b.Text = Strings.ActieRoteer;
-            b.Location = new Point(80, 0);
+            b.Text = Strings.ActieRoteer.Replace("&", "");
+            b.Location = new Point(80, -1);
             b.Click += schetscontrol.Roteer;
             paneel.Controls.Add(b);
 
             l = new Label();
             l.Text = Strings.LabelPenkleur;
-            l.Location = new Point(180, 3);
+            l.Location = new Point(165, 3);
             l.AutoSize = true;
             paneel.Controls.Add(l);
 
-            cbb = new ComboBox(); cbb.Location = new Point(240, 0);
+            cbb = new ComboBox(); cbb.Location = new Point(230, 0);
             cbb.Width = 60;
             cbb.DropDownStyle = ComboBoxStyle.DropDownList;
             cbb.SelectedValueChanged += schetscontrol.VeranderKleur;
@@ -313,6 +315,13 @@ namespace SchetsEditor
                 cbb.Items.Add(i.ToString());
             cbb.SelectedIndex = 2;
             paneel.Controls.Add(cbb);
+
+            b = new Button();
+            b.Text = Strings.ActieVeranderFont.Replace("&", "");
+            b.AutoSize = true;
+            b.Location = new Point(cbb.Location.X + cbb.Width + 10, -1);
+            b.Click += schetscontrol.VeranderFont;
+            paneel.Controls.Add(b);
         }
     }
 }

@@ -115,6 +115,15 @@ namespace SchetsEditor {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verander &amp;font.
+        /// </summary>
+        internal static string ActieVeranderFont {
+            get {
+                return ResourceManager.GetString("ActieVeranderFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bitmap (*.bmp)|*.bmp|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png.
         /// </summary>
         internal static string ExporterenFilter {
@@ -282,6 +291,15 @@ namespace SchetsEditor {
         internal static string MenuTool {
             get {
                 return ResourceManager.GetString("MenuTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe Schets.
+        /// </summary>
+        internal static string NieuweSchets {
+            get {
+                return ResourceManager.GetString("NieuweSchets", resourceCulture);
             }
         }
         
