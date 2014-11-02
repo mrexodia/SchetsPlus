@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace SchetsEditor
 {
@@ -80,9 +81,7 @@ namespace SchetsEditor
                 {
                     DialogResult dialogResult = MessageBox.Show(Strings.WijzigingenOpslaanTekst, Strings.WijzigingenOpslaanTitel, MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
-                    {
                         opslaan(o, ea);
-                    }
                 }
             };
             this.Resize += this.veranderAfmeting;
@@ -117,6 +116,8 @@ namespace SchetsEditor
                 MessageBox.Show(Strings.FoutOpslaanTekst, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.bestandsnaam = bestandsnaam;
+            this.Text = Path.GetFileNameWithoutExtension(bestandsnaam);
+            this.schetscontrol.verandering = false;
         }
 
         private void opslaan(object obj, EventArgs ea)
@@ -189,7 +190,7 @@ namespace SchetsEditor
                 return false;
             }
             this.Refresh();
-            this.bestandsnaam = bestandsnaam;
+            this.Text = Path.GetFileNameWithoutExtension(bestandsnaam);
             return true;
         }
 
