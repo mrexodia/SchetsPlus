@@ -15,7 +15,6 @@ namespace SchetsEditor
         ISchetsTool huidigeTool;
         Panel paneel;
         bool vast;
-        ResourceManager resourcemanager = new ResourceManager("SchetsEditor.Properties.Resources", Assembly.GetExecutingAssembly());
         string bestandsnaam = "";
 
         public SchetsWin()
@@ -30,7 +29,7 @@ namespace SchetsEditor
                                     , new GumTool()
                                     };
             String[] deKleuren = { "Black", "Red", "Green", "Blue"
-                                 , "Yellow", "Magenta", "Cyan", "White", "Anders..." 
+                                 , "Yellow", "Magenta", "Cyan", "White", Strings.KiesKleur 
                                  };
 
             this.ClientSize = new Size(700, 510);
@@ -79,7 +78,7 @@ namespace SchetsEditor
             {
                 if (schetscontrol.verandering == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Wilt u de wijzigingen opslaan?", "Opslaan?", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show(Strings.WijzigingenOpslaanTekst, Strings.WijzigingenOpslaanTitel, MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
                         opslaan(o, ea);
@@ -115,7 +114,7 @@ namespace SchetsEditor
             }
             catch (Exception)
             {
-                MessageBox.Show("Er is een fout opgetreden bij het opslaan!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.FoutOpslaanTekst, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.bestandsnaam = bestandsnaam;
         }
@@ -133,7 +132,7 @@ namespace SchetsEditor
             SaveFileDialog sfd = new SaveFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
-                Filter = "Schets Files (*.schets)|*.schets",
+                Filter = Strings.SchetsFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
@@ -149,7 +148,7 @@ namespace SchetsEditor
             SaveFileDialog sfd = new SaveFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
-                Filter = "Bitmap (*.bmp)|*.bmp|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png",
+                Filter = Strings.ExporterenFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
@@ -174,7 +173,7 @@ namespace SchetsEditor
 
                 if (!schetscontrol.schets.Exporteer(sfd.FileName, f))
                 {
-                    MessageBox.Show("Er is een fout opgetreden bij het exporteren!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Strings.FoutExporterenTekst, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -201,24 +200,24 @@ namespace SchetsEditor
 
         private void maakFileMenu()
         {
-            ToolStripMenuItem menu = new ToolStripMenuItem("&File");
+            ToolStripMenuItem menu = new ToolStripMenuItem(Strings.MenuFile);
             menu.MergeAction = MergeAction.MatchOnly;
-            menu.DropDownItems.Add(new ToolStripMenuItem("Op&slaan", null, this.opslaan, Keys.Control | Keys.S));
-            menu.DropDownItems.Add(new ToolStripMenuItem("Opslaan &als...", null, this.opslaanAls, Keys.Control | Keys.Shift | Keys.S));
-            menu.DropDownItems.Add(new ToolStripMenuItem("E&xporteer", null, this.exporteer, Keys.Control | Keys.E));
-            menu.DropDownItems.Add(new ToolStripMenuItem("S&luiten", null, this.afsluiten, Keys.Control | Keys.W));
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.FileOpslaan, null, this.opslaan, Keys.Control | Keys.S));
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.FileOpslaanAls, null, this.opslaanAls, Keys.Control | Keys.Shift | Keys.S));
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.FileExporteer, null, this.exporteer, Keys.Control | Keys.E));
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.FileSluiten, null, this.afsluiten, Keys.Control | Keys.W));
             menuStrip.Items.Add(menu);
         }
 
         private void maakToolMenu(ICollection<ISchetsTool> tools)
         {
-            ToolStripMenuItem menu = new ToolStripMenuItem("Tool");
+            ToolStripMenuItem menu = new ToolStripMenuItem(Strings.MenuTool);
             foreach (ISchetsTool tool in tools)
             {
-                ToolStripItem item = new ToolStripMenuItem();
+                ToolStripItem item = new ToolStripMenuItem(Strings.MenuTool);
                 item.Tag = tool;
                 item.Text = tool.ToString();
-                item.Image = (Image)resourcemanager.GetObject(tool.ToString());
+                item.Image = tool.Icoon();
                 item.Click += this.klikToolMenu;
                 menu.DropDownItems.Add(item);
             }
@@ -227,16 +226,16 @@ namespace SchetsEditor
 
         private void maakActieMenu(String[] kleuren)
         {
-            ToolStripMenuItem menu = new ToolStripMenuItem("&Actie");
-            menu.DropDownItems.Add(new ToolStripMenuItem("&Undo", null, schetscontrol.Undo, Keys.Control | Keys.Z));
-            menu.DropDownItems.Add(new ToolStripMenuItem("R&edo", null, schetscontrol.Redo, Keys.Control | Keys.Y));
-            menu.DropDownItems.Add("&Clear", null, schetscontrol.Schoon);
-            menu.DropDownItems.Add("&Roteer", null, schetscontrol.Roteer);
-            ToolStripMenuItem submenu = new ToolStripMenuItem("Kies &kleur");
+            ToolStripMenuItem menu = new ToolStripMenuItem(Strings.MenuActie);
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.ActieUndo, null, schetscontrol.Undo, Keys.Control | Keys.Z));
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.ActieRedo, null, schetscontrol.Redo, Keys.Control | Keys.Y));
+            menu.DropDownItems.Add(Strings.ActieClear, null, schetscontrol.Schoon);
+            menu.DropDownItems.Add(Strings.ActieRoteer, null, schetscontrol.Roteer);
+            ToolStripMenuItem submenu = new ToolStripMenuItem(Strings.ActieKiesKleur);
             foreach (string k in kleuren)
                 submenu.DropDownItems.Add(k, null, schetscontrol.VeranderKleurViaMenu);
             menu.DropDownItems.Add(submenu);
-            submenu = new ToolStripMenuItem("Kies &dikte");
+            submenu = new ToolStripMenuItem(Strings.ActieKiesDikte);
             for (int i = 1; i <= 20; i++)
                 submenu.DropDownItems.Add(i.ToString(), null, schetscontrol.VeranderDikteViaMenu);
             menu.DropDownItems.Add(submenu);
@@ -254,7 +253,7 @@ namespace SchetsEditor
                 b.Location = new Point(10, 10 + t * 62);
                 b.Tag = tool;
                 b.Text = tool.ToString();
-                b.Image = (Image)resourcemanager.GetObject(tool.ToString());
+                b.Image = tool.Icoon();
                 b.TextAlign = ContentAlignment.TopCenter;
                 b.ImageAlign = ContentAlignment.BottomCenter;
                 b.Click += this.klikToolButton;
@@ -273,19 +272,19 @@ namespace SchetsEditor
 
             Button b; Label l; ComboBox cbb;
             b = new Button();
-            b.Text = "Clear";
+            b.Text = Strings.ActieClear;
             b.Location = new Point(0, 0);
             b.Click += schetscontrol.Schoon;
             paneel.Controls.Add(b);
 
             b = new Button();
-            b.Text = "Rotate";
+            b.Text = Strings.ActieRoteer;
             b.Location = new Point(80, 0);
             b.Click += schetscontrol.Roteer;
             paneel.Controls.Add(b);
 
             l = new Label();
-            l.Text = "Penkleur:";
+            l.Text = Strings.LabelPenkleur;
             l.Location = new Point(180, 3);
             l.AutoSize = true;
             paneel.Controls.Add(l);
@@ -300,7 +299,7 @@ namespace SchetsEditor
             paneel.Controls.Add(cbb);
 
             l = new Label();
-            l.Text = "Pendikte:";
+            l.Text = Strings.LabelPendikte;
             l.Location = new Point(310, 3);
             l.AutoSize = true;
             paneel.Controls.Add(l);

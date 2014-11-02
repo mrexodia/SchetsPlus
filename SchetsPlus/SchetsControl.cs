@@ -83,7 +83,7 @@ namespace SchetsEditor
 
         private void veranderKleurVanNaam(string kleurNaam)
         {
-            if (kleurNaam == "Anders...")
+            if (kleurNaam == Strings.KiesKleur)
             {
                 ColorDialog cd = new ColorDialog();
                 if (cd.ShowDialog(this) == DialogResult.OK)

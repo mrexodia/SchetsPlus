@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using SchetsEditor.Properties;
 
 namespace SchetsEditor
 {
 
     public interface ISchetsTool
     {
+        Image Icoon();
         void MuisVast(SchetsControl s, Point p);
         void MuisDrag(SchetsControl s, Point p);
         void MuisLos(SchetsControl s, Point p);
@@ -18,7 +20,12 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "gum";
+            return Strings.ToolGumTekst;
+        }
+
+        public Image Icoon()
+        {
+            return Resources.gum;
         }
 
         public void MuisVast(SchetsControl s, Point p)
@@ -52,6 +59,11 @@ namespace SchetsEditor
     {
         protected SchetsObject obj;
 
+        public virtual Image Icoon()
+        {
+            return null;
+        }
+
         public virtual void MuisVast(SchetsControl s, Point p)
         {
             obj.kleur = s.PenKleur;
@@ -81,7 +93,12 @@ namespace SchetsEditor
 
         public override string ToString()
         {
-            return "pen";
+            return Strings.ToolPenTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.pen;
         }
 
         public override void MuisVast(SchetsControl s, Point p)
@@ -120,7 +137,12 @@ namespace SchetsEditor
 
         public override string ToString()
         {
-            return "tekst";
+            return Strings.ToolTekstTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.tekst;
         }
 
         public override void MuisVast(SchetsControl s, Point p)
@@ -159,7 +181,12 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "lijn";
+            return Strings.ToolLijnTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.lijn;
         }
 
         public override void MuisVast(SchetsControl s, Point p)
@@ -173,7 +200,12 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "kader";
+            return Strings.ToolKaderTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.kader;
         }
 
         public override void MuisVast(SchetsControl s, Point p)
@@ -187,7 +219,12 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "vlak";
+            return Strings.ToolVlakTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.vlak;
         }
 
         public override void MuisVast(SchetsControl s, Point p)
@@ -201,7 +238,12 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "ellips";
+            return Strings.ToolEllipsTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.ellips;
         }
 
         public override void MuisVast(SchetsControl s, Point p)
@@ -215,7 +257,12 @@ namespace SchetsEditor
     {
         public override string ToString()
         {
-            return "vullips";
+            return Strings.ToolVullipsTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.vullips;
         }
 
         public override void MuisVast(SchetsControl s, Point p)

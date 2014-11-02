@@ -15,7 +15,7 @@ namespace SchetsEditor
             this.Controls.Add(menuStrip);
             this.maakFileMenu();
             this.maakHelpMenu();
-            this.Text = "SchetsPlus";
+            this.Text = Strings.SchetsPlusTitel;
             this.IsMdiContainer = true;
             this.MainMenuStrip = menuStrip;
         }
@@ -23,27 +23,23 @@ namespace SchetsEditor
         private void maakFileMenu()
         {
             ToolStripDropDownItem menu;
-            menu = new ToolStripMenuItem("&File");
-            menu.DropDownItems.Add(new ToolStripMenuItem("&Nieuw", null, this.nieuw, Keys.Control|Keys.N));
-            menu.DropDownItems.Add(new ToolStripMenuItem("&Openen", null, this.openen, Keys.Control | Keys.O));
+            menu = new ToolStripMenuItem(Strings.MenuFile);
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.FileNieuw, null, this.nieuw, Keys.Control|Keys.N));
+            menu.DropDownItems.Add(new ToolStripMenuItem(Strings.FileOpenen, null, this.openen, Keys.Control | Keys.O));
             menuStrip.Items.Add(menu);
         }
 
         private void maakHelpMenu()
         {
             ToolStripDropDownItem menu;
-            menu = new ToolStripMenuItem("&Help");
-            menu.DropDownItems.Add("&Over \"SchetsPlus\"", null, this.about);
+            menu = new ToolStripMenuItem(Strings.MenuHelp);
+            menu.DropDownItems.Add(Strings.HelpOver, null, this.about);
             menuStrip.Items.Add(menu);
         }
 
         private void about(object o, EventArgs ea)
         {
-            MessageBox.Show("SchetsPlus versie 1.0\n(c) UU Informatica 2014"
-                           , "Over \"SchetsPlus\""
-                           , MessageBoxButtons.OK
-                           , MessageBoxIcon.Information
-                           );
+            MessageBox.Show(Strings.OverTekst, Strings.OverTitel, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void nieuw(object sender, EventArgs e)
@@ -58,7 +54,7 @@ namespace SchetsEditor
             OpenFileDialog ofd = new OpenFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
-                Filter = "Schets Files (*.schets)|*.schets",
+                Filter = Strings.SchetsFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
@@ -73,7 +69,7 @@ namespace SchetsEditor
                     s.Show();
                 }
                 else
-                    MessageBox.Show("Er is een fout opgetreden bij het openen van het bestand!", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Strings.FoutOpenenTekst, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

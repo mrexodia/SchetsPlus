@@ -53,8 +53,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SchetsTool.cs" />
-    <Compile Include="Strings.nl.Designer.cs">
-      <DependentUpon>Strings.nl.resx</DependentUpon>
+    <Compile Include="Strings.en.Designer.cs">
+      <DependentUpon>Strings.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -74,9 +74,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Strings.nl.resx">
+    <EmbeddedResource Include="Strings.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.nl.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
