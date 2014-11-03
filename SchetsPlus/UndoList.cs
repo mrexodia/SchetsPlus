@@ -14,12 +14,19 @@ namespace SchetsEditor
         private class UndoAction<U>
         {
             public ActionType Type { get; private set; }
-            public U Value { get; private set; }
+            public List<U> Values { get; private set; }
 
             public UndoAction(ActionType type, U value)
             {
                 this.Type = type;
-                this.Value = value;
+                this.Values = new List<U>();
+                this.Values.Add(value);
+            }
+
+            public UndoAction(ActionType type, List<U> values)
+            {
+                this.Type = type;
+                this.Values = values;
             }
         }
 
@@ -57,10 +64,12 @@ namespace SchetsEditor
             switch (action.Type)
             {
                 case ActionType.Add:
-                    list.RemoveAt(list.LastIndexOf(action.Value));
+                    foreach (T value in action.Values)
+                        list.RemoveAt(list.LastIndexOf(value));
                     break;
                 case ActionType.Remove:
-                    list.Add(action.Value);
+                    foreach (T value in action.Values)
+                        list.Add(value);
                     break;
             }
             return true;
@@ -75,10 +84,12 @@ namespace SchetsEditor
             switch (action.Type)
             {
                 case ActionType.Add:
-                    list.Add(action.Value);
+                    foreach(T value in action.Values)
+                        list.Add(value);
                     break;
                 case ActionType.Remove:
-                    list.RemoveAt(list.LastIndexOf(action.Value));
+                    foreach (T value in action.Values)
+                        list.RemoveAt(list.LastIndexOf(value));
                     break;
             }
             return true;
