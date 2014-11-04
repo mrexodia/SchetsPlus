@@ -26,7 +26,7 @@ namespace SchetsEditor
             public UndoAction(ActionType type, List<U> values)
             {
                 this.Type = type;
-                this.Values = values;
+                this.Values = new List<U>(values);
             }
         }
 
@@ -114,8 +114,7 @@ namespace SchetsEditor
 
         public void Clear()
         {
-            foreach (T value in list)
-                addUndoAction(new UndoAction<T>(ActionType.Remove, value));
+            addUndoAction(new UndoAction<T>(ActionType.Remove, list));
             list.Clear();
         }
 
