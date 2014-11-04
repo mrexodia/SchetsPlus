@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     [DataContract, KnownType(typeof(PenObject)), KnownType(typeof(StartpuntObject))]
     public abstract class SchetsObject

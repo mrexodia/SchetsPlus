@@ -7,7 +7,7 @@ using System.Resources;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     public class SchetsWin : Form
     {
@@ -20,6 +20,7 @@ namespace SchetsEditor
 
         public SchetsWin()
         {
+            InitializeComponent();
             ISchetsTool[] deTools = { new PenTool(),
                                       new LijnTool(),
                                       new RechthoekTool(),
@@ -329,6 +330,20 @@ namespace SchetsEditor
             b.Location = new Point(cbb.Location.X + cbb.Width + 10, -1);
             b.Click += schetscontrol.VeranderFont;
             paneel.Controls.Add(b);
+        }
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SchetsWin));
+            this.SuspendLayout();
+            // 
+            // SchetsWin
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "SchetsWin";
+            this.ResumeLayout(false);
+
         }
     }
 }

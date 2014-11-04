@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     public class UndoList<T> : IEnumerable
     {

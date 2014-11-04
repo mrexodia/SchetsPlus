@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     public class Hoofdscherm : Form
     {
@@ -10,6 +10,7 @@ namespace SchetsEditor
 
         public Hoofdscherm()
         {
+            InitializeComponent();
             this.ClientSize = new Size(800, 600);
             menuStrip = new MenuStrip();
             this.Controls.Add(menuStrip);
@@ -71,6 +72,20 @@ namespace SchetsEditor
                 else
                     MessageBox.Show(Strings.FoutOpenenTekst, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hoofdscherm));
+            this.SuspendLayout();
+            // 
+            // Hoofdscherm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Hoofdscherm";
+            this.ResumeLayout(false);
+
         }
     }
 }

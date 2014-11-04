@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     public class SchetsControl : UserControl
     {

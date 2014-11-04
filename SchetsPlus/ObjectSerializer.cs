@@ -5,7 +5,7 @@ using System.Xml;
 using System.Text;
 using System.IO.Compression;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     //Met dank aan: http://www.albahari.com/nutshell/ch15.aspx voor leerzame voorbeelden
     public class ObjectSerializer

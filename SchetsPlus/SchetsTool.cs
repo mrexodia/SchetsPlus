@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using SchetsEditor.Properties;
+using SchetsPlus.Properties;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
 
     public interface ISchetsTool

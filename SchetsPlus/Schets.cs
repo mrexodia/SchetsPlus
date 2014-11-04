@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Runtime.Serialization;
 using System.Drawing.Imaging;
 
-namespace SchetsEditor
+namespace SchetsPlus
 {
     public class Schets
     {
