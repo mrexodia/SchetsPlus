@@ -42,7 +42,9 @@ Met de `LayerTool` kunnen objecten met de linkermuisknop helemaal bovenop de sta
 
 De `PickerTool` kan gebruikt worden om een kleur te selecteren door deze aan te klikken in de schets.
 
-`MoverTool` wordt gebruikt om objecten over de schets te bewegen. `SchetsObject` heeft een abstracte methode genaamd `Beweeg()` die moet worden geïmplementeerd door een object. Verder was het nodig voor Undo/Redo om een `Copy()`-methode in `SchetsObject` te maken. 
+`MoverTool` wordt gebruikt om objecten over de schets te bewegen. `SchetsObject` heeft een abstracte methode genaamd `Beweeg()` die moet worden geïmplementeerd door een object. Verder was het nodig voor Undo/Redo om een `Copy()`-methode in `SchetsObject` te maken.
+
+Om objecten van kleur te veranderen kan de `VerfTool` gebruikt worden. Deze tool gebruikt net als de `MoverTool` de `Copy()`-methode van `SchetsObject` om de wijzigingen in de `UndoList` op te slaan.
 
 Het is mogelijk om de kleur 'Anders...' te selecteren die een `ColorDialog` opent, waar de gebruiker een groot aantal kleuren kan kiezen en ook zelf kan samenstellen.
 
