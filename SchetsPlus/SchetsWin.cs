@@ -196,6 +196,7 @@ namespace SchetsPlus
             this.Refresh();
             this.Text = Path.GetFileNameWithoutExtension(bestandsnaam);
             this.bestandsnaam = bestandsnaam;
+            this.schetscontrol.Verandering = false;
             return true;
         }
 

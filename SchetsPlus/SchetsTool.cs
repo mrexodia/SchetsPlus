@@ -99,16 +99,10 @@ namespace SchetsPlus
             int index = SchetsTool.GekliktObject(s, p);
             if (index == SchetsTool.GeenObject)
                 return;
-            if (b == MouseButtons.Right) //naar boven
-            {
-                if (index >= 1)
-                    s.Objecten.Swap(index, index - 1);
-            }
-            else if (b == MouseButtons.Left) //naar beneden
-            {
-                if (index < s.Objecten.Count - 1)
-                    s.Objecten.Swap(index, index + 1);
-            }
+            if (b == MouseButtons.Left) //naar boven (voor het oog)
+                s.Objecten.MoveToBack(index);
+            else if (b == MouseButtons.Right) //naar beneden (voor het oog)
+                s.Objecten.MoveToFront(index);
             s.Refresh();
         }
 

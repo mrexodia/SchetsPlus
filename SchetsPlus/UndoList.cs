@@ -121,8 +121,8 @@ namespace SchetsPlus
         public int GetListHash()
         {
             int hash = 0;
-            foreach (T value in list)
-                hash += value.GetHashCode();
+            for (int i = 0; i < list.Count; i++)
+                hash += list[i].GetHashCode() * (i + 1);
             return hash;
         }
 
@@ -161,6 +161,36 @@ namespace SchetsPlus
             list[index1] = value2;
             list[index2] = value1;
             addUndoAction(new UndoAction<T>(ActionType.Swap, new List<T>() { value1, value2 }));
+        }
+
+        public void MoveToFront(int index)
+        {
+            List<T> actionList = new List<T>();
+            for (int i = index; i >= 1; i--)
+            {
+                T value1 = list[i];
+                T value2 = list[i - 1];
+                list[i] = value2;
+                list[i - 1] = value1;
+                actionList.Add(value1);
+                actionList.Add(value2);
+            }
+            addUndoAction(new UndoAction<T>(ActionType.Swap, actionList));
+        }
+
+        public void MoveToBack(int index)
+        {
+            List<T> actionList = new List<T>();
+            for (int i = index; i < list.Count - 1; i++)
+            {
+                T value1 = list[i];
+                T value2 = list[i + 1];
+                list[i] = value2;
+                list[i + 1] = value1;
+                actionList.Add(value1);
+                actionList.Add(value2);
+            }
+            addUndoAction(new UndoAction<T>(ActionType.Swap, actionList));
         }
 
         public T this[int index]
