@@ -23,4 +23,3 @@ Voor een volledig overzicht van alle veranderingen zie het commit log: https://g
 - Volledige selectie van kleuren met een ColorDialog
 - Control voor pendikte
 - Volledige mogelijkheden voor globalization (er kunnen eenvoudig vertalingen worden toegevoegd)
-- 
