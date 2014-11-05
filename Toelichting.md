@@ -40,13 +40,13 @@ Om ervoor te zorgen dat de gebruiker alle acties ongedaan kan maken, maar ook we
 
 Met de `LayerTool` kunnen objecten met de linkermuisknop helemaal bovenop de stapel worden geplaatst en met de rechtermuisknop helemaal onderop de stapel.
 
-De `PickerTool` kan gebruikt worden om een kleur te selecteren door deze aan te klikken in de schets.
+De `PipetTool` kan gebruikt worden om een kleur te selecteren door deze aan te klikken in de schets.
 
 `MoverTool` wordt gebruikt om objecten over de schets te bewegen. `SchetsObject` heeft een abstracte methode genaamd `Beweeg()` die moet worden geïmplementeerd door een object. Verder was het nodig voor Undo/Redo om een `Copy()`-methode in `SchetsObject` te maken.
 
 Om objecten van kleur te veranderen kan de `VerfTool` gebruikt worden. Deze tool gebruikt net als de `MoverTool` de `Copy()`-methode van `SchetsObject` om de wijzigingen in de `UndoList` op te slaan.
 
-Het importeren van afbeeldingen van buitenaf wordt mogelijk met de `ImageTool`. De eerste keer dat je klikt kan de gebruiker een afbeelding selecteren en de tweede keer wordt deze geplaatst. De afbeelding wordt **in** het .schets bestand opgeslagen, waardoor het .schets bestand op andere computers zonder problemen kan worden geopend.
+Het importeren van afbeeldingen van buitenaf wordt mogelijk met de `ImageTool`. Als de gebruiker klikt wordt een `OpenFileDialog` weergegeven waar de gebruiker de afbeelding kan selecteren, als de gebruiker een afbeelding selecteerd zal deze onmiddelijk in de schets worden geplaatst. De afbeelding wordt **in** het .schets bestand opgeslagen, waardoor het .schets bestand op andere computers zonder problemen kan worden geopend.
 
 Het is mogelijk om de kleur 'Anders...' te selecteren die een `ColorDialog` opent, waar de gebruiker een groot aantal kleuren kan kiezen en ook zelf kan samenstellen.
 

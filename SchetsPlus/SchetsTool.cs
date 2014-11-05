@@ -344,32 +344,25 @@ namespace SchetsPlus
 
         public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
-            if (obj == null)
+            OpenFileDialog ofd = new OpenFileDialog
             {
-                OpenFileDialog ofd = new OpenFileDialog
-                {
-                    InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
-                    Filter = Strings.ToolImageFilter,
-                    FilterIndex = 1,
-                    RestoreDirectory = true
-                };
+                InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
+                Filter = Strings.ToolImageFilter,
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        obj = new ImageObject { imageData = imageToByteArray(Image.FromFile(ofd.FileName)) };
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(Strings.FoutLadenImage, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                base.MuisVast(s, p, b);
-                obj = null;
+                try
+                {
+                    obj = new ImageObject { imageData = imageToByteArray(Image.FromFile(ofd.FileName)) };
+                    base.MuisVast(s, p, b);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Strings.FoutLadenImage, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
