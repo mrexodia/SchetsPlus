@@ -32,7 +32,7 @@ namespace SchetsPlus
         public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             int index = SchetsTool.GekliktObject(s, p);
-            if(index != SchetsTool.GeenObject)
+            if (index != SchetsTool.GeenObject)
             {
                 s.Objecten.RemoveAt(index);
                 s.Refresh();
@@ -96,6 +96,20 @@ namespace SchetsPlus
 
         public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
+            int index = SchetsTool.GekliktObject(s, p);
+            if (index == SchetsTool.GeenObject)
+                return;
+            if (b == MouseButtons.Right) //naar boven
+            {
+                if (index >= 1)
+                    s.Objecten.Swap(index, index - 1);
+            }
+            else if (b == MouseButtons.Left) //naar beneden
+            {
+                if (index < s.Objecten.Count - 1)
+                    s.Objecten.Swap(index, index + 1);
+            }
+            s.Refresh();
         }
 
         public void MuisDrag(SchetsControl s, Point p)

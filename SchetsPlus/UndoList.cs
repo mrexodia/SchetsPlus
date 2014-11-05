@@ -8,7 +8,8 @@ namespace SchetsPlus
         private enum ActionType
         {
             Add,
-            Remove
+            Remove,
+            Swap
         }
 
         private class UndoAction<U>
@@ -71,6 +72,17 @@ namespace SchetsPlus
                     foreach (T value in action.Values)
                         list.Add(value);
                     break;
+                case ActionType.Swap:
+                    {
+                        for (int i = action.Values.Count - 1; i >= 0; i -= 2)
+                        {
+                            T value1 = action.Values[i];
+                            T value2 = action.Values[i - 1];
+                            list[list.IndexOf(value2)] = value1;
+                            list[list.IndexOf(value1)] = value2;
+                        }
+                    }
+                    break;
             }
             return true;
         }
@@ -90,6 +102,17 @@ namespace SchetsPlus
                 case ActionType.Remove:
                     foreach (T value in action.Values)
                         list.RemoveAt(list.LastIndexOf(value));
+                    break;
+                case ActionType.Swap:
+                    {
+                        for (int i = action.Values.Count - 1; i >= 0; i -= 2)
+                        {
+                            T value1 = action.Values[i - 1];
+                            T value2 = action.Values[i];
+                            list[list.IndexOf(value2)] = value1;
+                            list[list.IndexOf(value1)] = value2;
+                        }
+                    }
                     break;
             }
             return true;
@@ -129,6 +152,15 @@ namespace SchetsPlus
         public List<T> CopyList()
         {
             return new List<T>(list);
+        }
+
+        public void Swap(int index1, int index2)
+        {
+            T value1 = list[index1];
+            T value2 = list[index2];
+            list[index1] = value2;
+            list[index2] = value1;
+            addUndoAction(new UndoAction<T>(ActionType.Swap, new List<T>() { value1, value2 }));
         }
 
         public T this[int index]
