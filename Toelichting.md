@@ -50,7 +50,7 @@ Om het lettertype van de `TekstTool` aan te passen is een knop toegevoegd, die e
 
 De `TekstTool` heeft nu de mogelijkheid om letters te verwijderen met backspace.
 
-Het is mogelijk om het programma in zijn geheel te vertalen. Hierbij is gebruik gemaakt van resources in meerdere talen. Omdat we geen vertaalbureau tot onze beschikking hebben zijn alleen de talen Nederlands en Engels beschikbaar. Het kost echter weinig moeite om vertalingen toe te voegen. De taal wordt automatisch aangepast aan de taal van het OS. De standaard is Engels.
+Het is mogelijk om het programma in zijn geheel te vertalen. Hierbij is gebruik gemaakt van resources in meerdere talen. Omdat we geen vertaalbureau tot onze beschikking hebben zijn alleen de talen Nederlands en Engels beschikbaar. Het kost echter weinig moeite om vertalingen toe te voegen. De taal wordt automatisch aangepast aan de taal van het OS. De standaard is Engels. Door de vertalingsmogelijkheid was het nodig om een methode `Icoon()` aan de ISchetsTool interface toe te voegen omdat de `ToString()` methode nu taalafhangkelijk is.
 
 ##Andere (kleine) zaken
 
