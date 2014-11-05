@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using SchetsPlus.Properties;
 
 namespace SchetsPlus
@@ -10,7 +11,7 @@ namespace SchetsPlus
     public interface ISchetsTool
     {
         Image Icoon();
-        void MuisVast(SchetsControl s, Point p);
+        void MuisVast(SchetsControl s, Point p, MouseButtons b);
         void MuisDrag(SchetsControl s, Point p);
         void MuisLos(SchetsControl s, Point p);
         void Letter(SchetsControl s, char c);
@@ -28,7 +29,7 @@ namespace SchetsPlus
             return Resources.gum;
         }
 
-        public void MuisVast(SchetsControl s, Point p)
+        public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             int index = SchetsTool.GekliktObject(s, p);
             if(index != SchetsTool.GeenObject)
@@ -63,7 +64,7 @@ namespace SchetsPlus
             return Resources.pipet;
         }
 
-        public void MuisVast(SchetsControl s, Point p)
+        public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             s.PenKleur = s.schets.bitmap.GetPixel(p.X, p.Y);
         }
@@ -103,7 +104,7 @@ namespace SchetsPlus
             return GeenObject;
         }
 
-        public virtual void MuisVast(SchetsControl s, Point p)
+        public virtual void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj.kleur = s.PenKleur;
             s.Objecten.Add(obj);
@@ -139,11 +140,11 @@ namespace SchetsPlus
             return Resources.pen;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             startpunt = p;
             obj = new PenObject { dikte = s.PenDikte };
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
 
         public override void MuisDrag(SchetsControl s, Point p)
@@ -157,10 +158,10 @@ namespace SchetsPlus
 
     public abstract class StartpuntTool : SchetsTool
     {
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             ((StartpuntObject)obj).startpunt = p;
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
     }
 
@@ -183,10 +184,10 @@ namespace SchetsPlus
             return Resources.tekst;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj = new TekstObject { font = s.TekstFont };
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
 
         public override void Letter(SchetsControl s, char c)
@@ -202,10 +203,10 @@ namespace SchetsPlus
 
     public abstract class TweepuntTool : StartpuntTool
     {
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             ((TweepuntObject)obj).eindpunt = p;
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
 
         public override void MuisDrag(SchetsControl s, Point p)
@@ -227,10 +228,10 @@ namespace SchetsPlus
             return Resources.lijn;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj = new LijnObject { dikte = s.PenDikte };
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
     }
 
@@ -246,10 +247,10 @@ namespace SchetsPlus
             return Resources.kader;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj = new RechthoekObject { dikte = s.PenDikte };
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
     }
 
@@ -265,10 +266,10 @@ namespace SchetsPlus
             return Resources.vlak;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj = new VolRechthoekObject();
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
     }
 
@@ -284,10 +285,10 @@ namespace SchetsPlus
             return Resources.ellips;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj = new EllipsObject { dikte = s.PenDikte };
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
     }
 
@@ -303,10 +304,10 @@ namespace SchetsPlus
             return Resources.vullips;
         }
 
-        public override void MuisVast(SchetsControl s, Point p)
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             obj = new VolEllipsObject();
-            base.MuisVast(s, p);
+            base.MuisVast(s, p, b);
         }
     }
 }

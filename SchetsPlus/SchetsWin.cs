@@ -44,7 +44,7 @@ namespace SchetsPlus
             schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
             {
                 vast = true;
-                huidigeTool.MuisVast(schetscontrol, mea.Location);
+                huidigeTool.MuisVast(schetscontrol, mea.Location, mea.Button);
             };
             schetscontrol.MouseMove += (object o, MouseEventArgs mea) =>
             {
@@ -118,8 +118,8 @@ namespace SchetsPlus
             {
                 MessageBox.Show(Strings.FoutOpslaanTekst, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.bestandsnaam = bestandsnaam;
             this.Text = Path.GetFileNameWithoutExtension(bestandsnaam);
+            this.bestandsnaam = bestandsnaam;
             this.schetscontrol.Verandering = false;
         }
 
