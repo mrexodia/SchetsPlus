@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Resources;
 using System.Drawing.Imaging;
 using System.IO;
+using SchetsPlus.Properties;
 
 namespace SchetsPlus
 {
