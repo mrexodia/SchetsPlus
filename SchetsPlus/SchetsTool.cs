@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using SchetsPlus.Properties;
+using System.IO;
 
 namespace SchetsPlus
 {
@@ -203,7 +205,7 @@ namespace SchetsPlus
     public abstract class SchetsTool : ISchetsTool
     {
         public const int GeenObject = -1;
-        protected SchetsObject obj;
+        protected SchetsObject obj = null;
 
         public virtual Image Icoon()
         {
@@ -316,6 +318,59 @@ namespace SchetsPlus
             else if (c == '\b') //backspace
                 obj.tekst = backspace(obj.tekst);
             base.Letter(s, c);
+        }
+    }
+
+    public class ImageTool : StartpuntTool
+    {
+        private byte[] imageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+
+        public override string ToString()
+        {
+            return Strings.ToolImageTekst;
+        }
+
+        public override Image Icoon()
+        {
+            return Resources.image;
+        }
+
+        public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
+        {
+            if (obj == null)
+            {
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures),
+                    Filter = Strings.ToolImageFilter,
+                    FilterIndex = 1,
+                    RestoreDirectory = true
+                };
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        obj = new ImageObject { imageData = imageToByteArray(Image.FromFile(ofd.FileName)) };
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(Strings.FoutLadenImage, Strings.FoutTitel, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                base.MuisVast(s, p, b);
+                obj = null;
+            }
         }
     }
 

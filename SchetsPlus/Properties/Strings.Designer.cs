@@ -196,6 +196,15 @@ namespace SchetsPlus.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error loading this image!.
+        /// </summary>
+        internal static string FoutLadenImage {
+            get {
+                return ResourceManager.GetString("FoutLadenImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error openening this file!.
         /// </summary>
         internal static string FoutOpenenTekst {
@@ -355,6 +364,24 @@ namespace SchetsPlus.Properties {
         internal static string ToolGumTekst {
             get {
                 return ResourceManager.GetString("ToolGumTekst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Images|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff.
+        /// </summary>
+        internal static string ToolImageFilter {
+            get {
+                return ResourceManager.GetString("ToolImageFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to image.
+        /// </summary>
+        internal static string ToolImageTekst {
+            get {
+                return ResourceManager.GetString("ToolImageTekst", resourceCulture);
             }
         }
         

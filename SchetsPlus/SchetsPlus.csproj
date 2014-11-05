@@ -129,6 +129,7 @@
     <None Include="Resources\pipet.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\image.png" />
     <Content Include="Resources\verf.png" />
     <None Include="Resources\lagen.png" />
     <Content Include="Resources\mover.png" />

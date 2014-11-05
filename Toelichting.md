@@ -46,6 +46,8 @@ De `PickerTool` kan gebruikt worden om een kleur te selecteren door deze aan te 
 
 Om objecten van kleur te veranderen kan de `VerfTool` gebruikt worden. Deze tool gebruikt net als de `MoverTool` de `Copy()`-methode van `SchetsObject` om de wijzigingen in de `UndoList` op te slaan.
 
+Het importeren van afbeeldingen van buitenaf wordt mogelijk met de `ImageTool`. De eerste keer dat je klikt kan de gebruiker een afbeelding selecteren en de tweede keer wordt deze geplaatst. De afbeelding wordt **in** het .schets bestand opgeslagen, waardoor het .schets bestand op andere computers zonder problemen kan worden geopend.
+
 Het is mogelijk om de kleur 'Anders...' te selecteren die een `ColorDialog` opent, waar de gebruiker een groot aantal kleuren kan kiezen en ook zelf kan samenstellen.
 
 Er is een control voor de dikte van de pen toegevoegd. Deze dikte gaat van 1-20, maar het is mogelijk om het maximum aan te passen met een constante.

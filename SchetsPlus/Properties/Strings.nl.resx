@@ -162,6 +162,9 @@
   <data name="FoutExporterenTekst" xml:space="preserve">
     <value>Er is een fout opgetreden bij het exporteren!</value>
   </data>
+  <data name="FoutLadenImage" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het laden van de afbeelding!</value>
+  </data>
   <data name="FoutOpenenTekst" xml:space="preserve">
     <value>Er is een fout opgetreden bij het openen van het bestand!</value>
   </data>
@@ -206,7 +209,7 @@
     <value>Over "SchetsPlus"</value>
   </data>
   <data name="SchetsFilter" xml:space="preserve">
-    <value>Schets Files (*.schets)|*.schets</value>
+    <value>Schetsbestanden (*.schets)|*.schets</value>
   </data>
   <data name="SchetsPlusTitel" xml:space="preserve">
     <value>SchetsPlus</value>
@@ -216,6 +219,12 @@
   </data>
   <data name="ToolGumTekst" xml:space="preserve">
     <value>gum</value>
+  </data>
+  <data name="ToolImageFilter" xml:space="preserve">
+    <value>Afbeeldingen|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff</value>
+  </data>
+  <data name="ToolImageTekst" xml:space="preserve">
+    <value>foto</value>
   </data>
   <data name="ToolKaderTekst" xml:space="preserve">
     <value>kader</value>

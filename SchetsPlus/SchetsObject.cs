@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
+using System.IO;
 
 namespace SchetsPlus
 {
@@ -101,7 +103,7 @@ namespace SchetsPlus
         }
     }
 
-    [DataContract, KnownType(typeof(TekstObject)), KnownType(typeof(TweepuntObject))]
+    [DataContract, KnownType(typeof(TekstObject)), KnownType(typeof(ImageObject)), KnownType(typeof(TweepuntObject))]
     public abstract class StartpuntObject : SchetsObject
     {
         [DataMember]
@@ -131,6 +133,22 @@ namespace SchetsPlus
         public override void Teken(Graphics g)
         {
             g.DrawString(tekst, font, MaakBrush(), startpunt, StringFormat.GenericTypographic);
+        }
+    }
+
+    [DataContract]
+    public class ImageObject : StartpuntObject
+    {
+        [DataMember]
+        public byte[] imageData;
+
+        public override void Teken(Graphics g)
+        {
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                Image realImage = Image.FromStream(ms);
+                g.DrawImage(Image.FromStream(ms), startpunt);
+            }
         }
     }
 

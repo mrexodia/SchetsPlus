@@ -162,6 +162,9 @@
   <data name="FoutExporterenTekst" xml:space="preserve">
     <value>There was an error exporting the file!</value>
   </data>
+  <data name="FoutLadenImage" xml:space="preserve">
+    <value>There was an error loading this image!</value>
+  </data>
   <data name="FoutOpenenTekst" xml:space="preserve">
     <value>There was an error openening this file!</value>
   </data>
@@ -216,6 +219,12 @@
   </data>
   <data name="ToolGumTekst" xml:space="preserve">
     <value>eraser</value>
+  </data>
+  <data name="ToolImageFilter" xml:space="preserve">
+    <value>Images|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff</value>
+  </data>
+  <data name="ToolImageTekst" xml:space="preserve">
+    <value>image</value>
   </data>
   <data name="ToolKaderTekst" xml:space="preserve">
     <value>box</value>
