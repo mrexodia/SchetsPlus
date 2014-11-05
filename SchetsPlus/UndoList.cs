@@ -9,7 +9,8 @@ namespace SchetsPlus
         {
             Add,
             Remove,
-            Swap
+            Swap,
+            Replace
         }
 
         private class UndoAction<U>
@@ -83,6 +84,9 @@ namespace SchetsPlus
                         }
                     }
                     break;
+                case ActionType.Replace:
+                    list[list.IndexOf(action.Values[1])] = action.Values[0];
+                    break;
             }
             return true;
         }
@@ -113,6 +117,9 @@ namespace SchetsPlus
                             list[list.IndexOf(value1)] = value2;
                         }
                     }
+                    break;
+                case ActionType.Replace:
+                    list[list.IndexOf(action.Values[0])] = action.Values[1];
                     break;
             }
             return true;
@@ -193,6 +200,13 @@ namespace SchetsPlus
             addUndoAction(new UndoAction<T>(ActionType.Swap, actionList));
         }
 
+        public void Replace(int index, T value)
+        {
+            T oldvalue = list[index];
+            list[index] = value;
+            addUndoAction(new UndoAction<T>(ActionType.Replace, new List<T>() { oldvalue, value }));
+        }
+
         public T this[int index]
         {
             get
@@ -201,7 +215,7 @@ namespace SchetsPlus
             }
             set
             {
-                list[index] = value;
+                Replace(index, value);
             }
         }
     }

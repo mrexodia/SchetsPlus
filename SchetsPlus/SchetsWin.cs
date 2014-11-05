@@ -316,7 +316,7 @@ namespace SchetsPlus
 
             l = new Label();
             l.Text = Strings.LabelPendikte;
-            l.Location = new Point(cbb.Location.X + cbb.Width +10, 3);
+            l.Location = new Point(cbb.Location.X + cbb.Width + 10, 3);
             l.AutoSize = true;
             paneel.Controls.Add(l);
 

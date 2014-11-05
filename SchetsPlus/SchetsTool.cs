@@ -122,6 +122,9 @@ namespace SchetsPlus
 
     public class MoverTool : ISchetsTool
     {
+        private Point startpunt;
+        private SchetsObject obj;
+
         public override string ToString()
         {
             return Strings.ToolMoverTekst;
@@ -134,10 +137,20 @@ namespace SchetsPlus
 
         public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
+            int index = SchetsTool.GekliktObject(s, p);
+            if (index == SchetsTool.GeenObject)
+                return;
+            startpunt = p;
+            s.Objecten[index] = obj = s.Objecten[index].Copy();
         }
 
         public void MuisDrag(SchetsControl s, Point p)
         {
+            int dx = p.X - startpunt.X;
+            int dy = p.Y - startpunt.Y;
+            startpunt = p;
+            obj.Beweeg(dx, dy);
+            s.Refresh();
         }
 
         public void MuisLos(SchetsControl s, Point p)

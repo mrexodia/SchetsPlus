@@ -17,6 +17,11 @@ namespace SchetsPlus
 
         public const int Correctie = 2;
 
+        public SchetsObject Copy()
+        {
+            return (SchetsObject)this.MemberwiseClone();
+        }
+
         public Brush MaakBrush()
         {
             return new SolidBrush(kleur);
@@ -60,6 +65,7 @@ namespace SchetsPlus
 
         public abstract void Teken(Graphics g);
         public abstract void Roteer(Size size);
+        public abstract void Beweeg(int dx, int dy);
     }
 
     [DataContract]
@@ -87,6 +93,12 @@ namespace SchetsPlus
             foreach (LijnObject lijn in lijnen)
                 lijn.Roteer(size);
         }
+
+        public override void Beweeg(int dx, int dy)
+        {
+            foreach (LijnObject lijn in lijnen)
+                lijn.Beweeg(dx, dy);
+        }
     }
 
     [DataContract, KnownType(typeof(TekstObject)), KnownType(typeof(TweepuntObject))]
@@ -98,6 +110,12 @@ namespace SchetsPlus
         public override void Roteer(Size size)
         {
             startpunt = SchetsObject.RotatePoint(startpunt, size);
+        }
+
+        public override void Beweeg(int dx, int dy)
+        {
+            startpunt.X += dx;
+            startpunt.Y += dy;
         }
     }
 
@@ -183,6 +201,13 @@ namespace SchetsPlus
         {
             base.Roteer(size);
             eindpunt = SchetsObject.RotatePoint(eindpunt, size);
+        }
+
+        public override void Beweeg(int dx, int dy)
+        {
+            base.Beweeg(dx, dy);
+            eindpunt.X += dx;
+            eindpunt.Y += dy;
         }
     }
 
