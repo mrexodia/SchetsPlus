@@ -368,6 +368,15 @@ namespace SchetsPlus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to lagen.
+        /// </summary>
+        internal static string ToolLayerTekst {
+            get {
+                return ResourceManager.GetString("ToolLayerTekst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to lijn.
         /// </summary>
         internal static string ToolLijnTekst {

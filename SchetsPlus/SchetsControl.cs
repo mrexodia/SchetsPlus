@@ -110,6 +110,7 @@ namespace SchetsPlus
             if (kleurNaam == Strings.KiesKleur)
             {
                 ColorDialog cd = new ColorDialog();
+                cd.Color = PenKleur;
                 if (cd.ShowDialog(this) == DialogResult.OK)
                     PenKleur = cd.Color;
             }

@@ -129,6 +129,7 @@
     <None Include="Resources\pipet.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\lagen.png" />
     <Content Include="schetsplus.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

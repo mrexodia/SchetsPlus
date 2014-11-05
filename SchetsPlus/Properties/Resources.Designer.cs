@@ -93,6 +93,16 @@ namespace SchetsPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap lagen {
+            get {
+                object obj = ResourceManager.GetObject("lagen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lijn {
             get {
                 object obj = ResourceManager.GetObject("lijn", resourceCulture);

@@ -220,6 +220,9 @@
   <data name="ToolKaderTekst" xml:space="preserve">
     <value>box</value>
   </data>
+  <data name="ToolLayerTekst" xml:space="preserve">
+    <value>layer</value>
+  </data>
   <data name="ToolLijnTekst" xml:space="preserve">
     <value>line</value>
   </data>
