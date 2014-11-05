@@ -34,13 +34,15 @@ Voor het exporteren naar gangbare afbeeldingsformaten (BMP, JPG, PNG) wordt gebr
 
 ##Undo/Redo knop in het menu
 
-Om ervoor te zorgen dat de gebruiker alle acties ongedaan kan maken, maar ook weer opnieuw kan doen wordt er gebruik gemaakt van een zogenaamde `UndoList`. Deze lijst heeft (min of meer) dezelfde functionaliteit van de `List`-klasse, maar houdt daarnaast ook alle veranderingen bij. Voor een uitgebreidere toelichting, zie deze post (de klasse is wel ontwikkeld door ons): http://mrexodia.cf/coding/2014/11/01/UndoList
+Om ervoor te zorgen dat de gebruiker alle acties ongedaan kan maken, maar ook weer opnieuw kan doen wordt er gebruik gemaakt van een zogenaamde `UndoList`. Deze lijst heeft (min of meer) dezelfde functionaliteit van de `List`-klasse, maar houdt daarnaast ook alle veranderingen bij. Voor een uitgebreidere toelichting, zie deze post (de klasse is wel ontwikkeld door ons): http://mrexodia.cf/coding/2014/11/01/UndoList. Een limitatie van de `UndoList` klasse is dat er met objecten met een unieke referentie moet worden gewerkt. Een object kan niet twee keer in de lijst zitten zonder dat bepaalde functies stoppen te werken. Dit is voor onze doeleinden geen probleem.
 
 ##Andere toevoegingen/wijzigingen
 
 Met de `LayerTool` kunnen objecten met de linkermuisknop helemaal bovenop de stapel worden geplaatst en met de rechtermuisknop helemaal onderop de stapel.
 
 De `PickerTool` kan gebruikt worden om een kleur te selecteren door deze aan te klikken in de schets.
+
+`MoverTool` wordt gebruikt om objecten over de schets te bewegen. `SchetsObject` heeft een abstracte methode genaamd `Beweeg()` die moet worden geïmplementeerd door een object. Verder was het nodig voor Undo/Redo om een `Copy()`-methode in `SchetsObject` te maken. 
 
 Het is mogelijk om de kleur 'Anders...' te selecteren die een `ColorDialog` opent, waar de gebruiker een groot aantal kleuren kan kiezen en ook zelf kan samenstellen.
 
