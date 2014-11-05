@@ -70,8 +70,15 @@ namespace SchetsPlus
                         list.RemoveAt(list.LastIndexOf(value));
                     break;
                 case ActionType.Remove:
-                    foreach (T value in action.Values)
-                        list.Add(value);
+                    for (int i = 0; i < action.Values.Count; i += 2)
+                    {
+                        T value = action.Values[i];
+                        T before = action.Values[i + 1];
+                        if (EqualityComparer<T>.Default.Equals(before, default(T)))
+                            list.Add(value);
+                        else
+                            list.Insert(list.IndexOf(before), value);
+                    }
                     break;
                 case ActionType.Swap:
                     {
@@ -104,8 +111,8 @@ namespace SchetsPlus
                         list.Add(value);
                     break;
                 case ActionType.Remove:
-                    foreach (T value in action.Values)
-                        list.RemoveAt(list.LastIndexOf(value));
+                    for (int i = 0; i < action.Values.Count; i += 2)
+                        list.RemoveAt(list.LastIndexOf(action.Values[0]));
                     break;
                 case ActionType.Swap:
                     {
@@ -146,13 +153,22 @@ namespace SchetsPlus
 
         public void RemoveAt(int index)
         {
-            addUndoAction(new UndoAction<T>(ActionType.Remove, list[index]));
+            T before = default(T);
+            if (index < list.Count - 1)
+                before = list[index + 1];
+            addUndoAction(new UndoAction<T>(ActionType.Remove, new List<T>() { list[index], before }));
             list.RemoveAt(index);
         }
 
         public void Clear()
         {
-            addUndoAction(new UndoAction<T>(ActionType.Remove, list));
+            List<T> actionList = new List<T>();
+            foreach (T value in list)
+            {
+                actionList.Add(value);
+                actionList.Add(default(T));
+            }
+            addUndoAction(new UndoAction<T>(ActionType.Remove, actionList));
             list.Clear();
         }
 
