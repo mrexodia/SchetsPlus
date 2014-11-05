@@ -16,6 +16,7 @@ namespace SchetsPlus
         SchetsControl schetscontrol;
         ISchetsTool huidigeTool;
         Panel paneel;
+        Panel toolPanel;
         bool vast;
         string bestandsnaam = "";
 
@@ -103,6 +104,7 @@ namespace SchetsPlus
             schetscontrol.Size = new Size(this.ClientSize.Width - 70
                                           , this.ClientSize.Height - 50);
             paneel.Location = new Point(schetscontrol.Location.X, this.ClientSize.Height - 30);
+            toolPanel.Size = new Size(65, this.ClientSize.Height - toolPanel.Location.Y);
         }
 
         private void klikToolMenu(object obj, EventArgs ea)
@@ -258,11 +260,11 @@ namespace SchetsPlus
 
         private void maakToolButtons(ICollection<ISchetsTool> tools)
         {
-            Panel p = new Panel();
-            p.AutoScroll = true;
-            p.Location = new Point(10, 10);
-            p.Size = new Size(65, this.ClientSize.Height - p.Location.Y);
-            this.Controls.Add(p);
+            toolPanel = new Panel();
+            toolPanel.AutoScroll = true;
+            toolPanel.Location = new Point(10, 10);
+            toolPanel.Size = new Size(65, this.ClientSize.Height - toolPanel.Location.Y);
+            this.Controls.Add(toolPanel);
 
             int t = 0;
             foreach (ISchetsTool tool in tools)
@@ -277,7 +279,7 @@ namespace SchetsPlus
                 b.TextAlign = ContentAlignment.TopCenter;
                 b.ImageAlign = ContentAlignment.BottomCenter;
                 b.Click += this.klikToolButton;
-                p.Controls.Add(b);
+                toolPanel.Controls.Add(b);
                 if (t == 0)
                     b.Select();
                 t++;
