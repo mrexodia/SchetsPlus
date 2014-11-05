@@ -30,15 +30,11 @@ namespace SchetsPlus
 
         public void MuisVast(SchetsControl s, Point p)
         {
-            for (int i = s.Objecten.Count - 1; i >= 0; i--)
+            int index = SchetsTool.GekliktObject(s, p);
+            if(index != SchetsTool.GeenObject)
             {
-                if (s.Objecten[i].Geklikt(s, p))
-                {
-                    s.Objecten.RemoveAt(i);
-                    s.verandering = true;
-                    s.Refresh();
-                    break;
-                }
+                s.Objecten.RemoveAt(index);
+                s.Refresh();
             }
         }
 
@@ -87,6 +83,7 @@ namespace SchetsPlus
 
     public abstract class SchetsTool : ISchetsTool
     {
+        public const int GeenObject = -1;
         protected SchetsObject obj;
 
         public virtual Image Icoon()
@@ -94,11 +91,22 @@ namespace SchetsPlus
             return null;
         }
 
+        public static int GekliktObject(SchetsControl s, Point p)
+        {
+            for (int i = s.Objecten.Count - 1; i >= 0; i--)
+            {
+                if (s.Objecten[i].Geklikt(s, p))
+                {
+                    return i;
+                }
+            }
+            return GeenObject;
+        }
+
         public virtual void MuisVast(SchetsControl s, Point p)
         {
             obj.kleur = s.PenKleur;
             s.Objecten.Add(obj);
-            s.verandering = true;
         }
 
         public virtual void MuisDrag(SchetsControl s, Point p)

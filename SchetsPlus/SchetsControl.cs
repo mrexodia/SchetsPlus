@@ -9,7 +9,20 @@ namespace SchetsPlus
     public class SchetsControl : UserControl
     {
         public Schets schets;
-        public bool verandering = false;
+        private int currentHash = 0;
+
+        public bool Verandering
+        {
+            get
+            {
+                return Objecten.GetListHash() != currentHash;
+            }
+            set
+            {
+                if (!value)
+                    currentHash = Objecten.GetListHash();
+            }
+        }
 
         public UndoList<SchetsObject> Objecten
         {
@@ -35,6 +48,7 @@ namespace SchetsPlus
             this.Paint += this.teken;
             this.Resize += this.veranderAfmeting;
             this.TekstFont = new Font("Tahoma", 20);
+            this.Verandering = false;
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

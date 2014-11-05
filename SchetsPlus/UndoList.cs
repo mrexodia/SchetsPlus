@@ -84,7 +84,7 @@ namespace SchetsPlus
             switch (action.Type)
             {
                 case ActionType.Add:
-                    foreach(T value in action.Values)
+                    foreach (T value in action.Values)
                         list.Add(value);
                     break;
                 case ActionType.Remove:
@@ -93,6 +93,14 @@ namespace SchetsPlus
                     break;
             }
             return true;
+        }
+
+        public int GetListHash()
+        {
+            int hash = 0;
+            foreach (T value in list)
+                hash += value.GetHashCode();
+            return hash;
         }
 
         public IEnumerator GetEnumerator()

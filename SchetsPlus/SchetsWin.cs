@@ -80,7 +80,7 @@ namespace SchetsPlus
             this.maakActieButtons(deKleuren);
             this.FormClosing += (object o, FormClosingEventArgs ea) =>
             {
-                if (schetscontrol.verandering == true)
+                if (schetscontrol.Verandering)
                 {
                     DialogResult dialogResult = MessageBox.Show(Strings.WijzigingenOpslaanTekst, Strings.WijzigingenOpslaanTitel, MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
@@ -120,7 +120,7 @@ namespace SchetsPlus
             }
             this.bestandsnaam = bestandsnaam;
             this.Text = Path.GetFileNameWithoutExtension(bestandsnaam);
-            this.schetscontrol.verandering = false;
+            this.schetscontrol.Verandering = false;
         }
 
         private void opslaan(object obj, EventArgs ea)
@@ -194,6 +194,7 @@ namespace SchetsPlus
             }
             this.Refresh();
             this.Text = Path.GetFileNameWithoutExtension(bestandsnaam);
+            this.bestandsnaam = bestandsnaam;
             return true;
         }
 
