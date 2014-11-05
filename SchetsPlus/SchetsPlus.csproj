@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\lagen.png" />
+    <Content Include="Resources\mover.png" />
     <Content Include="Resources\schetsplus.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

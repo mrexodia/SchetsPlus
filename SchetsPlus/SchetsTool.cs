@@ -119,6 +119,36 @@ namespace SchetsPlus
         }
     }
 
+
+    public class MoverTool : ISchetsTool
+    {
+        public override string ToString()
+        {
+            return Strings.ToolMoverTekst;
+        }
+
+        public Image Icoon()
+        {
+            return Resources.mover;
+        }
+
+        public void MuisVast(SchetsControl s, Point p, MouseButtons b)
+        {
+        }
+
+        public void MuisDrag(SchetsControl s, Point p)
+        {
+        }
+
+        public void MuisLos(SchetsControl s, Point p)
+        {
+        }
+
+        public void Letter(SchetsControl s, char c)
+        {
+        }
+    }
+
     public abstract class SchetsTool : ISchetsTool
     {
         public const int GeenObject = -1;

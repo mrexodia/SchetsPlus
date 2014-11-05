@@ -31,7 +31,8 @@ namespace SchetsPlus
                                       new TekstTool(),
                                       new GumTool(),
                                       new PipetTool(),
-                                      new LayerTool()
+                                      new LayerTool(),
+                                      new MoverTool()
                                     };
             String[] deKleuren = { "Black", "Red", "Green", "Blue",
                                    "Yellow", "Magenta", "Cyan", "White", Strings.KiesKleur 

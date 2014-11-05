@@ -226,6 +226,9 @@
   <data name="ToolLijnTekst" xml:space="preserve">
     <value>line</value>
   </data>
+  <data name="ToolMoverTekst" xml:space="preserve">
+    <value>mover</value>
+  </data>
   <data name="ToolPenTekst" xml:space="preserve">
     <value>pen</value>
   </data>

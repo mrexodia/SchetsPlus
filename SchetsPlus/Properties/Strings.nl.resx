@@ -187,7 +187,7 @@
     <value>&amp;Actie</value>
   </data>
   <data name="MenuFile" xml:space="preserve">
-    <value>&amp;File</value>
+    <value>&amp;Bestand</value>
   </data>
   <data name="MenuHelp" xml:space="preserve">
     <value>&amp;Help</value>
@@ -225,6 +225,9 @@
   </data>
   <data name="ToolLijnTekst" xml:space="preserve">
     <value>lijn</value>
+  </data>
+  <data name="ToolMoverTekst" xml:space="preserve">
+    <value>verzet</value>
   </data>
   <data name="ToolPenTekst" xml:space="preserve">
     <value>pen</value>

@@ -386,6 +386,15 @@ namespace SchetsPlus.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mover.
+        /// </summary>
+        internal static string ToolMoverTekst {
+            get {
+                return ResourceManager.GetString("ToolMoverTekst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to pen.
         /// </summary>
         internal static string ToolPenTekst {
