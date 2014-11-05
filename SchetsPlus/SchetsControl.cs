@@ -64,7 +64,7 @@ namespace SchetsPlus
         private void veranderAfmeting(object o, EventArgs ea)
         {
             schets.VeranderAfmeting(this.ClientSize);
-            this.Invalidate();
+            this.Refresh();
         }
 
         public Graphics MaakBitmapGraphics()
@@ -77,7 +77,7 @@ namespace SchetsPlus
         public void Schoon(object o, EventArgs ea)
         {
             schets.Schoon();
-            this.Invalidate();
+            this.Refresh();
         }
 
         public void Undo(object o, EventArgs ea)

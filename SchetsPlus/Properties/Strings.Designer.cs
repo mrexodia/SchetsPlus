@@ -422,6 +422,15 @@ namespace SchetsPlus.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to paint.
+        /// </summary>
+        internal static string ToolVerfTekst {
+            get {
+                return ResourceManager.GetString("ToolVerfTekst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to flat.
         /// </summary>
         internal static string ToolVlakTekst {
@@ -440,7 +449,7 @@ namespace SchetsPlus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to save the changes?.
+        ///   Looks up a localized string similar to Do you want to save the changes to {0}?.
         /// </summary>
         internal static string WijzigingenOpslaanTekst {
             get {

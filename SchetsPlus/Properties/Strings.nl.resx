@@ -238,6 +238,9 @@
   <data name="ToolTekstTekst" xml:space="preserve">
     <value>tekst</value>
   </data>
+  <data name="ToolVerfTekst" xml:space="preserve">
+    <value>verf</value>
+  </data>
   <data name="ToolVlakTekst" xml:space="preserve">
     <value>vlak</value>
   </data>
@@ -245,7 +248,7 @@
     <value>vullips</value>
   </data>
   <data name="WijzigingenOpslaanTekst" xml:space="preserve">
-    <value>Wilt u de wijzigingen opslaan?</value>
+    <value>Wilt u de wijzigingen in {0} opslaan?</value>
   </data>
   <data name="WijzigingenOpslaanTitel" xml:space="preserve">
     <value>Opslaan?</value>

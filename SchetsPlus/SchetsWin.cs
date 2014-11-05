@@ -32,7 +32,8 @@ namespace SchetsPlus
                                       new GumTool(),
                                       new PipetTool(),
                                       new LayerTool(),
-                                      new MoverTool()
+                                      new MoverTool(),
+                                      new VerfTool()
                                     };
             String[] deKleuren = { "Black", "Red", "Green", "Blue",
                                    "Yellow", "Magenta", "Cyan", "White", Strings.KiesKleur 
@@ -85,9 +86,11 @@ namespace SchetsPlus
             {
                 if (schetscontrol.Verandering)
                 {
-                    DialogResult dialogResult = MessageBox.Show(Strings.WijzigingenOpslaanTekst, Strings.WijzigingenOpslaanTitel, MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show(String.Format(Strings.WijzigingenOpslaanTekst, this.Text), Strings.WijzigingenOpslaanTitel, MessageBoxButtons.YesNoCancel);
                     if (dialogResult == DialogResult.Yes)
                         opslaan(o, ea);
+                    else if (dialogResult == DialogResult.Cancel)
+                        ea.Cancel = true;
                 }
             };
             this.Resize += this.veranderAfmeting;

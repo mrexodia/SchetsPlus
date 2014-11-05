@@ -153,6 +153,16 @@ namespace SchetsPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap verf {
+            get {
+                object obj = ResourceManager.GetObject("verf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap vlak {
             get {
                 object obj = ResourceManager.GetObject("vlak", resourceCulture);

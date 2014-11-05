@@ -102,7 +102,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Pen.png" />
+    <None Include="Resources\pen.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gum.png" />
@@ -129,6 +129,7 @@
     <None Include="Resources\pipet.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\verf.png" />
     <None Include="Resources\lagen.png" />
     <Content Include="Resources\mover.png" />
     <Content Include="Resources\schetsplus.ico" />

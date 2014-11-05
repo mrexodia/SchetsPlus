@@ -97,13 +97,14 @@ namespace SchetsPlus
         public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             int index = SchetsTool.GekliktObject(s, p);
-            if (index == SchetsTool.GeenObject)
-                return;
-            if (b == MouseButtons.Left) //naar boven (voor het oog)
-                s.Objecten.MoveToBack(index);
-            else if (b == MouseButtons.Right) //naar beneden (voor het oog)
-                s.Objecten.MoveToFront(index);
-            s.Refresh();
+            if (index != SchetsTool.GeenObject)
+            {
+                if (b == MouseButtons.Left) //naar boven (voor het oog)
+                    s.Objecten.MoveToBack(index);
+                else if (b == MouseButtons.Right) //naar beneden (voor het oog)
+                    s.Objecten.MoveToFront(index);
+                s.Refresh();
+            }
         }
 
         public void MuisDrag(SchetsControl s, Point p)
@@ -118,7 +119,6 @@ namespace SchetsPlus
         {
         }
     }
-
 
     public class MoverTool : ISchetsTool
     {
@@ -138,10 +138,11 @@ namespace SchetsPlus
         public void MuisVast(SchetsControl s, Point p, MouseButtons b)
         {
             int index = SchetsTool.GekliktObject(s, p);
-            if (index == SchetsTool.GeenObject)
-                return;
-            startpunt = p;
-            s.Objecten[index] = obj = s.Objecten[index].Copy();
+            if (index != SchetsTool.GeenObject)
+            {
+                startpunt = p;
+                s.Objecten[index] = obj = s.Objecten[index].Copy();
+            }
         }
 
         public void MuisDrag(SchetsControl s, Point p)
@@ -151,6 +152,43 @@ namespace SchetsPlus
             startpunt = p;
             obj.Beweeg(dx, dy);
             s.Refresh();
+        }
+
+        public void MuisLos(SchetsControl s, Point p)
+        {
+        }
+
+        public void Letter(SchetsControl s, char c)
+        {
+        }
+    }
+
+    public class VerfTool : ISchetsTool
+    {
+        public override string ToString()
+        {
+            return Strings.ToolVerfTekst;
+        }
+
+        public Image Icoon()
+        {
+            return Resources.verf;
+        }
+
+        public void MuisVast(SchetsControl s, Point p, MouseButtons b)
+        {
+            int index = SchetsTool.GekliktObject(s, p);
+            if (index != SchetsTool.GeenObject)
+            {
+                SchetsObject obj = s.Objecten[index].Copy();
+                obj.kleur = s.PenKleur;
+                s.Objecten[index] = obj;
+                s.Refresh();
+            }
+        }
+
+        public void MuisDrag(SchetsControl s, Point p)
+        {
         }
 
         public void MuisLos(SchetsControl s, Point p)
@@ -197,7 +235,7 @@ namespace SchetsPlus
 
         public virtual void MuisLos(SchetsControl s, Point p)
         {
-            s.Invalidate();
+            s.Refresh();
         }
 
         public virtual void Letter(SchetsControl s, char c)
