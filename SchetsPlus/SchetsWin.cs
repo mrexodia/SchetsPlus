@@ -302,7 +302,7 @@ namespace SchetsPlus
             paneel.Controls.Add(l);
 
             cbb = new ComboBox(); cbb.Location = new Point(230, 0);
-            cbb.Width = 60;
+            cbb.Width = 65;
             cbb.DropDownStyle = ComboBoxStyle.DropDownList;
             cbb.SelectedValueChanged += schetscontrol.VeranderKleur;
             foreach (string k in kleuren)
@@ -312,7 +312,7 @@ namespace SchetsPlus
 
             l = new Label();
             l.Text = Strings.LabelPendikte;
-            l.Location = new Point(310, 3);
+            l.Location = new Point(cbb.Location.X + cbb.Width +10, 3);
             l.AutoSize = true;
             paneel.Controls.Add(l);
 
