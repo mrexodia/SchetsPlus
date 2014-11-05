@@ -121,70 +121,70 @@
     <value>&amp;Clear</value>
   </data>
   <data name="ActieKiesDikte" xml:space="preserve">
-    <value>Kies &amp;dikte</value>
+    <value>Choose &amp;width</value>
   </data>
   <data name="ActieKiesKleur" xml:space="preserve">
-    <value>Kies &amp;kleur</value>
+    <value>Choose &amp;color</value>
   </data>
   <data name="ActieRedo" xml:space="preserve">
     <value>R&amp;edo</value>
   </data>
   <data name="ActieRoteer" xml:space="preserve">
-    <value>&amp;Roteer</value>
+    <value>&amp;Rotate</value>
   </data>
   <data name="ActieUndo" xml:space="preserve">
     <value>&amp;Undo</value>
   </data>
   <data name="ActieVeranderFont" xml:space="preserve">
-    <value>Verander &amp;font</value>
+    <value>Change &amp;font</value>
   </data>
   <data name="ExporterenFilter" xml:space="preserve">
     <value>Bitmap (*.bmp)|*.bmp|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png</value>
   </data>
   <data name="FileExporteer" xml:space="preserve">
-    <value>E&amp;xporteer</value>
+    <value>E&amp;xport</value>
   </data>
   <data name="FileNieuw" xml:space="preserve">
-    <value>&amp;Nieuw</value>
+    <value>&amp;New</value>
   </data>
   <data name="FileOpenen" xml:space="preserve">
-    <value>&amp;Openen</value>
+    <value>&amp;Open</value>
   </data>
   <data name="FileOpslaan" xml:space="preserve">
-    <value>Op&amp;slaan</value>
+    <value>&amp;Save</value>
   </data>
   <data name="FileOpslaanAls" xml:space="preserve">
-    <value>Opslaan &amp;als...</value>
+    <value>Save &amp;as...</value>
   </data>
   <data name="FileSluiten" xml:space="preserve">
-    <value>S&amp;luiten</value>
+    <value>C&amp;lose</value>
   </data>
   <data name="FoutExporterenTekst" xml:space="preserve">
-    <value>Er is een fout opgetreden bij het exporteren!</value>
+    <value>There was an error exporting the file!</value>
   </data>
   <data name="FoutOpenenTekst" xml:space="preserve">
-    <value>Er is een fout opgetreden bij het openen van het bestand!</value>
+    <value>There was an error openening this file!</value>
   </data>
   <data name="FoutOpslaanTekst" xml:space="preserve">
-    <value>Er is een fout opgetreden bij het opslaan!</value>
+    <value>There was an error saving this file!</value>
   </data>
   <data name="FoutTitel" xml:space="preserve">
-    <value>Fout!</value>
+    <value>Error!</value>
   </data>
   <data name="HelpOver" xml:space="preserve">
-    <value>&amp;Over "SchetsPlus"</value>
+    <value>&amp;About "SchetsPlus"</value>
   </data>
   <data name="KiesKleur" xml:space="preserve">
-    <value>Anders...</value>
+    <value>Other...</value>
   </data>
   <data name="LabelPendikte" xml:space="preserve">
-    <value>Pendikte:</value>
+    <value>Pen width:</value>
   </data>
   <data name="LabelPenkleur" xml:space="preserve">
-    <value>Penkleur:</value>
+    <value>Pen color:</value>
   </data>
   <data name="MenuActie" xml:space="preserve">
-    <value>&amp;Actie</value>
+    <value>&amp;Action</value>
   </data>
   <data name="MenuFile" xml:space="preserve">
     <value>&amp;File</value>
@@ -196,14 +196,14 @@
     <value>&amp;Tool</value>
   </data>
   <data name="NieuweSchets" xml:space="preserve">
-    <value>Nieuwe Schets</value>
+    <value>New Schets</value>
   </data>
   <data name="OverTekst" xml:space="preserve">
-    <value>SchetsPlus versie 1.0
-(c) UU Informatica 2014</value>
+    <value>SchetsPlus version 1.0
+(c) UU Computer Science 2014</value>
   </data>
   <data name="OverTitel" xml:space="preserve">
-    <value>Over "SchetsPlus"</value>
+    <value>About "SchetsPlus"</value>
   </data>
   <data name="SchetsFilter" xml:space="preserve">
     <value>Schets Files (*.schets)|*.schets</value>
@@ -212,39 +212,39 @@
     <value>SchetsPlus</value>
   </data>
   <data name="ToolEllipsTekst" xml:space="preserve">
-    <value>ellips</value>
+    <value>ellipse</value>
   </data>
   <data name="ToolGumTekst" xml:space="preserve">
-    <value>gum</value>
+    <value>eraser</value>
   </data>
   <data name="ToolKaderTekst" xml:space="preserve">
-    <value>kader</value>
+    <value>box</value>
   </data>
   <data name="ToolLayerTekst" xml:space="preserve">
-    <value>lagen</value>
+    <value>layer</value>
   </data>
   <data name="ToolLijnTekst" xml:space="preserve">
-    <value>lijn</value>
+    <value>line</value>
   </data>
   <data name="ToolPenTekst" xml:space="preserve">
     <value>pen</value>
   </data>
   <data name="ToolPipetTekst" xml:space="preserve">
-    <value>pipet</value>
+    <value>picker</value>
   </data>
   <data name="ToolTekstTekst" xml:space="preserve">
-    <value>tekst</value>
+    <value>text</value>
   </data>
   <data name="ToolVlakTekst" xml:space="preserve">
-    <value>vlak</value>
+    <value>flat</value>
   </data>
   <data name="ToolVullipsTekst" xml:space="preserve">
-    <value>vullips</value>
+    <value>fillipse</value>
   </data>
   <data name="WijzigingenOpslaanTekst" xml:space="preserve">
-    <value>Wilt u de wijzigingen opslaan?</value>
+    <value>Do you want to save the changes?</value>
   </data>
   <data name="WijzigingenOpslaanTitel" xml:space="preserve">
-    <value>Opslaan?</value>
+    <value>Save?</value>
   </data>
 </root>

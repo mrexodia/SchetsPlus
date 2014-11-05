@@ -56,15 +56,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SchetsTool.cs" />
-    <Compile Include="Strings.en.Designer.cs">
-      <DependentUpon>Strings.en.resx</DependentUpon>
+    <Compile Include="Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Strings.Designer.cs">
+    <Compile Include="Strings.nl.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
+      <DependentUpon>Strings.nl.resx</DependentUpon>
     </Compile>
     <Compile Include="UndoList.cs" />
     <EmbeddedResource Include="Hoofdscherm.resx">
@@ -83,13 +83,13 @@
     <EmbeddedResource Include="SchetsWin.resx">
       <DependentUpon>SchetsWin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.nl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.nl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

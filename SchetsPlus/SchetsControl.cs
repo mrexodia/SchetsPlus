@@ -36,7 +36,7 @@ namespace SchetsPlus
             }
         }
 
-        public Color PenKleur { get; set; }
+        public Color PenKleur;
         public int PenDikte { get; private set; }
         public Font TekstFont { get; private set; }
 
